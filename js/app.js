@@ -349,6 +349,25 @@
   }
 
   // ---------- learn mode (curriculum browser) ----------
+  // Teaching diagrams on specific textbook pages: "topic|section|pageIndex"
+  // → scene key in js/scenes.js (labeled concept art, not decoration).
+  const PAGE_ART = {
+    "maps|The Big Picture|1": "poles",
+    "maps|Finding Your Way|1": "compass8",
+    "maps|Lines Around the Globe|0": "hemispheres",
+    "maps|Lines Around the Globe|1": "latlon",
+    "continents|How the World Fits Together|0": "hemispheres",
+    "usphys|Lakes & Coasts|0": "greatlakes",
+    "worldphys|Mountains & High Places|0": "plates",
+    "worldphys|Straits, Capes & Currents|0": "strait",
+    "concepts|Shapes of the Land|0": "landforms",
+    "concepts|River & Water Words|0": "riverparts",
+    "concepts|River & Water Words|1": "strait",
+    "concepts|Biomes: Hot, Cold & Wet|1": "biomestrip",
+    "concepts|Fire & Ice: A Restless Earth|0": "volcanocut",
+    "india|Mountains, Rivers & Monsoon|2": "monsoon",
+    "animals|Poles & Oceans|0": "poles",
+  };
   // A chapter is a "book": section divider pages followed by that section's
   // fact pages. Grouped chapters section by region/continent; item chapters
   // use authored index ranges; chapters without sections are plain decks.
@@ -362,6 +381,20 @@
       toc.push({ name: sec.n, page: pages.length, count: facts.length });
       pages.push({ sec, part: toc.length });
       facts.forEach((f) => pages.push({ fact: f, sec }));
+    };
+    // prose sections: divider page + written textbook pages (advanced pages
+    // only in advanced mode); facts stay in the quiz bank, reading marks them seen
+    const pushProseSec = (sec, facts) => {
+      const adv = S.settings && S.settings.advanced;
+      const reads = (sec.read || [])
+        .map((pg) => (typeof pg === "string" ? { p: pg } : pg))
+        .filter((pg) => !pg.adv || adv);
+      if (!reads.length) return false;
+      toc.push({ name: sec.n, page: pages.length, count: reads.length });
+      pages.push({ sec, part: toc.length });
+      reads.forEach((pg, pi) =>
+        pages.push({ sec, prose: pg.p, art: pg.art || PAGE_ART[`${t.id}|${sec.n}|${pi}`], facts }));
+      return true;
     };
     if (t.secBy && t.secMeta) {
       const used = new Set();
@@ -381,12 +414,38 @@
           const ix = t.items.indexOf(f.src);
           return ix >= from && ix < to;
         });
-        pushSec(t.secs[i], facts);
+        if (!facts.length) continue; // e.g. all-advanced section with advanced off
+        if (!pushProseSec(t.secs[i], facts)) pushSec(t.secs[i], facts);
       }
     } else {
       byTier(all).forEach((f) => pages.push({ fact: f }));
     }
     return { pages, toc };
+  }
+  // Declarative atlas text for structured chapters — a book entry, not a quiz.
+  function atlasEntry(topicId, f) {
+    const s = f.src || {};
+    if (topicId === "states") {
+      const big = s.big ? ` Its largest city is ${s.big}.` : " The capital is also its largest city.";
+      return { title: `${s.n} — “${s.nick}”`,
+        prose: `${s.c} is the capital of ${s.n}, in the ${s.r} region.${big}`,
+        note: s.feat || null };
+    }
+    if (topicId === "usmap" || topicId === "worldmap") {
+      return { title: s.n + (topicId === "worldmap" && s.f ? " " + s.f : ""), prose: f.fact, note: null };
+    }
+    if (topicId === "capitals") {
+      const big = s.big ? ` Its largest city is ${s.big}.` : "";
+      return { title: `${s.n} ${s.f || ""}`,
+        prose: `${s.c} is the capital of ${s.n}, a country in ${s.k}.${big}`,
+        note: s.x || null };
+    }
+    if (topicId === "flags") {
+      return { title: `The flag of ${s.n}`,
+        prose: `This flag belongs to ${s.n}, a country in ${s.k}. Its capital is ${s.c}.`,
+        note: s.x || null };
+    }
+    return null;
   }
   // Section illustration, falling back to the chapter's art.
   function secSceneHTML(sec, topicId) {
@@ -484,7 +543,7 @@
     const turn = dir === "back" ? "turn-back" : "turn-fwd";
     show("#screen-learn");
 
-    if (!f) {
+    if (!f && !page.prose) {
       // section divider page
       const sec = page.sec;
       $("#screen-learn").innerHTML = `
@@ -515,8 +574,41 @@
       return;
     }
 
-    // page illustration: the fact's own map/flag when it has one,
-    // otherwise the section's (or chapter's) scene art
+    if (page.prose) {
+      // textbook page: written paragraphs, no Q&A
+      (page.facts || []).forEach((pf) => E.noteSeen(S, pf.id));
+      save();
+      const hasDiagram = !!(page.art && window.GEO_SCENES && window.GEO_SCENES[page.art]);
+      const art = hasDiagram ? window.GEO_SCENES[page.art] : secSceneHTML(page.sec, topicId);
+      $("#screen-learn").innerHTML = `
+        <div class="quiz-top">
+          <button class="icon-btn" id="btn-back">← Chapter</button>
+          <span class="stat">${m.emoji} ${idx + 1} / ${pages.length}</span>
+          <button class="icon-btn" id="btn-quiz-topic" title="Quiz this whole chapter">🎯 Quiz</button>
+        </div>
+        <div class="card book-page ${turn}">
+          <div class="bp-ribbon">${m.emoji} ${esc(page.sec.n)}</div>
+          <div class="bp-scene ${hasDiagram ? "bp-diagram" : ""}">${art}</div>
+          <div class="bp-prose teach-main">${esc(page.prose)}</div>
+          <button class="icon-btn small" id="btn-say" aria-label="read aloud">🔊 Read to me</button>
+          <div class="bp-footer">— Page ${idx + 1} of ${pages.length} —</div>
+        </div>
+        <div class="row learn-nav">
+          <button class="big ghost" id="btn-prev" ${idx === 0 ? "disabled" : ""}>◀ Back</button>
+          <button class="big green" id="btn-next-card">${idx === pages.length - 1 ? "Finish chapter 🎉" : "Turn the page ▶"}</button>
+        </div>`;
+      $("#btn-back").onclick = () => renderLearnCover(topicId);
+      $("#btn-say").onclick = () => forceSpeak(page.prose);
+      $("#btn-prev").onclick = () => renderLearnDeck(topicId, idx - 1, "back");
+      $("#btn-next-card").onclick = () =>
+        idx === pages.length - 1 ? renderLearnDone(topicId, pages.length) : renderLearnDeck(topicId, idx + 1);
+      $("#btn-quiz-topic").onclick = () => startPractice(topicId, true);
+      speak(page.prose);
+      return;
+    }
+
+    // atlas page (states, maps, capitals, flags): declarative entry, not Q&A
+    const entry = atlasEntry(topicId, f);
     let media;
     if (topicId === "flags") {
       media = `<div class="qmedia">${mediaHTML({ type: "flag", code: Q.flagCode(f.src.f), emoji: f.src.f }, true)}</div>`;
@@ -525,6 +617,17 @@
     } else {
       media = `<div class="bp-scene">${secSceneHTML(page.sec, topicId)}</div>`;
     }
+    const body = entry
+      ? `<h2 class="bp-title">${esc(entry.title)}</h2>
+         ${media}
+         <div class="bp-prose teach-main">${esc(entry.prose || "")}</div>
+         ${entry.note ? `<div class="bp-note"><span class="bp-note-tag">🖋️ Field note</span>${esc(entry.note)}</div>` : ""}`
+      : `${media}
+         <div class="teach-main">${esc(f.teachText)}</div>
+         ${f.fact ? `<div class="bp-note"><span class="bp-note-tag">🖋️ Field note</span>${esc(f.fact)}</div>` : ""}`;
+    const sayText = entry
+      ? entry.title + ". " + (entry.prose || "") + (entry.note ? " " + entry.note : "")
+      : f.teachText + (f.fact ? ". " + f.fact : "");
     $("#screen-learn").innerHTML = `
       <div class="quiz-top">
         <button class="icon-btn" id="btn-back">← Chapter</button>
@@ -534,11 +637,7 @@
       </div>
       <div class="card book-page ${turn}">
         <div class="bp-ribbon">${m.emoji} ${esc(page.sec ? page.sec.n : m.name)}</div>
-        ${media}
-        ${f.teachQ
-          ? `<div class="bp-question">${esc(f.teachQ)}</div><div class="teach-main">${esc(f.teachA)}</div>`
-          : `<div class="teach-main">${esc(f.teachText)}</div>`}
-        ${f.fact ? `<div class="bp-note"><span class="bp-note-tag">🖋️ Field note</span>${esc(f.fact)}</div>` : ""}
+        ${body}
         <button class="icon-btn small" id="btn-say" aria-label="read aloud">🔊 Read to me</button>
         <div class="bp-footer">— Page ${idx + 1} of ${pages.length} —</div>
       </div>
@@ -548,7 +647,7 @@
       </div>`;
     decorateMap($("#screen-learn"));
     $("#btn-back").onclick = () => renderLearnCover(topicId);
-    $("#btn-say").onclick = () => forceSpeak(f.teachText + (f.fact ? ". " + f.fact : ""));
+    $("#btn-say").onclick = () => forceSpeak(sayText);
     $("#btn-prev").onclick = () => renderLearnDeck(topicId, idx - 1, "back");
     $("#btn-next-card").onclick = () =>
       idx === pages.length - 1 ? renderLearnDone(topicId, pages.length) : renderLearnDeck(topicId, idx + 1);
@@ -618,6 +717,15 @@
     };
     nextStep();
   }
+  // Coach's debrief drill: re-quiz exactly the facts missed in a mock.
+  function startDrill(factIds) {
+    act = {
+      kind: "practice",
+      sess: E.newSession("practice", null, { noTeach: true, factIds }),
+      topicFilter: null, noTeach: true,
+    };
+    nextStep();
+  }
   function startPlacement() {
     act = { kind: "placement", plan: E.placementPlan(S) };
     nextStep();
@@ -633,7 +741,14 @@
 
   function nextStep() {
     if (act.kind === "practice") {
-      if (act.sess.i >= E.ROUND_LEN) return renderSummary();
+      // a round is "10 + fix your misses": overtime (max +3) re-asks any
+      // miss that never got its in-session retry, so no round ends on an
+      // uncorrected error. Drill sessions run until their list is done.
+      const sess = act.sess;
+      const done = sess.drill
+        ? sess.drill.every((id) => sess.asked.includes(id)) && !sess.misses.length
+        : sess.i >= E.ROUND_LEN && (!sess.misses.length || sess.i >= E.ROUND_LEN + 3);
+      if (done) return renderSummary();
       const item = E.nextQuestion(S, act.sess);
       if (!item) return renderSummary();
       if (item.teach) return renderTeach(item.fact);
@@ -696,7 +811,10 @@
   function quizTopBar() {
     let progress = "", extra = "";
     if (act.kind === "practice") {
-      progress = `${Math.min(act.sess.i + 1, E.ROUND_LEN)}/${E.ROUND_LEN}`;
+      const total = act.sess.drill
+        ? Math.max(act.sess.drill.length, act.sess.i + 1)
+        : Math.max(E.ROUND_LEN, act.sess.i + 1);
+      progress = `${act.sess.drill ? "🎯 " : ""}${act.sess.i + 1}/${total}`;
       extra = `<span class="stat">🔥 ${act.sess.streak}</span><span class="stat">⭐ ${act.sess.xp}</span>`;
     } else if (act.kind === "placement") {
       progress = `${act.plan.i + 1}/${act.plan.n}`;
@@ -937,16 +1055,46 @@
       : e.type === "badge" ? `<span class="event-chip">${e.badge.emoji} Badge: ${esc(e.badge.name)}</span>`
       : e.type === "quest" ? `<span class="event-chip">🎯 Daily quest done! +30 XP ${e.sticker ? "· new sticker " + e.sticker : ""}</span>` : ""
     ).join("");
+    // corrective retrieval: after a practice miss, the child re-produces the
+    // answer (types it) before moving on — recognition isn't learning
+    const retype = act.kind === "practice" && result === "wrong" && q.accept && q.accept.length
+      ? `<div class="retype-row" style="margin-top:8px">
+           <div class="fact" style="margin-bottom:4px">✏️ Your turn — type the answer to lock it in:</div>
+           <div class="typed-row">
+             <input id="retype-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(q.answerText)}" />
+             <button class="ghost small" id="btn-retype-go">Check</button>
+           </div>
+         </div>`
+      : "";
     $("#feedback").innerHTML = `
       <div class="feedback ${good ? "good" : "bad"}">
         <div class="headline">${headline} ${xpLine}</div>
         ${answerLine}${factLine}
+        ${retype}
         <div>${eventChips}</div>
-        <button class="big ${good ? "green" : "ghost"}" id="btn-next" style="margin-top:10px">Next ➜</button>
+        <button class="big ${good ? "green" : "ghost"}" id="btn-next" style="margin-top:10px" ${retype ? "disabled" : ""}>Next ➜</button>
       </div>`;
     const btn = $("#btn-next");
-    btn.focus();
     btn.onclick = nextStep;
+    if (retype) {
+      const inp = $("#retype-input");
+      const check = () => {
+        if (q.accept.includes(Q.normalize(inp.value))) {
+          inp.disabled = true;
+          inp.style.borderColor = "var(--sage, #56642b)";
+          btn.disabled = false;
+          sndGood();
+          btn.focus();
+        } else if (inp.value.trim()) {
+          inp.select();
+        }
+      };
+      $("#btn-retype-go").onclick = check;
+      inp.onkeydown = (e) => { if (e.key === "Enter") check(); };
+      inp.focus();
+    } else {
+      btn.focus();
+    }
     if (!good && q.answerText) speak("The answer is " + q.answerText);
   }
 
@@ -1018,13 +1166,32 @@
         <p class="summary-line">🏅 Best: ${S.best.oral} &nbsp;·&nbsp; +${bonus} XP</p>
         ${events.some((e) => e.type === "badge") ? `<span class="event-chip">🎖️ New badge earned!</span>` : ""}`;
     }
+    // Coach's debrief: a mock never ends with just a score — review every
+    // miss, then drill exactly those facts.
+    let debrief = "";
+    const missed = act.plan && act.plan.review ? act.plan.review : [];
+    if ((act.kind === "nsf" || act.kind === "iac" || act.kind === "oral") && missed.length) {
+      debrief = `
+        <div class="card debrief">
+          <h2>🧑‍🏫 Coach's debrief — ${missed.length} to fix</h2>
+          ${missed.slice(0, 12).map((r) => `
+            <div class="debrief-row">
+              <div class="debrief-q">${esc(r.prompt)}</div>
+              <div class="debrief-a">✅ ${esc(r.answer)}</div>
+              ${r.fact ? `<div class="fact">💡 ${esc(r.fact)}</div>` : ""}
+            </div>`).join("")}
+          ${missed.length > 12 ? `<p class="muted">…and ${missed.length - 12} more.</p>` : ""}
+          <button class="big green" id="btn-drill">🎯 Drill these ${missed.length} now ▶</button>
+        </div>`;
+    }
     show("#screen-summary");
     $("#screen-summary").innerHTML = `
       <div class="card hero">
         ${html}
         <button class="big green" id="btn-again">Play again ▶️</button>
         <button class="big ghost" id="btn-home">Home 🏠</button>
-      </div>`;
+      </div>${debrief}`;
+    if (debrief) $("#btn-drill").onclick = () => startDrill(missed.map((r) => r.factId).filter(Boolean));
     const kind = act.kind, tf = act.topicFilter, nt = act.noTeach;
     $("#btn-again").onclick = () => (kind === "practice" ? startPractice(tf, nt) : startBee(kind));
     $("#btn-home").onclick = renderHome;
