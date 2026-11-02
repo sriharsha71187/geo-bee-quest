@@ -381,6 +381,9 @@ const US_PHYSICAL = [
   { q: "The Grand Canyon, Monument Valley, and Arches all sit on which great high tableland of the Southwest?", a: "The Colorado Plateau", d: ["The Great Basin", "The Columbia Plateau", "The Ozark Plateau"], t: 5, adv: 1, alt: ["colorado plateau"], x: "The plateau lifted a mile into the sky while its rivers kept cutting down — that teamwork made the Grand Canyon." },
   { q: "Which chain of narrow barrier islands, where the Wright brothers first flew at Kitty Hawk, shields North Carolina's coast?", a: "The Outer Banks", d: ["The Florida Keys", "The Sea Islands", "The Aleutian Islands"], t: 5, adv: 1, alt: ["outer banks", "the outer banks"], x: "The waters off the Outer Banks are called the 'Graveyard of the Atlantic' for their thousands of shipwrecks." },
   { q: "Which vast flat grassland region stretches through the middle of the US, from Texas up to Montana?", a: "The Great Plains", d: ["The Great Basin", "The Piedmont", "The Central Valley"], t: 3, alt: ["great plains", "the great plains"], x: "The Great Plains grow much of America's wheat — the country's breadbasket." },
+  { q: "What is the largest island in Alaska, home to giant brown bears of the same name?", a: "Kodiak Island", d: ["Baranof Island", "Prince of Wales Island", "Unalaska Island"], t: 4, alt: ["kodiak", "kodiak island"], x: "Among U.S. islands, only Hawaii's Big Island is larger than Kodiak." },
+  { q: "Racers have set land-speed records on which shining white salt flats in western Utah?", a: "The Bonneville Salt Flats", d: ["Death Valley", "The Mojave Desert", "The Painted Desert"], t: 4, alt: ["bonneville", "bonneville salt flats"], x: "The flats are the dried-up floor of a huge Ice Age lake." },
+  { q: "Which lake forms much of the border between New York and Vermont?", a: "Lake Champlain", d: ["Lake Ontario", "Lake George", "Lake Erie"], t: 4, alt: ["champlain", "lake champlain"], x: "It is named after Samuel de Champlain, the French explorer who founded Quebec City." },
 ];
 
 const US_LANDMARKS = [
@@ -491,6 +494,14 @@ const WORLD_PHYSICAL = [
   { q: "Norway and Sweden share which great peninsula of northern Europe?", a: "The Scandinavian Peninsula", d: ["The Iberian Peninsula", "The Balkan Peninsula", "The Kola Peninsula"], t: 4, adv: 1, alt: ["scandinavian peninsula", "scandinavia"], x: "It is one of Europe's largest peninsulas — about 1,150 miles long." },
   { q: "Greece, Serbia, and Bulgaria all share which peninsula of southeastern Europe?", a: "The Balkan Peninsula", d: ["The Iberian Peninsula", "The Apennine Peninsula", "The Anatolian Peninsula"], t: 5, adv: 1, alt: ["balkan peninsula", "balkans", "the balkans"], x: "The name comes from the Balkan Mountains of Bulgaria — 'balkan' means wooded mountain in Turkish." },
   { id: "1xmm4fx", q: "Denmark occupies which peninsula that points north from Germany toward Norway?", a: "The Jutland Peninsula", d: ["The Scandinavian Peninsula", "The Brittany Peninsula", "The Crimean Peninsula"], t: 5, adv: 1, alt: ["jutland", "jutland peninsula"], x: "Besides Jutland, Denmark scatters across 400 islands — Copenhagen sits on one of them." },
+  { q: "Which African Great Lake, on the border of Rwanda and the Democratic Republic of the Congo, holds huge amounts of gas deep under its water?", a: "Lake Kivu", d: ["Lake Victoria", "Lake Chad", "Lake Volta"], t: 4, alt: ["kivu", "lake kivu"], x: "Rwanda pipes some of Lake Kivu's gas up to make electricity." },
+  { q: "Which river forms South Africa's northern border with Botswana and Zimbabwe?", a: "The Limpopo", d: ["The Zambezi", "The Orange", "The Congo"], t: 4, alt: ["limpopo", "limpopo river"], x: "In a Rudyard Kipling story, the elephant gets his long trunk on the banks of the 'great grey-green, greasy Limpopo River.'" },
+  { q: "Which body of water separates the island of Madagascar from mainland Africa?", a: "The Mozambique Channel", d: ["The Red Sea", "The Gulf of Aden", "The Strait of Gibraltar"], t: 4, alt: ["mozambique channel"], x: "It is named after Mozambique, the country on its western shore." },
+  { q: "Which mountain range, the longest in Iran, runs from near Turkey and Iraq to the Strait of Hormuz?", a: "The Zagros Mountains", d: ["The Atlas Mountains", "The Ural Mountains", "The Caucasus Mountains"], t: 4, alt: ["zagros", "zagros mountains"], x: "Some of the world's first farmers tamed wild goats in the Zagros foothills." },
+  { q: "Which river flows the length of Myanmar, past the city of Mandalay, to a wide delta?", a: "The Irrawaddy", d: ["The Mekong", "The Ganges", "The Yangtze"], t: 4, alt: ["irrawaddy", "irrawaddy river", "ayeyarwady"], x: "A rare beakless dolphin, the Irrawaddy dolphin, is named after the river." },
+  { q: "Which river forms much of the border between North Korea and China?", a: "The Yalu", d: ["The Amur", "The Mekong", "The Yellow River"], t: 5, alt: ["yalu", "yalu river", "amnok"], x: "Koreans call it the Amnok River." },
+  { q: "Russia, China, Mongolia, and Kazakhstan all reach into which mountain range, whose name is often said to mean 'golden mountains'?", a: "The Altai Mountains", d: ["The Ural Mountains", "The Pamir Mountains", "The Zagros Mountains"], t: 5, alt: ["altai", "altay", "altai mountains"], x: "Some families in the Altai hunt with trained golden eagles." },
+  { q: "What is the largest lake that lies entirely inside Canada?", a: "Great Bear Lake", d: ["Great Slave Lake", "Lake Winnipeg", "Lake Superior"], t: 4, alt: ["great bear lake", "great bear"], x: "The Arctic Circle runs right through Great Bear Lake." },
 ];
 
 const WORLD_LANDMARKS = [
@@ -521,6 +532,10 @@ const WORLD_LANDMARKS = [
   { q: "The stepped pyramid of Chichén Itzá was built by the Maya in which country?", a: "Mexico", d: ["Egypt", "Peru", "Guatemala"], t: 3, x: "Twice a year, sunlight makes a shadow-snake slither down its steps." },
   { id: "1s4mphh", q: "The giant stone statues called moai stand on which Pacific island?", a: "Easter Island", d: ["Hawaii", "Fiji", "Galápagos"], t: 4, alt: ["easter island", "rapa nui"], x: "Nearly 1,000 moai watch over Easter Island, part of Chile. Many are buried up to their shoulders, so people think they are only heads!" },
   { q: "The famous opera house shaped like white sails stands beside the harbor of which Australian city?", a: "Sydney", d: ["Melbourne", "Canberra", "Perth"], t: 2, alt: ["sydney"], x: "Sydney is Australia's biggest city — but Canberra is the capital." },
+  { q: "Which capital city of Scotland has a castle on an old volcanic rock?", a: "Edinburgh", d: ["Glasgow", "Dublin", "Cardiff"], t: 3, alt: ["edinburgh"], x: "Every August Edinburgh hosts the Fringe, the world's biggest arts festival." },
+  { q: "Which city in Saudi Arabia is the holiest city of Islam, visited by millions on the Hajj?", a: "Mecca", d: ["Medina", "Jerusalem", "Riyadh"], t: 3, alt: ["mecca", "makkah"], x: "The Kaaba, a cube-shaped building draped in black cloth, stands at the center of its Great Mosque." },
+  { q: "Which capital city faces Kinshasa across the Congo River?", a: "Brazzaville", d: ["Kampala", "Luanda", "Libreville"], t: 4, alt: ["brazzaville"], x: "Brazzaville is the capital of the Republic of the Congo." },
+  { q: "Which Central Asian capital, once called Frunze, sits at the foot of the Tian Shan mountains?", a: "Bishkek", d: ["Tashkent", "Ashgabat", "Dushanbe"], t: 5, alt: ["bishkek"], x: "Bishkek is the capital of Kyrgyzstan." },
 ];
 
 const INDIA = [
@@ -871,6 +886,19 @@ const WORLD_REGIONS = [
   { q: "The high Himalayan region of Kashmir is claimed by both Pakistan and which other country?", a: "India", d: ["Bangladesh", "Afghanistan", "Nepal"], t: 5, adv: 1, alt: ["india"], x: "Kashmir's Dal Lake is famous for its carved wooden houseboats." },
   { q: "The spice island of Zanzibar lies off the coast of which East African country?", a: "Tanzania", d: ["Kenya", "Mozambique", "Madagascar"], t: 5, adv: 1, alt: ["tanzania"], x: "Tanzania's very name is a blend — TANganyika plus ZANzibar." },
   { q: "Somalia sits on which pointy peninsula of East Africa that sticks out toward the Arabian Sea?", a: "The Horn of Africa", d: ["The Cape of Good Hope", "The Sinai Peninsula", "The Iberian Peninsula"], t: 4, alt: ["horn of africa", "the horn of africa"], x: "On a map the peninsula really does look like a rhinoceros horn." },
+  { q: "Which island in the Irish Sea has a flag with three legs and famous cats with no tails?", a: "The Isle of Man", d: ["Anglesey", "The Isle of Wight", "Jersey"], t: 4, alt: ["isle of man", "man"], x: "Its people are called Manx, and so are its tailless cats." },
+  { q: "Which group of 18 rocky islands between Iceland and Norway belongs to Denmark?", a: "The Faroe Islands", d: ["The Shetland Islands", "The Orkney Islands", "Svalbard"], t: 5, alt: ["faroe islands", "faroes", "faroe"], x: "There are more sheep than people on the Faroe Islands." },
+  { q: "Which Mediterranean island, dotted with ancient stone towers called nuraghi, belongs to Italy?", a: "Sardinia", d: ["Corsica", "Crete", "Malta"], t: 4, alt: ["sardinia", "sardegna"], x: "Sardinia is the second-largest island in the Mediterranean, after Sicily." },
+  { q: "Which Greek island in the Cyclades is famous for its row of white windmills?", a: "Mykonos", d: ["Crete", "Corfu", "Rhodes"], t: 5, alt: ["mykonos"], x: "A pelican named Petros is the island's mascot." },
+  { q: "Which special administrative region of China did Portugal hand back in 1999?", a: "Macau", d: ["Hong Kong", "Taiwan", "Hainan"], t: 4, alt: ["macau", "macao"], x: "Britain handed Hong Kong back two years earlier, in 1997." },
+  { q: "Which island is the smallest state of Australia?", a: "Tasmania", d: ["Victoria", "Kangaroo Island", "New Zealand"], t: 3, alt: ["tasmania"], x: "The Tasmanian devil lives in the wild only on Tasmania." },
+  { q: "Which long island just north of Japan's Hokkaido is Russia's largest island?", a: "Sakhalin", d: ["Kamchatka", "Novaya Zemlya", "Wrangel Island"], t: 5, alt: ["sakhalin"], x: "Japan ruled the southern half of Sakhalin for 40 years and called it Karafuto." },
+  { q: "Which island group at the southern tip of South America is split between Argentina and Chile?", a: "Tierra del Fuego", d: ["The Falkland Islands", "The Galápagos Islands", "Easter Island"], t: 4, alt: ["tierra del fuego", "land of fire"], x: "Its name means 'Land of Fire,' after the campfires Magellan's crew saw on shore." },
+  { q: "Which British islands south of Cuba are famous for Stingray City, where visitors feed wild stingrays?", a: "The Cayman Islands", d: ["The Bahamas", "Bermuda", "The Virgin Islands"], t: 4, alt: ["cayman islands", "caymans"], x: "The largest of the three islands is Grand Cayman." },
+  { q: "The Klondike Gold Rush began in which Canadian territory, whose capital is Whitehorse?", a: "Yukon", d: ["Nunavut", "Northwest Territories", "Alaska"], t: 4, alt: ["yukon", "the yukon", "yukon territory"], x: "Mount Logan, Canada's highest mountain, is in the Yukon." },
+  { q: "Which is Canada's only officially bilingual province, where English and French are both official?", a: "New Brunswick", d: ["Quebec", "Ontario", "Nova Scotia"], t: 4, alt: ["new brunswick"], x: "New Brunswick sits on the Bay of Fundy, home of the world's highest tides." },
+  { q: "Which Brazilian state, named 'General Mines' for its gold, is the country's top coffee grower?", a: "Minas Gerais", d: ["São Paulo", "Bahia", "Amazonas"], t: 5, alt: ["minas gerais"], x: "Its capital is Belo Horizonte." },
+  { q: "Which people, often called the largest ethnic group without a country of their own, live where Turkey, Iraq, Iran, and Syria meet?", a: "The Kurds", d: ["The Berbers", "The Basques", "The Tibetans"], t: 5, alt: ["kurds", "kurdish", "kurdish people"], x: "There are about 30 million Kurds." },
 ];
 
 const ANIMALS = [
@@ -1173,6 +1201,11 @@ const TOPICS = [
           { adv: 1, p: "Two expert landforms finish the tour. The Colorado Plateau, a mile-high tableland in the Southwest, carries the Grand Canyon, Monument Valley, and Arches on its back. And off North Carolina stretch the Outer Banks — narrow barrier islands whose steady winds lifted the Wright brothers' first airplane at Kitty Hawk." },
           "Between the Rockies and the Mississippi roll the Great Plains — a sea of grass and wheat stretching from Texas all the way up to Montana, the breadbasket of America.",
         ] },
+      { n: "Bee Favorites in the USA", scene: "peaks", from: 42,
+        intro: "A few American places pop up in bee after bee: an Alaskan island of giant bears, a salt-white racetrack in Utah, and a lake between New York and Vermont.",
+        read: [
+          "Kodiak Island is the largest island in Alaska, home to giant brown bears found only on it and its neighboring islands. In western Utah, the Bonneville Salt Flats are the dried-up floor of a huge Ice Age lake, so flat and hard that racers set land-speed records there. And Lake Champlain, named after the French explorer who founded Quebec City, forms much of the border between New York and Vermont.",
+        ] },
     ] },
   { id: "uslandmarks", name: "US Landmarks", emoji: "🌉", kind: "items", items: US_LANDMARKS, scene: "wonders",
     intro: "Some places are so special that everyone knows them at a glance — a green statue lifting her torch in New York Harbor, an orange bridge across the foggy Golden Gate, four presidents' faces carved into a mountain. Each landmark marks a piece of America's story, and bees love to ask where they stand.",
@@ -1267,6 +1300,13 @@ const TOPICS = [
           { adv: 1, p: "Two straits every champion knows: the Bosporus, the narrow water right at Istanbul that separates Europe from Asia — ferries cross between continents in 20 minutes — and the Strait of Malacca between Malaysia and the island of Sumatra, where about a quarter of the world's traded goods squeeze through." },
           { adv: 1, p: "Three more peninsulas complete the champion's map of Europe: Norway and Sweden share the great Scandinavian Peninsula; Greece, Serbia, and Bulgaria crowd onto the Balkan Peninsula; and Denmark rides Jutland, the peninsula that juts north from Germany toward Norway." },
         ] },
+      { n: "Bee Favorites: Lakes, Rivers & Ranges", scene: "river", from: 83,
+        intro: "IAC bees keep asking about the same handful of lakes, rivers, and ranges beyond the famous ones. Meet the bee favorites, from Lake Kivu to the Altai.",
+        read: [
+          "Africa's Great Lakes include more than giant Victoria. Lake Kivu, on the border of Rwanda and the Democratic Republic of the Congo, hides huge amounts of gas deep under its water, and Rwanda pipes some of it up to make electricity. Farther south, the Limpopo River forms South Africa's northern border with Botswana and Zimbabwe. Off the east coast, the Mozambique Channel separates the giant island of Madagascar from the mainland.",
+          "Asia has bee favorites too. The Zagros Mountains are the longest range in Iran, running all the way to the Strait of Hormuz. The Irrawaddy flows the length of Myanmar, past Mandalay, to a wide delta. The Yalu forms much of the border between North Korea and China. And Russia, China, Mongolia, and Kazakhstan all reach into the Altai Mountains — the 'golden mountains' — where some families hunt with trained golden eagles.",
+          "In Canada's far north, the Arctic Circle runs right through Great Bear Lake, the largest lake that lies entirely inside Canada. It is even bigger than its neighbor, Great Slave Lake.",
+        ] },
     ] },
   { id: "regions", name: "Regions of the World", emoji: "🌄", kind: "items", items: WORLD_REGIONS, scene: "hills",
     intro: "Inside countries hide famous regions with names all their own — Transylvania's misty castles in Romania, the sunny Algarve in Portugal, endless frozen Siberia in Russia. Bee writers adore region names because they're clues: hear 'Patagonia' and you should already be thinking of the bottom of South America.",
@@ -1282,6 +1322,13 @@ const TOPICS = [
           "More regions, more clues. The lavender fields of Provence color the sunny southeast of France. The Punjab — 'land of five rivers' — is split between India and Pakistan. The Scottish Highlands fill the north of the United Kingdom with lochs and mountains. Queensland and New South Wales are states of Australia, and Ontario and Quebec — one English-speaking, one French-speaking — are the two most populous provinces of Canada.",
           { adv: 1, p: "Senior clues reach deeper. Andalusia, with Seville and Granada, is Spain's sun-baked south. Flanders and Wallonia are the two halves of Belgium, with the capital, Brussels, as a separate third region. High in the Himalayas, the region of Kashmir is claimed by both India and Pakistan. And the spice island of Zanzibar lies off Tanzania — its name even hides inside the country's: TANganyika plus ZANzibar." },
           "East Africa ends in a point: the Horn of Africa, the rhinoceros-horn-shaped peninsula where Somalia juts toward the Arabian Sea.",
+        ] },
+      { n: "Islands & Territories Bees Love", scene: "ocean", from: 21,
+        intro: "IAC bees love islands with their own flags and regions with their own stories. Here are the ones that come up again and again.",
+        read: [
+          "Some islands keep their own flags and stories. The Isle of Man, in the Irish Sea, has a flag with three running legs and cats with no tails. The Faroe Islands — 18 rocky islands between Iceland and Norway — belong to Denmark, and they have more sheep than people. In the Mediterranean, Sardinia belongs to Italy and is dotted with ancient stone towers called nuraghi, while Mykonos is the Greek island of white windmills.",
+          "Farther away, Macau on China's southern coast was ruled by Portugal for over 400 years, until 1999. Tasmania, across Bass Strait, is the smallest state of Australia. Sakhalin, just north of Japan, is Russia's largest island. At the very bottom of South America, Tierra del Fuego — the 'Land of Fire' — is split between Argentina and Chile. And in the Caribbean, the Cayman Islands, south of Cuba, are famous for Stingray City.",
+          "Bees also love regions inside big countries. In Canada, the Klondike Gold Rush began in the Yukon, whose capital is Whitehorse, and New Brunswick is the only province where English and French are both official. In Brazil, Minas Gerais — 'General Mines' — was a land of gold and diamonds and now grows more coffee than any other state. And about 30 million Kurds live in the mountains where Turkey, Iraq, Iran, and Syria meet — often called the largest ethnic group without a country of their own.",
         ] },
     ] },
   { id: "landmarks", name: "World Landmarks", emoji: "🗿", kind: "items", items: WORLD_LANDMARKS, scene: "wonders",
@@ -1309,6 +1356,12 @@ const TOPICS = [
         read: [
           "In the Australian city of Sydney, the famous Opera House spreads its white sail-shaped roofs over the harbor — the symbol of Australia's biggest city (though little Canberra keeps the capital's crown). Across the Pacific in Peru, Machu Picchu — the mountain-top city of the Incas — perches 7,970 feet up in the Andes, a place 'lost' to outsiders for centuries.",
           "In Brazil, the giant statue of Christ the Redeemer stands on a mountain 2,300 feet above the city of Rio de Janeiro. Mexico keeps Chichén Itzá, the stepped pyramid built by the Maya — twice a year, sunlight makes a shadow-snake slither down its steps. And far out in the Pacific, on Easter Island — part of Chile — nearly 1,000 giant stone statues called moai, with huge heads, keep silent watch.",
+        ] },
+      { n: "Cities the Bee Loves", scene: "city", from: 27,
+        intro: "Some cities show up in bee after bee. Learn these four and their famous clues.",
+        read: [
+          "Edinburgh, the capital of Scotland, has a castle on an old volcanic rock and hosts the Fringe, the world's biggest arts festival, every August. Mecca, in western Saudi Arabia, is the holiest city of Islam, and millions of Muslims travel there for the Hajj.",
+          "Brazzaville and Kinshasa face each other across the Congo River — the closest pair of capital cities on Earth, apart from Rome and Vatican City. And Bishkek, the capital of Kyrgyzstan, sits at the foot of the Tian Shan mountains; in Soviet times it was called Frunze.",
         ] },
     ] },
   { id: "animals", name: "Animals & Habitats", emoji: "🐾", kind: "items", items: ANIMALS, scene: "savanna",
