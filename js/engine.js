@@ -550,6 +550,29 @@ window.Engine = (function () {
   //   oral — spoken-round practice: typed/spoken answers, 3 strikes,
   //          with progressive-clue "pyramid" questions mixed in (buzzer style)
   const PYRAMID_SLOTS = [2, 6, 10, 14];
+  // IAC mocks draw topics in the proportions real IAC bees ask them, measured
+  // from 2,464 questions in IAC's posted past sets (2017-2026, incl. the 2026
+  // "2nd grade and younger" finals): cities ~20%, countries ~19%, provinces
+  // and regions ~15%, physical features ~30%, culture/concepts/animals ~5%,
+  // and about a quarter of all questions set in the US. Weights are percent.
+  const IAC_MIX = {
+    capitals: 18, worldmap: 8, relate: 8, regions: 5, continents: 4, worldphys: 20,
+    states: 9, usphys: 7, uslandmarks: 4, usmap: 3, landmarks: 4, india: 3,
+    culture: 2, concepts: 2, animals: 1, trade: 1, maps: 1,
+  };
+  // One preferred topic per question, in proportion to IAC_MIX over the
+  // child's enabled topics (largest remainder, then shuffled).
+  function mixSchedule(topics, n) {
+    const w = topics.map((t) => IAC_MIX[t] || 0), tot = w.reduce((a, b) => a + b, 0);
+    if (!tot) return null;
+    const exact = w.map((x) => (x / tot) * n), cnt = exact.map(Math.floor);
+    const order = exact.map((x, i) => [x - cnt[i], i]).sort((a, b) => b[0] - a[0]);
+    for (let k = 0, left = n - cnt.reduce((a, b) => a + b, 0); k < left; k++) cnt[order[k][1]]++;
+    const seq = [];
+    topics.forEach((t, i) => { for (let k = 0; k < cnt[i]; k++) seq.push(t); });
+    for (let i = seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [seq[i], seq[j]] = [seq[j], seq[i]]; }
+    return seq;
+  }
   // m = 3-option MCQ, t = open-ended/typed, v = two-option (12/8/5, interleaved)
   const NSF_SLOTS = ["m","t","m","v","m","t","m","m","t","v","m","t","m","m","t","v","m","t","m","v","m","t","t","v","m"];
   function beePlan(kind, s) {
@@ -563,6 +586,7 @@ window.Engine = (function () {
       // random starting topic — every mock opens differently
       asked: new Set(), topics, cursor: Math.floor(Math.random() * topics.length),
       pyUsed: new Set(), clueBonus: 0,
+      mix: kind === "iac" || kind === "oral" ? mixSchedule(topics, tiers.length) : null,
       // real Phase I limits: NSF 25Q/30min, IAC 50Q/30min
       // NSF Phase I: 25Q/30min. IAC ORQE: 50Q/20min (orqe.iac-exams.com/faq).
       timeLimit: kind === "iac" ? 20 * 60 : kind === "nsf" ? 30 * 60 : null,
@@ -589,8 +613,10 @@ window.Engine = (function () {
         for (const off of [0, -dt, dt]) {
           const want = tier + off;
           if (want < 1 || want > 5) continue;
-          for (let k = 0; k < plan.topics.length; k++) {
-            const tid = plan.topics[(plan.cursor + k) % plan.topics.length];
+          // IAC mocks try this question's scheduled topic first
+          const pref = plan.mix && plan.mix[plan.i];
+          for (let k = pref ? -1 : 0; k < plan.topics.length; k++) {
+            const tid = k < 0 ? pref : plan.topics[(plan.cursor + k) % plan.topics.length];
             let pool = topicFacts(s, tid).filter((f) => f.tier === want && !plan.asked.has(f.id));
             // flag ID isn't a written-exam category in either bee, nor spoken-round material
             if (written || plan.kind === "oral") pool = pool.filter((f) => f.topic !== "flags");
@@ -599,7 +625,7 @@ window.Engine = (function () {
             // typed slots need an acceptable typed answer (odd items have none)
             if (slot === "t" || plan.kind === "oral") pool = pool.filter((f) => !(f.item && f.item.odd));
             if (pool.length) {
-              plan.cursor = (plan.cursor + k + 1) % plan.topics.length;
+              if (k >= 0) plan.cursor = (plan.cursor + k + 1) % plan.topics.length;
               const unseenLastBee = pool.filter((f) => !lastBee.has(f.id));
               const pickPool = unseenLastBee.length ? unseenLastBee : pool;
               const f = pickPool[Math.floor(Math.random() * pickPool.length)];

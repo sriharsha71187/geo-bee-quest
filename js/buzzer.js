@@ -62,6 +62,13 @@ window.Buzzer = (function () {
   // The daily coach (js/coach.js) can set buzz.targetTier (1..5, the level
   // the middle of a round aims at) and buzz.regions ({asia: 1.5, ...} weights
   // above 1 favour a region he's weak in).
+  // Category shares in real IAC bees (from IAC's posted past sets): a round
+  // is steered toward these so it isn't, say, five landmarks in a row.
+  const CAT_MIX = {
+    city: 0.22, country: 0.20, region: 0.05, province: 0.05, state: 0.05, river: 0.08,
+    island: 0.06, water: 0.06, mountain: 0.05, lake: 0.04, desert: 0.02, current: 0.01,
+    landmark: 0.03, concept: 0.05,
+  };
   function pick(s) {
     const seen = (s.buzz && s.buzz.seen) || {};
     const pool = window.GEO_TOSSUPS.filter((t) => !R.used.has(t.id));
@@ -74,6 +81,9 @@ window.Buzzer = (function () {
       let p = !r ? 0 : r.w > r.c ? 1 : r.bp != null && r.bp < 0.9 ? 3 : 2;
       p += Math.abs(t.t - (R.i < 10 ? Math.max(1, target - 1) : target)) * 0.4;
       p -= ((regionW[t.region] || 1) - 1) * 0.8;
+      // over this category's IAC share for the round so far -> push it back
+      const share = ((R.cats[t.cat] || 0) + 1) / (R.i + 1);
+      p += Math.max(0, share - (CAT_MIX[t.cat] || 0.03)) * 4;
       return p + Math.random() * 0.8;
     };
     pool.sort((a, b) => score(a) - score(b));
@@ -84,7 +94,7 @@ window.Buzzer = (function () {
   function start(c) {
     stop();
     ctx = c;
-    R = { i: 0, correct: 0, wrong: 0, used: new Set(), log: [], startedAt: Date.now() };
+    R = { i: 0, correct: 0, wrong: 0, used: new Set(), cats: {}, log: [], startedAt: Date.now() };
     document.addEventListener("keydown", onKey);
     intro();
   }
@@ -114,6 +124,7 @@ window.Buzzer = (function () {
     const t = pick(ctx.getState());
     if (!t) return finish();
     R.used.add(t.id);
+    R.cats[t.cat] = (R.cats[t.cat] || 0) + 1;
     R.i++;
     R.cur = { t, words: t.clues.join(" ").split(/\s+/), shown: 0, phase: "reading", buzzAt: null, prompted: false };
     renderTossup();

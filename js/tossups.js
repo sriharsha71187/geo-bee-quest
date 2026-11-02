@@ -2992,5 +2992,581 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "The bird-of-paradise also appears on Papua New Guinea's coat of arms.",
   "redset": ""
+ },
+ {
+  "id": "africa-lake-kivu",
+  "region": "africa",
+  "cat": "lake",
+  "clues": [
+   "Deep under this lake's surface lies a huge amount of dissolved methane gas, and a power plant pipes some of it up to make electricity.",
+   "The Rwandan town of Gisenyi and the Congolese city of Goma sit on its northern shore, near the Nyiragongo volcano.",
+   "For the point, name this African Great Lake on the border of Rwanda and the Democratic Republic of the Congo."
+  ],
+  "a": "Lake Kivu",
+  "alt": [
+   "Kivu"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Lake Kivu is one of only three known 'exploding lakes' that hold enough gas to burst out of the water.",
+  "redset": ""
+ },
+ {
+  "id": "africa-limpopo",
+  "region": "africa",
+  "cat": "river",
+  "clues": [
+   "In a Rudyard Kipling story, a curious baby elephant gets his long trunk on the banks of this 'great grey-green, greasy' river.",
+   "This river forms South Africa's northern border with Botswana and Zimbabwe before it crosses Mozambique.",
+   "For the point, name this river that flows into the Indian Ocean, second in size only to the Zambezi among African rivers that reach that ocean."
+  ],
+  "a": "Limpopo River",
+  "alt": [
+   "Limpopo"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "South Africa's northernmost province is named Limpopo after the river.",
+  "redset": ""
+ },
+ {
+  "id": "asia-zagros",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "Some of the world's first farmers tamed wild goats in the foothills of these mountains more than 10,000 years ago.",
+   "These mountains stretch nearly 1,000 miles from the borders of Turkey and Iraq to the Strait of Hormuz, with rich oil fields along their edge.",
+   "For the point, name this longest mountain range in Iran."
+  ],
+  "a": "Zagros Mountains",
+  "alt": [
+   "Zagros"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Zagros formed when the Arabian Plate pushed into the Eurasian Plate — and it is still pushing today.",
+  "redset": ""
+ },
+ {
+  "id": "europe-isle-of-man",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "This island's flag shows three armored legs joined together, and its native cats are famous for having no tails.",
+   "Every year it closes its roads for the TT, one of the world's oldest and most dangerous motorcycle races.",
+   "For the point, name this island in the Irish Sea, a British Crown Dependency whose people are called Manx."
+  ],
+  "a": "Isle of Man",
+  "alt": [
+   "Man",
+   "Mann",
+   "Ellan Vannin"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Isle of Man's parliament, Tynwald, claims to be the oldest parliament in the world that has never stopped meeting.",
+  "redset": ""
+ },
+ {
+  "id": "asia-macau",
+  "region": "asia",
+  "cat": "region",
+  "clues": [
+   "This place's Ruins of St. Paul's are the stone front wall of a church that burned down in 1835.",
+   "Portugal ruled this small territory for over 400 years before handing it back to China in 1999, two years after Britain returned Hong Kong.",
+   "For the point, name this special administrative region of China on the Pearl River Delta, famous for its huge casinos."
+  ],
+  "a": "Macau",
+  "alt": [
+   "Macao",
+   "Aomen"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "A 34-mile bridge-and-tunnel link, opened in 2018, joins Macau to Hong Kong and mainland China.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-tasmania",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "A meat-eating marsupial that screeches loudly at night is named after this island, its only wild home today.",
+   "Bass Strait separates this island from the mainland, and ships leave its capital, Hobart, for Antarctica.",
+   "For the point, name this island that is the smallest state of Australia."
+  ],
+  "a": "Tasmania",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "Nearly half of Tasmania is protected as national parks and reserves.",
+  "redset": ""
+ },
+ {
+  "id": "europe-sardinia",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "This island is dotted with thousands of ancient round stone towers called nuraghi.",
+   "The Strait of Bonifacio separates it from the French island of Corsica, just to its north.",
+   "For the point, name this second-largest island in the Mediterranean Sea, which belongs to Italy."
+  ],
+  "a": "Sardinia",
+  "alt": [
+   "Sardegna"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Sardinia has one of the world's highest shares of people who live to 100.",
+  "redset": ""
+ },
+ {
+  "id": "us-kodiak",
+  "region": "us",
+  "cat": "island",
+  "clues": [
+   "Brown bears found only on this island and its neighbors are among the largest bears on Earth.",
+   "This island in the Gulf of Alaska is home to the largest base of the U.S. Coast Guard.",
+   "For the point, name this largest island of Alaska, which shares its name with its giant bears."
+  ],
+  "a": "Kodiak Island",
+  "alt": [
+   "Kodiak"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Only Hawaii's Big Island is larger than Kodiak among U.S. islands.",
+  "redset": ""
+ },
+ {
+  "id": "latam-cayman-islands",
+  "region": "latam",
+  "cat": "island",
+  "clues": [
+   "At Stingray City, a shallow sandbar off these islands, visitors stand in the water and feed wild stingrays.",
+   "This British territory lies south of Cuba, is famous as a banking center, and has its capital at George Town.",
+   "For the point, name these three Caribbean islands whose largest is Grand Cayman."
+  ],
+  "a": "Cayman Islands",
+  "alt": [
+   "Caymans",
+   "Cayman"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Blue iguanas, found only on Grand Cayman, were saved from near extinction.",
+  "redset": ""
+ },
+ {
+  "id": "canada-new-brunswick",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "At the Reversing Falls in this province's city of Saint John, the river flows backward when the huge tides come in.",
+   "It is Canada's only officially bilingual province, where English and French are both official languages.",
+   "For the point, name this Maritime province on the Bay of Fundy, whose capital is Fredericton."
+  ],
+  "a": "New Brunswick",
+  "alt": [
+   "Nouveau-Brunswick"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Bay of Fundy has the highest tides in the world — up to 50 feet.",
+  "redset": ""
+ },
+ {
+  "id": "canada-yukon",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "In 1896, gold was found at Bonanza Creek here, starting the Klondike Gold Rush.",
+   "Mount Logan, the highest mountain in Canada, rises in its southwest corner near Alaska.",
+   "For the point, name this Canadian territory whose capital is Whitehorse."
+  ],
+  "a": "Yukon",
+  "alt": [
+   "Yukon Territory",
+   "The Yukon"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Dawson City, the gold-rush boomtown, once had about 30,000 people; today it has under 2,000.",
+  "redset": ""
+ },
+ {
+  "id": "canada-great-bear-lake",
+  "region": "canada",
+  "cat": "lake",
+  "clues": [
+   "The Arctic Circle runs right through this lake, which stays frozen for most of the year.",
+   "It is the largest lake that lies entirely inside Canada, in the Northwest Territories.",
+   "For the point, name this lake named after a large animal, bigger than its neighbor Great Slave Lake."
+  ],
+  "a": "Great Bear Lake",
+  "alt": [
+   "Great Bear"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Great Bear Lake is bigger than the whole state of New Jersey.",
+  "redset": ""
+ },
+ {
+  "id": "asia-irrawaddy",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "A rare dolphin with a rounded head and no beak is named for this river, where some fishermen and dolphins team up to catch fish.",
+   "This river flows the length of Myanmar past Mandalay and ends in a wide delta west of Yangon.",
+   "For the point, name this longest river in Myanmar, also spelled Ayeyarwady."
+  ],
+  "a": "Irrawaddy River",
+  "alt": [
+   "Irrawaddy",
+   "Ayeyarwady",
+   "Ayeyarwady River"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Much of Myanmar's rice is grown on the river's flat, rich delta.",
+  "redset": ""
+ },
+ {
+  "id": "us-bonneville-salt-flats",
+  "region": "us",
+  "cat": "desert",
+  "clues": [
+   "Racers have set many land-speed records on the hard, flat crust of this place, once going over 600 miles per hour.",
+   "This shining white plain in western Utah is the dried-up floor of a huge Ice Age lake.",
+   "For the point, name these salt flats beside Interstate 80, near the Nevada border."
+  ],
+  "a": "Bonneville Salt Flats",
+  "alt": [
+   "Bonneville"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The crust is so flat that on a clear day you can see the curve of the Earth.",
+  "redset": ""
+ },
+ {
+  "id": "us-lake-champlain",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "Legends say a sea-serpent nicknamed 'Champ' swims in this lake.",
+   "This lake forms much of the border between New York and Vermont, and its north end reaches into Quebec.",
+   "For the point, name this lake named after the French explorer who founded Quebec City."
+  ],
+  "a": "Lake Champlain",
+  "alt": [
+   "Champlain"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Burlington, Vermont's largest city, sits on its eastern shore.",
+  "redset": ""
+ },
+ {
+  "id": "europe-edinburgh",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "Every August this city hosts the Fringe, the largest arts festival in the world.",
+   "A castle stands on an old volcanic rock in its center, and a hill called Arthur's Seat rises nearby.",
+   "For the point, name this capital city of Scotland."
+  ],
+  "a": "Edinburgh",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "J.K. Rowling wrote much of the first Harry Potter book in Edinburgh cafés.",
+  "redset": ""
+ },
+ {
+  "id": "asia-mecca",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Every year millions of Muslims travel to this city for the Hajj pilgrimage.",
+   "The Kaaba, a cube-shaped building covered in black cloth, stands in the center of its Great Mosque.",
+   "For the point, name this holiest city of Islam, in western Saudi Arabia."
+  ],
+  "a": "Mecca",
+  "alt": [
+   "Makkah"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Muslims around the world face toward Mecca when they pray.",
+  "redset": ""
+ },
+ {
+  "id": "latam-tierra-del-fuego",
+  "region": "latam",
+  "cat": "island",
+  "clues": [
+   "Magellan's crew named this place 'Land of Fire' after seeing the campfires of the native people on its shore.",
+   "Its main island is split between Argentina and Chile, and the city of Ushuaia lies on its southern coast.",
+   "For the point, name this archipelago at the tip of South America, cut off from the mainland by the Strait of Magellan."
+  ],
+  "a": "Tierra del Fuego",
+  "alt": [
+   "Land of Fire"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Ushuaia calls itself the southernmost city in the world.",
+  "redset": ""
+ },
+ {
+  "id": "europe-faroe-islands",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "These 18 rocky islands lie in the North Atlantic, between Iceland and Norway.",
+   "They govern themselves but are part of the Kingdom of Denmark, and their capital is Tórshavn.",
+   "For the point, name these islands whose name is often said to mean 'sheep islands.'"
+  ],
+  "a": "Faroe Islands",
+  "alt": [
+   "Faroes",
+   "Faeroe Islands",
+   "Faeroes",
+   "Foroyar"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "There are more sheep than people on these islands.",
+  "redset": ""
+ },
+ {
+  "id": "world-kurds",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "These people welcome the spring new year, Newroz, by lighting big bonfires.",
+   "Numbering around 30 million, they are often called the largest ethnic group in the world without a country of their own.",
+   "For the point, name this people of the mountains where Turkey, Iraq, Iran, and Syria meet."
+  ],
+  "a": "Kurds",
+  "alt": [
+   "Kurdish people",
+   "Kurdish",
+   "Kurd"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Erbil, the capital of Iraq's Kurdistan Region, has one of the oldest towns on Earth that people have never stopped living in.",
+  "redset": ""
+ },
+ {
+  "id": "asia-sakhalin",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "For 40 years Japan ruled the southern half of this island, which it called Karafuto.",
+   "This long island lies just north of Japan's Hokkaido and is Russia's largest island.",
+   "For the point, name this island in the Sea of Okhotsk, separated from the Russian mainland by the Strait of Tartary."
+  ],
+  "a": "Sakhalin",
+  "alt": [
+   "Sakhalin Island"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Big oil and gas fields lie off Sakhalin's northeast coast.",
+  "redset": ""
+ },
+ {
+  "id": "asia-altai",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "Snow leopards roam these mountains, and some families there hunt with trained golden eagles.",
+   "Russia, China, Mongolia, and Kazakhstan all reach into these mountains.",
+   "For the point, name this Central Asian mountain range whose name is often said to mean 'golden mountains.'"
+  ],
+  "a": "Altai Mountains",
+  "alt": [
+   "Altai",
+   "Altay",
+   "Altay Mountains"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Scientists think the first people of the Americas may have had ancestors from near the Altai.",
+  "redset": ""
+ },
+ {
+  "id": "africa-brazzaville",
+  "region": "africa",
+  "cat": "city",
+  "clues": [
+   "This city and Kinshasa face each other across the Congo River, closer than any other two national capitals except Rome and Vatican City.",
+   "During World War II it served for a time as the capital of Free France.",
+   "For the point, name this capital of the Republic of the Congo, named after the explorer Pierre de Brazza."
+  ],
+  "a": "Brazzaville",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Ferries carry people back and forth across the river between Brazzaville and Kinshasa every day.",
+  "redset": ""
+ },
+ {
+  "id": "asia-bishkek",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "In Soviet times this city was named Frunze, after a Red Army general born there.",
+   "It sits at the foot of the snowy Ala-Too mountains, part of the Tian Shan.",
+   "For the point, name this capital of Kyrgyzstan."
+  ],
+  "a": "Bishkek",
+  "alt": [],
+  "prompt": [],
+  "t": 5,
+  "x": "Kyrgyzstan is mostly mountains, and Bishkek lies in a low valley in its north.",
+  "redset": ""
+ },
+ {
+  "id": "asia-yalu",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "In 1950 Chinese armies crossed this river into North Korea to join the Korean War.",
+   "It rises near Paektu Mountain and flows southwest into the Yellow Sea.",
+   "For the point, name this river that forms much of the border between North Korea and China."
+  ],
+  "a": "Yalu River",
+  "alt": [
+   "Yalu",
+   "Amnok",
+   "Amnok River"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Koreans call the river the Amnok.",
+  "redset": ""
+ },
+ {
+  "id": "latam-minas-gerais",
+  "region": "latam",
+  "cat": "province",
+  "clues": [
+   "Its old mining town of Ouro Preto, whose name means 'black gold,' is a UNESCO World Heritage Site.",
+   "This inland state is named 'General Mines' for the gold and diamonds found there in the 1700s.",
+   "For the point, name this Brazilian state, the country's top coffee grower, whose capital is Belo Horizonte."
+  ],
+  "a": "Minas Gerais",
+  "alt": [
+   "Minas"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Gold from this state paid for many of Portugal's grand churches and palaces.",
+  "redset": ""
+ },
+ {
+  "id": "africa-mozambique-channel",
+  "region": "africa",
+  "cat": "water",
+  "clues": [
+   "The Comoros Islands lie near the northern end of this stretch of water.",
+   "This arm of the Indian Ocean separates the giant island of Madagascar from the African mainland.",
+   "For the point, name this body of water named after the country on its western shore."
+  ],
+  "a": "Mozambique Channel",
+  "alt": [],
+  "prompt": [
+   "Mozambique"
+  ],
+  "t": 4,
+  "x": "Humpback whales travel through it each year to raise their calves.",
+  "redset": ""
+ },
+ {
+  "id": "asia-taiwan",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Portuguese sailors called this island Formosa, meaning 'beautiful island,' and Sun Moon Lake sits in its mountains.",
+   "Its tallest skyscraper was the tallest building in the world from 2004 to 2010.",
+   "For the point, name this island off southeastern China whose capital is Taipei."
+  ],
+  "a": "Taiwan",
+  "alt": [
+   "Formosa"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Taiwan makes most of the world's most advanced computer chips.",
+  "redset": ""
+ },
+ {
+  "id": "asia-kuwait",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "In 1990 this country was invaded by Iraq, an attack that led to the Gulf War.",
+   "Its capital's three Towers, two topped with blue-green spheres, are its best-known landmark.",
+   "For the point, name this small oil-rich country at the top of the Persian Gulf, between Iraq and Saudi Arabia."
+  ],
+  "a": "Kuwait",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Kuwait has almost no natural fresh water — it turns seawater into drinking water.",
+  "redset": ""
+ },
+ {
+  "id": "latam-belize",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "The Great Blue Hole, a giant round sinkhole in the sea, lies off the coast of this country.",
+   "It is the only country in Central America whose official language is English, and its capital is Belmopan.",
+   "For the point, name this country south of Mexico's Yucatán Peninsula and east of Guatemala."
+  ],
+  "a": "Belize",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Belize was called British Honduras until 1973.",
+  "redset": ""
+ },
+ {
+  "id": "africa-liberia",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "This country was started in the 1800s as a home for freed African American slaves.",
+   "Its capital, Monrovia, is named after U.S. President James Monroe, and its flag looks like the U.S. flag with just one star.",
+   "For the point, name this West African country, often called Africa's oldest republic."
+  ],
+  "a": "Liberia",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Liberia's name comes from the word 'liberty.'",
+  "redset": ""
+ },
+ {
+  "id": "europe-mykonos",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "A row of white windmills stands above this island's harbor, and a pelican named Petros is its mascot.",
+   "This island in the Cyclades lies next to Delos, a tiny island sacred to the ancient Greeks.",
+   "For the point, name this Greek island in the Aegean Sea, famous for its whitewashed houses."
+  ],
+  "a": "Mykonos",
+  "alt": [],
+  "prompt": [],
+  "t": 5,
+  "x": "A pelican has been the island's mascot ever since a storm blew the first Petros there in the 1950s.",
+  "redset": ""
  }
 ];

@@ -45,6 +45,12 @@ const ALIASES = {
   "Türkiye": "Turkey",
   "Bosnia and Herz.": "Bosnia and Herzegovina",
   "S. Sudan": "South Sudan",
+  "Central African Rep.": "Central African Republic",
+  "Congo": "Republic of the Congo",
+  "Eq. Guinea": "Equatorial Guinea",
+  "eSwatini": "Eswatini",
+  "Solomon Is.": "Solomon Islands",
+  "Macedonia": "North Macedonia",
 };
 const world = {};
 for (const f of worldFeatures) {

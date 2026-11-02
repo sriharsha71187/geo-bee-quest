@@ -395,6 +395,10 @@ window.QBank = (function () {
     "Bolivia": ["sucre", "la paz"],
     "South Africa": ["cape town", "capetown", "bloemfontein"],
     "Sri Lanka": ["colombo", "kotte", "sri jayewardenepura kotte"],
+    "Eswatini": ["lobamba"],
+    "Kiribati": ["tarawa"],
+    "Luxembourg": ["luxembourg city"],
+    "Monaco": ["monaco ville"],
   };
   function countryAccept(name) {
     const extra = {
@@ -413,6 +417,15 @@ window.QBank = (function () {
       "Eswatini": ["swaziland"],
       "South Korea": ["korea", "republic of korea"],
       "North Korea": ["dprk"],
+      "Republic of the Congo": ["congo", "congo brazzaville", "republic of congo"],
+      "Timor-Leste": ["east timor", "timor leste"],
+      "North Macedonia": ["macedonia"],
+      "Cabo Verde": ["cape verde"],
+      "Sao Tome and Principe": ["sao tome"],
+      "Micronesia": ["federated states of micronesia"],
+      "Vatican City": ["vatican", "holy see"],
+      "Gambia": ["the gambia"],
+      "Central African Republic": ["car"],
     };
     return [name].concat(extra[name] || []);
   }
