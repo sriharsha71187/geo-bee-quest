@@ -13,14 +13,21 @@ window.QBank = (function () {
     for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
     return h.toString(36);
   }
+  // Typed/spoken answers and accept lists both pass through this, so it only
+  // has to be consistent. Periods and apostrophes are DROPPED (not turned into
+  // spaces) so "U.S.A." = "usa", "N'Djamena" = "ndjamena", "D.C." = "dc";
+  // letters NFD can't split (ł ø ß æ) are transliterated; "St." = "Saint".
   function normalize(s) {
     return String(s || "")
       .toLowerCase()
+      .replace(/ł/g, "l").replace(/ø/g, "o").replace(/ß/g, "ss").replace(/æ/g, "ae").replace(/đ/g, "d")
       .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/[.'’ʻ`]/g, "")
       .replace(/[^a-z0-9 ]+/g, " ")
       .replace(/\s+/g, " ")
       .trim()
-      .replace(/^the /, "");
+      .replace(/^the /, "")
+      .replace(/(^| )st( |$)/g, "$1saint$2");
   }
   function shuffle(arr) {
     const a = arr.slice();
@@ -91,7 +98,14 @@ window.QBank = (function () {
   for (const c of D.COUNTRIES) {
     addFact({
       id: "cc:" + c.n, topic: "capitals", tier: c.ct || c.t, src: c,
-      forms: c.big ? ["cap", "rev", "big"] : ["cap", "rev"], label: c.n,
+      // no "X City is the capital of which country?" when the capital's name
+      // contains the country's (Singapore, Mexico City, Panama City, …): the
+      // question would answer itself
+      forms: [
+        "cap",
+        ...(normalize(c.c).includes(normalize(c.n)) ? [] : ["rev"]),
+        ...(c.big ? ["big"] : []),
+      ], label: c.n,
       teachText: `${c.c} is the capital of ${art(c.n)} ${c.f}`,
       fact: c.x || (c.big
         ? `${c.c} is the capital of ${art(c.n)}, but ${c.big} is its largest city.`
@@ -245,16 +259,22 @@ window.QBank = (function () {
       if (form === "cap") {
         // official-style stems: an authored locating clue beats the largest-city
         // hook, which beats the bare continent label
+        // clues that already start with "the" read "Canada, the second-largest
+        // country…"; the rest get "the country …" ("the country north of …")
+        const lead = (c) => (/^the /i.test(c) ? c : "the country " + c);
+        const nm = s.n === "Georgia" ? "the country of Georgia" : art(s.n);
         prompt = opts.rich
           ? (s.clue
-            ? `What is the capital of ${art(s.n)}, the country ${s.clue}?`
+            ? `What is the capital of ${nm}, ${lead(s.clue)}?`
             : s.big
-              ? `What is the capital of ${art(s.n)}, the country whose largest city is ${s.big}?`
-              : `What is the capital of ${art(s.n)}, a country in ${s.k}?`)
-          : `What is the capital of ${art(s.n)}?`;
+              ? `What is the capital of ${nm}, the country whose largest city is ${s.big}?`
+              : `What is the capital of ${nm}, a country in ${s.k}?`)
+          : `What is the capital of ${nm}?`;
         answer = s.c;
         pools = [near.map((c) => c.c), cont.map((c) => c.c), allCountries.map((c) => c.c)];
-        accept = [s.c];
+        // countries with more than one official capital: every real capital
+        // is a correct typed answer (the app's own fun facts say so)
+        accept = [s.c].concat(OTHER_CAPITALS[s.n] || []);
         if (s.c === "Washington, D.C.") accept.push("washington dc", "washington", "dc");
         if (s.c === "New Delhi") accept.push("delhi");
         if (s.c === "Mexico City") accept.push("mexico");
@@ -270,6 +290,9 @@ window.QBank = (function () {
         if (s.big === "New York City") accept.push("new york", "nyc");
         if (s.big === "Ho Chi Minh City") accept.push("saigon", "ho chi minh");
         if (s.big === "São Paulo") accept.push("sao paolo");
+        if (s.big === "Mumbai") accept.push("bombay");
+        if (s.big === "Yangon") accept.push("rangoon");
+        if (s.big === "Johannesburg") accept.push("joburg");
       } else {
         prompt = opts.rich
           ? (s.clue
@@ -285,21 +308,30 @@ window.QBank = (function () {
       const near = cont.filter((c) => Math.abs(c.t - s.t) <= 1);
       // classic confusable flags (Ireland/Ivory Coast, Poland/Indonesia, ...)
       // listed in s.sim come first — real flag rounds are won on these pairs
-      const simCountries = (s.sim || []).map((n) => allCountries.find((c) => c.n === n)).filter(Boolean);
+      let simCountries = (s.sim || []).map((n) => allCountries.find((c) => c.n === n)).filter(Boolean);
+      // Near-identical flags (same stripes, a tiny emblem the only difference)
+      // are unfair side by side for a young child at a thumbnail size. Below
+      // tier 4 they never appear together; from tier 4 the classic pairs come
+      // back as deliberate spot-the-difference challenges.
+      const twins = new Set();
+      if ((s.ft || s.t) < 4) {
+        for (const g of FLAG_TWINS) if (g.includes(s.n)) g.forEach((n) => twins.add(n));
+        simCountries = simCountries.filter((c) => !twins.has(c.n));
+      }
+      const notTwin = (c) => !twins.has(c.n);
       if (form === "flag") {
         prompt = "Which country does this flag belong to?";
         media = { type: "flag", code: flagCode(s.f), emoji: s.f };
         answer = s.n;
-        pools = [simCountries.map((c) => c.n), near.map((c) => c.n), cont.map((c) => c.n), allCountries.map((c) => c.n)];
+        pools = [simCountries, near.filter(notTwin), cont.filter(notTwin), allCountries.filter(notTwin)].map((p) => p.map((c) => c.n));
         accept = countryAccept(s.n);
       } else {
         prompt = `Which of these is the flag of ${art(s.n)}?`;
         answer = s.f;
-        optionMedia = (label) => {
-          const c = allCountries.find((x) => x.f === label);
-          return { type: "flag", code: flagCode(label), emoji: label, alt: c ? c.n : "" };
-        };
-        pools = [simCountries.map((c) => c.f), near.map((c) => c.f), cont.map((c) => c.f), allCountries.map((c) => c.f)];
+        // neutral alt text: a country name here would let VoiceOver (or a
+        // failed image) read out the answer key
+        optionMedia = (label) => ({ type: "flag", code: flagCode(label), emoji: label, alt: "Flag option" });
+        pools = [simCountries, near.filter(notTwin), cont.filter(notTwin), allCountries.filter(notTwin)].map((p) => p.map((c) => c.f));
         accept = []; // never typed
       }
     } else {
@@ -346,16 +378,41 @@ window.QBank = (function () {
     return q;
   }
 
+  // Flags that differ only by a small emblem or a shade (flags audit, sourced
+  // to each flag's Wikipedia "similar flags" note).
+  const FLAG_TWINS = [
+    ["Colombia", "Ecuador", "Venezuela"],
+    ["Senegal", "Mali", "Cameroon", "Guinea"],
+    ["Slovenia", "Slovakia", "Serbia", "Croatia", "Russia"],
+    ["Ireland", "Ivory Coast", "Italy"],
+    ["Indonesia", "Monaco", "Poland"],
+    ["Chad", "Romania"],
+    ["Netherlands", "Luxembourg"],
+    ["Australia", "New Zealand"],
+  ];
+  // Other official capitals, accepted for "What is the capital of X?".
+  const OTHER_CAPITALS = {
+    "Bolivia": ["sucre", "la paz"],
+    "South Africa": ["cape town", "capetown", "bloemfontein"],
+    "Sri Lanka": ["colombo", "kotte", "sri jayewardenepura kotte"],
+  };
   function countryAccept(name) {
     const extra = {
       "United States": ["usa", "us", "united states of america", "america"],
       "United Kingdom": ["uk", "great britain", "britain", "england"],
       "United Arab Emirates": ["uae", "emirates"],
       "Czechia": ["czech republic"],
-      "Democratic Republic of the Congo": ["dr congo", "drc", "congo"],
+      "Democratic Republic of the Congo": ["dr congo", "drc", "congo", "democratic republic of congo", "congo kinshasa"],
       "The Bahamas": ["bahamas"],
       "Ivory Coast": ["cote divoire", "cote d ivoire"],
       "Papua New Guinea": ["png"],
+      "Turkey": ["turkiye"],
+      "Netherlands": ["holland"],
+      "Myanmar": ["burma"],
+      "Vietnam": ["viet nam"],
+      "Eswatini": ["swaziland"],
+      "South Korea": ["korea", "republic of korea"],
+      "North Korea": ["dprk"],
     };
     return [name].concat(extra[name] || []);
   }

@@ -1008,7 +1008,7 @@
       const flagOpts = q.options.some((o) => o.media);
       body = `<div class="options ${flagOpts ? "flags" : ""}">
         ${q.options.map((o, i) => `
-          <button class="opt" data-i="${i}" aria-label="${esc(o.media ? o.media.alt : o.label)}">
+          <button class="opt" data-i="${i}" aria-label="${esc(o.media ? `${o.media.alt || "Option"} ${i + 1}` : o.label)}">
             ${o.media ? mediaHTML(o.media, false) : esc(o.label)}
           </button>`).join("")}
       </div>
