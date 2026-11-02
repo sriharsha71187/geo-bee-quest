@@ -1362,8 +1362,23 @@
       : st.signedIn
         ? `<span class="sync-ok">✔ Syncing as ${esc(st.email)}${st.error ? " — offline, will retry" : ""}</span>`
         : `<span class="sync-warn">⚠ Not signed in — progress is only on this device</span>`;
+    // escaped: log entries can arrive from a pasted backup or the cloud
     const recent = S.log.slice(-7).map((e) =>
-      `<div class="counts">${e.d}: ${e.c}/${e.a} correct</div>`).join("") || `<div class="counts">No sessions yet.</div>`;
+      `<div class="counts">${esc(e.d)}: ${esc(e.c)}/${esc(e.a)} correct</div>`).join("") || `<div class="counts">No sessions yet.</div>`;
+    // every mock attempt, newest first (s.mocks), so a parent sees a trend
+    const KIND = { buzzer: "🛎️ Buzzer round", iac: "🌎 IAC qualifier mock", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
+    const mockRow = (m) => {
+      const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      const res = m.kind === "buzzer"
+        ? `${esc(m.correct)} right in ${esc(m.n)}${m.reached5 ? " (reached 5)" : ""}${m.avgBuzzPct != null ? ` · buzzed at ${esc(m.avgBuzzPct)}% on average` : ""}`
+        : m.max ? `${esc(m.score)} / ${esc(m.max)}` : `${esc(m.correct)} right of ${esc(m.n)}`;
+      return `<tr><td>${esc(when)}</td><td>${esc(KIND[m.kind] || m.kind)}</td><td>${res}</td></tr>`;
+    };
+    const mocks = (S.mocks || []).slice(-15).reverse();
+    const bz = Object.values((S.buzz && S.buzz.seen) || {});
+    const bzLine = bz.length
+      ? `${bz.length} of ${(window.GEO_TOSSUPS || []).length} buzzer questions tried · ${bz.filter((r) => r.c > 0).length} answered right at least once`
+      : "No buzzer rounds yet.";
     show("#screen-progress");
     $("#screen-progress").innerHTML = `
       <div class="quiz-top">
@@ -1376,6 +1391,13 @@
         <div class="counts">${S.xp} XP · ${S.totals.answered} questions answered · ${acc}% correct overall · best streak ${S.totals.bestStreak}</div>
         <div class="counts">Bee bests: NSF ${S.best.nsf == null ? "—" : S.best.nsf + "/25"} · IAC ${S.best.iac == null ? "—" : S.best.iac + "/100"} · oral ${S.best.oral == null ? "—" : S.best.oral}</div>
         <div style="margin-top:6px">${syncLine}</div>
+      </div>
+      <div class="card">
+        <h2>Mock history</h2>
+        <div class="counts">${esc(bzLine)}</div>
+        ${mocks.length ? `<table class="mock-table"><thead><tr><th>Date</th><th>Mock</th><th>Result</th></tr></thead>
+          <tbody>${mocks.map(mockRow).join("")}</tbody></table>`
+          : `<p class="muted">No mocks recorded yet. Every mock and buzzer round from now on is saved here (earlier versions kept only best scores).</p>`}
       </div>
       <div class="card">
         <h2>Topic coverage</h2>

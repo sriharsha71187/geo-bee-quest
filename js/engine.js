@@ -66,7 +66,9 @@ window.Engine = (function () {
     for (const t of window.GEO_DATA.TOPICS) { topics[t.id] = { tier: 1 }; enabled[t.id] = true; }
     return {
       v: 1, name: "", avatar: "🌍", created: Date.now(), metaUpdated: Date.now(),
-      settings: { sound: true, speech: false, typed: false, advanced: false, topics: enabled, beeDate: null, beeName: "" },
+      // read-aloud ON by default: question stems read at about grade 5, so
+      // without audio a 2nd grader is tested on reading, not geography
+      settings: { sound: true, speech: true, typed: false, advanced: false, topics: enabled, beeDate: null, beeName: "" },
       topics, facts: {},
       xp: 0, badges: [], best: { written: null, oral: null, nsf: null, iac: null },
       totals: { answered: 0, correct: 0, bestStreak: 0 },

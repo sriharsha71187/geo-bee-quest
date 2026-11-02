@@ -648,3 +648,6 @@ body { overflow-x: hidden; }
 }
 .buzz-btn:active { transform: scale(0.96); }
 @media (prefers-reduced-motion: reduce) { .buzz-btn:active { transform: none; } }
+.mock-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
+.mock-table th, .mock-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--outline-soft); color: var(--ink); }
+.mock-table th { color: var(--ink-soft); font-weight: 600; }
