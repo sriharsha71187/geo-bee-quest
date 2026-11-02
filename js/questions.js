@@ -142,12 +142,17 @@ window.QBank = (function () {
     }
   }
 
-  // Curated item topics
+  // Curated item topics.
+  // A fact's id is what the child's saved progress is keyed on. It defaults to
+  // a hash of the question text, so REWORDING a question would orphan that
+  // progress. To reword safely, pin the old id on the item: `id: "<old hash>"`.
+  // tools/fact-ids.json + tools/validate.js fail the build if an id vanishes
+  // without either a pinned id or an ALIASES entry below.
   for (const t of D.TOPICS) {
     if (t.kind !== "items") continue;
     for (const it of t.items) {
       addFact({
-        id: t.id + ":" + hash(it.q), topic: t.id, tier: it.t, src: it,
+        id: t.id + ":" + (it.id || hash(it.q)), topic: t.id, tier: it.t, src: it,
         forms: ["item"], label: it.a, adv: !!it.adv,
         teachQ: it.q, teachA: it.a,
         teachText: it.q + " " + it.a + "!",
@@ -379,5 +384,22 @@ window.QBank = (function () {
     return best;
   }
 
-  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, flagCode };
+  // Old fact id → current fact id, for questions that were reworded before
+  // ids were pinned. Engine.migrate() moves saved progress along these.
+  // Recovered from git history (v17–v19 rewordings of the same fact).
+  const ALIASES = {
+    "india:1feze0d": "india:wkysec",          // Kangchenjunga, highest peak in India
+    "relate:1c667og": "relate:v9xm22",        // Egypt spans Africa and Asia
+    "worldphys:7m25u2": "worldphys:1q3jeqk",  // Seine through Paris
+    "worldphys:wpee7p": "worldphys:1q3g7o",   // Thames through London
+    "worldphys:yz30x8": "worldphys:1x75nfr",  // East Siberian Sea → Arctic
+    "india:r2nlhp": "cc:India",               // "capital of India?" now asked by the capitals topic
+  };
+  // v18 deleted 7 core facts (Grand Canyon state, Mount Rushmore state, Statue
+  // of Liberty from France, most populous country, equator hemispheres,
+  // Australia country+continent, Bolivia's two capitals). They were restored
+  // in v20 with their original wording, so their original ids, and the
+  // child's progress on them, came back unchanged.
+
+  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, flagCode, hash, ALIASES };
 })();

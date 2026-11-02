@@ -234,6 +234,7 @@ const MAPS = [
   { q: "Lines that run north–south from pole to pole measure what?", a: "Longitude", d: ["Latitude", "Altitude", "Temperature"], t: 3, alt: ["longitude"] },
   { q: "Which imaginary line is north of the equator: the Tropic of Cancer or the Tropic of Capricorn?", a: "The Tropic of Cancer", d: ["The Tropic of Capricorn", "The Antarctic Circle", "The prime meridian"], t: 4, alt: ["tropic of cancer", "cancer"] },
   { q: "What is the latitude of the equator?", a: "0 degrees", d: ["90 degrees", "45 degrees", "180 degrees"], t: 3, alt: ["0", "zero", "zero degrees", "0°"] },
+  { q: "The equator divides Earth into which two hemispheres?", a: "Northern and Southern", d: ["Eastern and Western","Upper and Lower","Left and Right"], t: 2, alt: ["northern and southern hemispheres","north and south"], x: "North of the equator is the Northern Hemisphere; south of it is the Southern Hemisphere." },
   { q: "The 90°N point on Earth is better known as what?", a: "The North Pole", d: ["The South Pole", "The equator", "The prime meridian"], t: 2, alt: ["north pole"] },
   { q: "Which imaginary circle at 66.5° North marks the edge of the land of the midnight sun?", a: "The Arctic Circle", d: ["The Antarctic Circle", "The Tropic of Cancer", "The prime meridian"], t: 4, alt: ["arctic circle"], x: "North of it, the midsummer sun never sets — and midwinter brings days with no sunrise at all." },
   { q: "Which imaginary line, near 180° longitude, is where each new day begins?", a: "The International Date Line", d: ["The prime meridian", "The equator", "The Tropic of Cancer"], t: 4, adv: 1, alt: ["international date line", "date line"], x: "Cross it sailing west and you skip a whole day!" },
@@ -245,6 +246,7 @@ const MAPS = [
 const CONTINENTS = [
   { q: "Which is the largest continent?", a: "Asia", d: ["Africa", "North America", "Europe"], t: 1, x: "Asia holds about 60% of all the people on Earth." },
   { q: "Which is the smallest continent?", a: "Australia", d: ["Europe", "Antarctica", "South America"], t: 1 },
+  { q: "Which continent is both a country and a continent?", a: "Australia", d: ["Greenland","India","Antarctica"], t: 2, x: "Australia is the only continent that is also one single country." },
   { q: "Which is the coldest continent?", a: "Antarctica", d: ["Europe", "North America", "Asia"], t: 1, x: "Antarctica is also the driest continent — it's actually a huge frozen desert." },
   { q: "Which is the second-largest continent?", a: "Africa", d: ["Asia", "North America", "South America"], t: 3 },
   { q: "On which continent is the United States?", a: "North America", d: ["South America", "Europe", "Australia"], t: 1 },
@@ -297,6 +299,8 @@ const US_PHYSICAL = [
   { q: "Which big, shallow lake — the largest in the southeastern United States — feeds the Everglades' slow river of grass?", a: "Lake Okeechobee", d: ["Lake Pontchartrain", "Lake George", "Lake Seminole"], t: 4, alt: ["okeechobee", "lake okeechobee"], x: "Okeechobee means 'big water' in the Hitchiti language — the lake is huge but only about 9 feet deep." },
   { q: "Which strait joins Lakes Michigan and Huron, splitting Michigan into its Upper and Lower Peninsulas?", a: "The Straits of Mackinac", d: ["The Soo Locks", "The Detroit River", "The Welland Canal"], t: 5, adv: 1, alt: ["mackinac", "straits of mackinac", "the straits of mackinac"], x: "Because they connect so freely at Mackinac, Lakes Michigan and Huron are technically one giant lake." },
   { q: "The Grand Canyon was carved by which river?", a: "The Colorado River", d: ["The Mississippi River", "The Missouri River", "The Snake River"], t: 2, alt: ["colorado", "colorado river"], x: "The Colorado River took millions of years to carve the canyon a mile deep." },
+  { q: "In which state is the Grand Canyon?", a: "Arizona", d: ["Colorado","Utah","Nevada"], t: 2, x: "Grand Canyon National Park is in northern Arizona, the 'Grand Canyon State.'" },
+  { q: "In which state is Mount Rushmore?", a: "South Dakota", d: ["North Dakota","Wyoming","Colorado"], t: 2, x: "Mount Rushmore, in South Dakota's Black Hills, shows Washington, Jefferson, Theodore Roosevelt, and Lincoln." },
   { q: "Hells Canyon, the deepest river gorge in North America, was carved by which river along the Idaho–Oregon border?", a: "The Snake River", d: ["The Colorado River", "The Columbia River", "The Missouri River"], t: 5, alt: ["snake", "snake river", "the snake river"], x: "Hells Canyon plunges nearly 8,000 feet — deeper than the Grand Canyon itself." },
   { q: "What is the hottest, lowest place in North America?", a: "Death Valley", d: ["The Mojave Desert", "The Grand Canyon", "The Everglades"], t: 3, alt: ["death valley"], x: "Death Valley in California once hit 134°F — a world record." },
   { q: "Which desert covers much of the southwestern United States near Las Vegas?", a: "The Mojave Desert", d: ["The Sonoran Desert", "The Great Basin Desert", "The Chihuahuan Desert"], t: 4, alt: ["mojave", "mojave desert"], x: "The Mojave is home to Joshua trees and Death Valley." },
@@ -312,6 +316,7 @@ const US_PHYSICAL = [
 
 const US_LANDMARKS = [
   { q: "In which city is the Statue of Liberty?", a: "New York City", d: ["Washington, D.C.", "Boston", "Philadelphia"], t: 1, alt: ["new york", "new york city", "nyc"], x: "She was a gift from France in 1886 and stands on Liberty Island." },
+  { q: "Which country gave the Statue of Liberty to the United States?", a: "France", d: ["United Kingdom","Spain","Italy"], t: 2, x: "France gave the statue as a gift of friendship; it was dedicated in 1886." },
   { q: "The Statue of Liberty stands in New York Harbor at the mouth of which river?", a: "The Hudson River", d: ["The East River", "The Delaware River", "The Potomac River"], t: 5, alt: ["hudson", "hudson river", "the hudson"], x: "The Hudson begins as a mountain stream in the Adirondacks — 315 miles later it slides past Lady Liberty into the sea." },
   { q: "The Empire State Building is in which city?", a: "New York City", d: ["Chicago", "Boston", "Washington, D.C."], t: 2, alt: ["new york", "new york city", "nyc"], x: "When it opened in 1931, it was the tallest building in the world." },
   { q: "In which city is the Liberty Bell?", a: "Philadelphia", d: ["Washington, D.C.", "Boston", "New York City"], t: 3, alt: ["philadelphia", "philly"], x: "The Liberty Bell got its famous crack in the 1800s." },
@@ -534,6 +539,7 @@ const CONCEPTS = [
   { q: "What is the smallest country in the world?", a: "Vatican City", d: ["Monaco", "Singapore", "Fiji"], t: 3, alt: ["vatican city", "vatican", "the vatican"], x: "Vatican City, inside Rome, is smaller than many city parks." },
   { q: "Counting all its far-flung islands, which European country spans twelve time zones — more than any other nation?", a: "France", d: ["Russia", "United Kingdom", "United States"], t: 5, adv: 1, alt: ["france"], x: "Russia crosses eleven time zones — but France's islands, from the Pacific to the Caribbean, push it to twelve." },
   { q: "Which US state has the most people?", a: "California", d: ["Texas", "New York", "Florida"], t: 3, x: "About 1 in 8 Americans lives in California." },
+  { q: "Which country has the most people in the world?", a: "India", d: ["China","United States","Indonesia"], t: 2, x: "India passed China in 2023 and now has more than 1.4 billion people." },
   { q: "Which of these is the largest metropolitan area in the world?", a: "Tokyo", d: ["New York City", "London", "Cairo"], t: 4, alt: ["tokyo"], x: "The Tokyo area is home to about 37 million people." },
   { q: "When it is summer in the United States, what season is it in Australia?", a: "Winter", d: ["Summer", "Spring", "Autumn"], t: 3, x: "Seasons are opposite in the Northern and Southern Hemispheres." },
   { q: "Which country has the longest coastline in the world?", a: "Canada", d: ["Russia", "Australia", "United States"], t: 5, x: "Canada's coast, with all its islands, stretches over 150,000 miles." },
@@ -585,6 +591,7 @@ const RELATE = [
   { q: "The cities Cairo, Alexandria, and Luxor are all located in which country?", a: "Egypt", d: ["Morocco", "Jordan", "Turkey"], t: 4 },
   { q: "Kathmandu, the capital of Nepal, lies in which mountain range?", a: "The Himalayas", d: ["The Andes", "The Alps", "The Rockies"], t: 3, alt: ["himalayas", "the himalayas"] },
   { q: "Brazil is the largest country on which continent?", a: "South America", d: ["North America", "Africa", "Europe"], t: 2 },
+  { q: "Which landlocked South American country has two capital cities — La Paz and Sucre?", a: "Bolivia", d: ["Paraguay","Ecuador","Peru"], t: 4, alt: ["bolivia"], x: "La Paz is the seat of government; Sucre is the constitutional capital." },
   { q: "Which country's flag is a single red maple leaf between two red bars?", a: "Canada", d: ["United States", "Switzerland", "Denmark"], t: 2, alt: ["canada"], x: "Canada adopted the maple leaf flag in 1965." },
   { q: "Which country's flag shows a plain red circle — the rising sun — on a white field?", a: "Japan", d: ["China", "South Korea", "Bangladesh"], t: 2, alt: ["japan"], x: "Japan's own name for itself, Nippon, means 'origin of the sun.'" },
   { q: "Which is farther north — Washington or California?", a: "Washington", d: ["California"], t: 1, vs: 1, alt: ["washington state"] },
@@ -968,7 +975,7 @@ const TOPICS = [
           "Two special latitude lines bracket Earth's warm middle: the Tropic of Cancer sits north of the equator, and the Tropic of Capricorn sits south of it. When the bee asks which is which, remember — Cancer is the one on top.",
           "Two more circles ring the poles: the Arctic Circle at 66.5° North, and the Antarctic Circle far to the south. North of the Arctic Circle lies the land of the midnight sun — in midsummer the sun never sets there, and in midwinter it never rises at all.",
         ] },
-      { n: "Expert Navigation", scene: "ice", from: 24,
+      { n: "Expert Navigation", scene: "ice", from: 25,
         intro: "Champions go further: the date line where each new day begins, the 24 time zones that slice the spinning Earth, and the satellites of GPS that can find you anywhere.",
         read: [
           { adv: 1, p: "Near 180° longitude zigzags the International Date Line, where each new day on Earth begins — sail west across it and you skip a whole day. Because the planet spins 360 degrees every 24 hours, the world is sliced into 24 time zones, one for each hour." },
@@ -991,14 +998,14 @@ const TOPICS = [
           "Australia is the smallest continent, the only one that is also a single country — and the flattest and driest continent where people actually live. Antarctica is the coldest and the emptiest — no permanent residents at all, only visiting scientists in research stations.",
           "The United States sits on North America. And here's a word champions like to drop: because Europe and Asia share one unbroken landmass, the two together are sometimes called Eurasia.",
         ] },
-      { n: "The Five Oceans", scene: "ocean", from: 10,
+      { n: "The Five Oceans", scene: "ocean", from: 11,
         intro: "All the oceans connect into one world of water, but we give it five names. The Pacific is bigger than all the land on Earth put together; the little Arctic hides under ice at the top of the world.",
         read: [
           "The Pacific is the heavyweight champion — larger than all of Earth's land put together. It is the ocean you see from a Washington beach, stretching west all the way to Asia.",
           "The Atlantic, second-largest, lies between the Americas on one side and Europe and Africa on the other — sail from New York toward London and you're crossing it. The Indian Ocean fills the warm space between Africa and Australia.",
           "The Arctic, smallest of the five, hides under ice at the top of the world. At the opposite end, the Southern Ocean rings Antarctica like a cold, stormy moat.",
         ] },
-      { n: "How the World Fits Together", scene: "bridge", from: 17,
+      { n: "How the World Fits Together", scene: "bridge", from: 18,
         intro: "Now zoom out and see the connections: the equator slicing through Africa, Central America bridging two continents, Australia and Antarctica alone in the south. Geography is one big jigsaw.",
         read: [
           "The equator slices right through Africa — and through South America and the islands of Southeast Asia as well. Only two continents lie entirely in the Southern Hemisphere: Australia and Antarctica.",
@@ -1029,7 +1036,7 @@ const TOPICS = [
           "Hear a set of cities and name their country. Mumbai, Agra, and Jaipur can only be India. Tokyo, Osaka, and Kyoto add up to Japan. Sydney, Melbourne, and Perth mean Australia, and Cairo, Alexandria, and Luxor spell Egypt. Single clues work too: Kathmandu, the capital of Nepal, sits in the Himalayas — hear it and picture high mountains — and Brazil is the largest country on the continent of South America.",
           "Some flags are so famous they work like name tags. A single red maple leaf between two red bars can only be Canada — the maple leaf flag flew for the first time in 1965. A plain red circle on a white field is Japan's rising sun; Japan's own name for itself, Nippon, means 'origin of the sun.'",
         ] },
-      { n: "Head-to-Head", scene: "peaks", from: 31,
+      { n: "Head-to-Head", scene: "peaks", from: 32,
         intro: "Two places walk in, one walks out: which is bigger, taller, longer, farther north? These two-choice showdowns are the signature of oral bee rounds — and full of sneaky surprises like Hawaii sitting south of Florida.",
         read: [
           "Two places walk in; one walks out. Washington sits farther north than California, and California sits farther west than Colorado, while Boston lies farther east than Denver. Washington is far bigger than little Rhode Island — but Alaska beats everybody, more than twice the size of Texas.",
@@ -1037,7 +1044,7 @@ const TOPICS = [
           "Watch for the sneaky ones! Hawaii lies farther south than Florida — it sits closer to the equator than any part of Florida does. Mexico is closer to the equator than Canada, and the Arctic Ocean is colder than the Indian. Champions win their trophies on exactly these surprises.",
           "The final showdowns are the sneakiest of all. Reno, Nevada sits farther west than Los Angeles, because the California coast bends sharply east as it runs south. Rome lies farther north than New York City. Brazil is larger than Australia, the Caribbean Sea outsizes the Mediterranean, the Amazon runs longer than the Mississippi, and among Africa's rivers the Congo runs longer than the Zambezi.",
         ] },
-      { n: "History on the Map", scene: "capitol", from: 53,
+      { n: "History on the Map", scene: "capitol", from: 54,
         intro: "Some map questions come with a story — a wall that split Berlin, a giant country that broke into fifteen, an island at the center of a Cold War standoff. History and geography are best friends.",
         read: [
           "Some map facts come with a story. In October 1962, the United States and the Soviet Union faced off over missiles on Cuba — the Caribbean island country where the US keeps a naval base at Guantanamo Bay. It was the closest the Cold War ever came to real war. In Germany, a famous wall split the city of Berlin into a free west side and a communist east side; it stood from 1961 until joyful crowds tore it down in 1989.",
@@ -1049,7 +1056,7 @@ const TOPICS = [
           "The United States reaches far beyond its 50 states. Out in the western Pacific lies the territory of Guam — 'where America's day begins,' a whole day ahead of the mainland — and in the Caribbean, St. Thomas and St. Croix make up the U.S. Virgin Islands. Other cities carry unusual jobs too: Cape Town, beneath Table Mountain, is one of South Africa's THREE capitals, and Hong Kong is a 'special administrative region' of China, returned by Britain in 1997. Even names change: in 2022, Turkey asked the world to call it by its Turkish name, Türkiye.",
           { adv: 1, p: "One more map change is happening right now: Jakarta, Indonesia's giant capital on the island of Java, is slowly sinking — so the country is building a brand-new capital called Nusantara on the island of Borneo." },
         ] },
-      { n: "Odd One Out", scene: "flags", from: 75,
+      { n: "Odd One Out", scene: "flags", from: 76,
         intro: "Three things walk in — one doesn't belong. Is the Mediterranean really an ocean? Is Seattle really a capital? Championship rounds end with these, so sharpen your eye for the misfit.",
         read: [
           "Three things walk in — one does not belong. Unlike France and Italy, Egypt is not in Europe. Seattle is not a state capital — little Olympia holds that job in Washington. The Mediterranean is not an ocean; it is a sea, smaller and partly closed in by land. And Mexico is not in South America — it belongs to North America.",
@@ -1107,13 +1114,13 @@ const TOPICS = [
           "New York City keeps two giants. The Statue of Liberty lifts her torch from Liberty Island, where the Hudson River finishes its 315-mile run and meets the sea — she was a gift from France in 1886. Nearby rises the Empire State Building, the tallest building in the world when it opened in 1931. A little to the south, in Philadelphia, hangs the Liberty Bell, which got its famous crack back in the 1800s. Three treasures, three chapters of America's story.",
           "Philadelphia's Independence Hall watched both the Declaration of Independence and the Constitution being signed beneath its roof. And in Boston, a red-brick line called the Freedom Trail leads walkers past Paul Revere's house and the other places where the American Revolution began.",
         ] },
-      { n: "Capital City Monuments", scene: "capitol", from: 6,
+      { n: "Capital City Monuments", scene: "capitol", from: 7,
         intro: "Washington, D.C. is a city built of monuments — the White House, the dome of the Capitol, the tall stone Washington Monument, and Lincoln watching from his marble chair.",
         read: [
           "Washington, D.C. is a city built of monuments. The White House has been home to every US president since John Adams, and Congress meets under the great dome of the Capitol. The Washington Monument — the tall, pointed one — stands 555 feet and was once the tallest structure in the world. And at the Lincoln Memorial, a 19-foot statue of Abraham Lincoln, the president on the penny, gazes out over the city.",
           { adv: 1, p: "A short sail down the Potomac River from the capital sits Mount Vernon, George Washington's riverside home. The first president loved the spot — his front porch still looks out over the same water that flows past Washington, D.C." },
         ] },
-      { n: "West & Beyond", scene: "bridge", from: 11,
+      { n: "West & Beyond", scene: "bridge", from: 12,
         intro: "Head west and the icons keep coming: the Golden Gate over San Francisco fog, our own Space Needle in Seattle, the Alamo in Texas, and the Gateway Arch marking the road west.",
         read: [
           "San Francisco's Golden Gate Bridge glows in a color officially named 'International Orange.' Up in Seattle — right near Bothell — the Space Needle has stood since the 1962 World's Fair, and down the coast the Hollywood Sign overlooks Los Angeles. Every western city seems to have a signature you can spot in a single glance.",
@@ -1378,13 +1385,13 @@ const TOPICS = [
           "More records: California is the US state with the most people — about 1 in 8 Americans lives there. Tokyo anchors the largest metropolitan area in the world, home to about 37 million people. Canada has the longest coastline on Earth — over 150,000 miles, counting all its islands. And remember the flip: when it is summer in the United States, it is winter in Australia, because seasons run opposite in the Northern and Southern Hemispheres.",
           { adv: 1, p: "One record hides in plain sight: counting all its far-flung islands, France spans twelve time zones — more than any other nation on Earth. Giant Russia crosses eleven, but France's territories, scattered from the Pacific to the Caribbean, push it past everyone." },
         ] },
-      { n: "Weather & Climate", scene: "ocean", from: 37,
+      { n: "Weather & Climate", scene: "ocean", from: 38,
         intro: "Weather is what happens today; climate is what usually happens. Greenhouse gases trap the Sun's heat like a blanket, the Arctic is warming fastest of all, and El Niño can shuffle weather worldwide.",
         read: [
           "Weather is what happens today; climate is the usual pattern of weather a place has over many years. Gases like carbon dioxide that trap the Sun's heat in Earth's atmosphere are called greenhouse gases — they work like a greenhouse's glass, or a warm blanket, holding heat close to the planet. Carbon dioxide is the main cause of global warming.",
           "Scientists watch the changes closely. The Arctic is warming faster than the regions between 35 and 45 degrees — melting ice makes it warm even faster, a pattern called Arctic amplification. As glaciers and ice sheets melt, the level of the oceans rises: melting land ice adds water to the sea, and warmer water expands too. And El Niño, an unusual warming of the Pacific Ocean's surface waters, can shuffle weather around the whole world for a year or more.",
         ] },
-      { n: "Expert Words", scene: "ice", from: 43,
+      { n: "Expert Words", scene: "ice", from: 44,
         intro: "Senior-bee vocabulary: fjords carved by glaciers in Norway, coral atolls ringing blue lagoons, the steppes and Pampas where riders herd horses and cattle, and auroras glowing over the poles.",
         read: [
           { adv: 1, p: "Senior-bee vocabulary begins in the ice. A fjord is a narrow, deep sea inlet carved by glaciers, famous in Norway — the Sognefjord there runs 127 miles inland between towering cliffs. In warm oceans, an atoll is a ring-shaped coral island around a lagoon, formed on the rim of a sunken volcano." },

@@ -150,7 +150,33 @@ window.Engine = (function () {
     s.best = s.best || {};
     if (s.best.nsf === undefined) s.best.nsf = null;
     if (s.best.iac === undefined) s.best.iac = null;
+    remapAliases(s);
     return s;
+  }
+  // Carry progress from a reworded question's old id to its current id.
+  // If both exist (a stale device synced after the rename), keep the stronger
+  // record's box/due and take the max of the counts. Max, not sum, so a stale
+  // copy that reintroduces the old id can't double-count on a second remap.
+  function remapAliases(s) {
+    const A = Q.ALIASES || {};
+    s.facts = s.facts || {};
+    for (const [oldId, newId] of Object.entries(A)) {
+      const o = s.facts[oldId];
+      if (!o) continue;
+      const n = s.facts[newId];
+      if (!n) s.facts[newId] = o;
+      else {
+        const strong = (o.b || 0) > (n.b || 0) ? o : n;
+        s.facts[newId] = {
+          ...n, b: strong.b, due: strong.due,
+          c: Math.max(n.c || 0, o.c || 0), w: Math.max(n.w || 0, o.w || 0),
+          last: Math.max(n.last || 0, o.last || 0),
+          v: n.v || o.v, n: n.n || o.n,
+          forms: { ...(o.forms || {}), ...(n.forms || {}) },
+        };
+      }
+      delete s.facts[oldId];
+    }
   }
 
   function rank(s) {

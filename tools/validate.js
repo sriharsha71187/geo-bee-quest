@@ -171,6 +171,33 @@ for (const [label, test] of OFFICIAL) {
   if (!advOn) errors.push("advanced facts missing with advanced on");
 }
 
+// ---------- fact-id stability (saved progress is keyed on these) ----------
+// tools/fact-ids.json lists every id that has ever shipped. An id may only
+// disappear if it is mapped in QBank.ALIASES to a live id. Add new ids with:
+//   node tools/validate.js --write-ids
+{
+  const idsPath = path.join(__dirname, "fact-ids.json");
+  const live = new Set(Q.facts.map((f) => f.id));
+  const shipped = fs.existsSync(idsPath) ? JSON.parse(fs.readFileSync(idsPath, "utf8")) : [];
+  const A = Q.ALIASES || {};
+  for (const [oldId, newId] of Object.entries(A)) {
+    if (!live.has(newId)) errors.push(`alias target missing: ${oldId} -> ${newId}`);
+    if (live.has(oldId)) errors.push(`alias source still live (pointless alias): ${oldId}`);
+  }
+  for (const id of shipped) {
+    if (!live.has(id) && !A[id])
+      errors.push(`fact id vanished (progress would be orphaned): ${id} — pin it with item.id, or add an ALIASES entry in js/questions.js`);
+  }
+  const fresh = [...live].filter((id) => !shipped.includes(id));
+  if (process.argv.includes("--write-ids")) {
+    const all = [...new Set([...shipped, ...live])].sort();
+    fs.writeFileSync(idsPath, JSON.stringify(all, null, 0).replace(/","/g, '",\n"') + "\n");
+    console.log(`fact-ids.json: ${all.length} ids (${fresh.length} new)`);
+  } else if (fresh.length) {
+    errors.push(`${fresh.length} new fact id(s) not in tools/fact-ids.json — run: node tools/validate.js --write-ids`);
+  }
+}
+
 // ---------- report ----------
 const facts = Q.facts.length;
 const perTopic = D.TOPICS.map((t) => `${t.id}=${(Q.byTopic[t.id] || []).length}`).join(", ");
