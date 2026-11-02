@@ -133,8 +133,17 @@ window.Sync = (function () {
     const token = await freshToken();
     if (!token) return;
     const a = auth();
+    // Merge with what's in the cloud right before writing. A blind upsert let
+    // a device with a stale copy wipe out another device's newer answers
+    // (iPad learns Peru, laptop pushes without Peru → Peru gone).
+    let toWrite = state;
+    try {
+      const rows = await rest("GET", "?profile=eq." + encodeURIComponent(profileId) + "&select=state", token);
+      const cloud = rows && rows[0] ? rows[0].state : null;
+      if (cloud) toWrite = window.Engine.migrate(window.Engine.mergeState(state, cloud));
+    } catch (e) { /* offline or transient: fall through and push what we have */ }
     await rest("POST", "", token, [{
-      user_id: a.uid, profile: profileId, state, updated_at: new Date().toISOString(),
+      user_id: a.uid, profile: profileId, state: toWrite, updated_at: new Date().toISOString(),
     }]);
     status.lastSync = Date.now();
     status.error = null;

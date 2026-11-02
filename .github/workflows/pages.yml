@@ -17,6 +17,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Never deploy content that breaks a question, drops a fact id (which
+      # would orphan the child's saved progress), or has a syntax error.
+      - name: Validate content and engine
+        run: |
+          for f in js/*.js; do node --check "$f"; done
+          node tools/validate.js
       - name: Publish main to gh-pages
         run: |
           git config user.name "github-actions[bot]"

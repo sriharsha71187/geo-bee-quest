@@ -86,19 +86,27 @@ window.Engine = (function () {
     (s.stickers = s.stickers || []).push(pick);
     return pick;
   }
+  // Calendar day in the CHILD'S time zone. toISOString() is UTC, which in
+  // Seattle rolled the day over at 4-5 pm: evening play logged as tomorrow,
+  // honest streaks broke, and a 20-answer quest could split across two days.
+  function dayKey(d) {
+    d = d || new Date();
+    const p = (n) => String(n).padStart(2, "0");
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+  }
   function dayStreak(s) {
     if (!s.log || !s.log.length) return 0;
     let streak = 0;
     const d = new Date();
     for (;;) {
-      const key = d.toISOString().slice(0, 10);
+      const key = dayKey(d);
       if (s.log.some((e) => e.d === key && e.a > 0)) { streak++; d.setDate(d.getDate() - 1); }
       else break;
     }
     return streak;
   }
   function questProgress(s) {
-    const day = new Date().toISOString().slice(0, 10);
+    const day = dayKey();
     const e = (s.log || []).find((x) => x.d === day);
     return { done: e ? Math.min(QUEST_TARGET, e.a) : 0, target: QUEST_TARGET, claimed: s.questDone === day };
   }
@@ -426,7 +434,7 @@ window.Engine = (function () {
     if (correct) s.totals.correct++;
 
     // daily log
-    const day = new Date().toISOString().slice(0, 10);
+    const day = dayKey();
     let entry = s.log[s.log.length - 1];
     if (!entry || entry.d !== day) { entry = { d: day, a: 0, c: 0, xp: 0 }; s.log.push(entry); }
     entry.a++; if (correct) entry.c++;
@@ -685,12 +693,17 @@ window.Engine = (function () {
     for (const [id, r] of Object.entries(other.facts || {})) {
       const mine = out.facts[id];
       if (!mine) { out.facts[id] = r; continue; }
-      mine.b = Math.max(mine.b || 0, r.b || 0);
+      // box + due follow the MOST RECENT answer: a miss yesterday on the
+      // iPad must pull the fact back into review even if the laptop still
+      // has the older, stronger box. (Max-merging erased recent misses.)
+      // A browse-only record (b 0, never answered) never wins over evidence.
+      const answered = (x) => (x.c || 0) + (x.w || 0) > 0;
+      const rNewer = answered(r) && (!answered(mine) || (r.last || 0) > (mine.last || 0));
+      if (rNewer) { mine.b = r.b || 0; mine.due = r.due || 0; }
       mine.c = Math.max(mine.c || 0, r.c || 0);
       mine.w = Math.max(mine.w || 0, r.w || 0);
       if (r.v) mine.v = 1;
       if (r.n) mine.n = 1;
-      mine.due = Math.max(mine.due || 0, r.due || 0);
       mine.last = Math.max(mine.last || 0, r.last || 0);
       mine.forms = mine.forms || {};
       for (const [fm, n] of Object.entries(r.forms || {})) {
@@ -755,6 +768,6 @@ window.Engine = (function () {
     placementPlan, placementNext, placementRecord, placementFinish,
     beePlan, beeNext, beeRecord, beeFinish,
     topicSummary, dueCount, mergeState, factLabel, topicKnown, topicFacts, migrate,
-    awardSticker, dayStreak, questProgress, coach, noteSeen, solidKnown,
+    awardSticker, dayStreak, questProgress, coach, noteSeen, solidKnown, dayKey,
   };
 })();

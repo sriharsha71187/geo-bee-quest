@@ -51,7 +51,13 @@
         <span class="sb-avatar">${esc(S.avatar || "🌍")}</span>
         <span><b>${esc(S.name || "Explorer")}</b><br><small>${r.emoji} ${r.name}</small></span>
       </button>`;
-    const navTo = (fn) => () => { stopBeeTimer(); stopOralTimer(); fn(); };
+    // A sidebar tap mid-mock must confirm first (same rule as Quit), and must
+    // always kill the mock's timers before leaving.
+    const inMock = () => act && act.plan && act.plan.kind;
+    const navTo = (fn) => () => {
+      if (inMock() && !confirm("Leave this bee? Your score for this bee won't count.")) return;
+      abortActivity(); fn();
+    };
     const routes = {
       home: renderHome, learn: renderLearnTopics, written: writtenBeePicker,
       oral: () => startBee("oral"), stickers: stickersOverlay,
@@ -59,10 +65,13 @@
     };
     sb.querySelectorAll("[data-nav]").forEach((b) => (b.onclick = navTo(routes[b.dataset.nav])));
     sb.querySelector(".sb-play").onclick = navTo(() => startPractice());
-    sb.querySelector(".sb-profile").onclick = profileOverlay;
+    sb.querySelector(".sb-profile").onclick = navTo(profileOverlay);
   }
-  function save() { window.Sync.save(S, PID); }
-  function flush() { window.Sync.flush(S, PID); }
+  function save() { if (S && PID) window.Sync.save(S, PID); }
+  function flush() { if (S && PID) window.Sync.flush(S, PID); }
+  // Stop any running mock/oral timers and drop the activity, so nothing can
+  // fire later into a different screen or a different child's profile.
+  function abortActivity() { stopBeeTimer(); stopOralTimer(); act = null; }
 
   function topicMeta(id) {
     return window.GEO_DATA.TOPICS.find((t) => t.id === id) || { name: id, emoji: "🌍" };
@@ -185,17 +194,21 @@
   async function switchProfile(id) {
     // never carry a running exam (or its 30-min timer) into another child's
     // profile — the expiring timer would write the mock into the wrong state
-    stopBeeTimer();
-    stopOralTimer();
-    act = null;
+    abortActivity();
     if (S) flush();
+    // Detach the old child BEFORE awaiting the load: while the load is in
+    // flight, any save()/visibilitychange flush must not write the previous
+    // child's state under the new child's id (it did, locally and to cloud).
+    S = null; PID = null;
     const m = window.Sync.meta();
     m.active = id;
     window.Sync.saveMeta(m);
-    PID = id;
-    S = E.migrate((await window.Sync.load(PID)) || E.defaultState());
+    let loaded = null;
+    try { loaded = await window.Sync.load(id); } catch (e) { loaded = window.Sync.readState(id); }
+    const next = E.migrate(loaded || E.defaultState());
     const p = m.profiles.find((x) => x.id === id);
-    if (p) { S.name = S.name || p.name; S.avatar = S.avatar || p.avatar; }
+    if (p) { next.name = next.name || p.name; next.avatar = next.avatar || p.avatar; }
+    PID = id; S = next;
     if (!S.placementDone && S.totals.answered < 5) renderPlacementIntro();
     else renderHome();
   }
@@ -1208,11 +1221,13 @@
   function quitActivity() {
     // a mock exam in progress is real work — don't discard it on a stray tap
     if (act && (act.kind === "nsf" || act.kind === "iac") && act.plan.i > 0 && act.plan.i < act.plan.tiers.length) {
-      if (!confirm(`Quit this mock exam? You're ${act.plan.i} question${act.plan.i > 1 ? "s" : ""} in — progress won't be saved.`)) return;
+      if (!confirm(`Quit this mock exam? You're ${act.plan.i} question${act.plan.i > 1 ? "s" : ""} in. This bee's score won't count, but the answers you gave still count as practice.`)) return;
     }
+    const practiceDone = act && act.kind === "practice" && act.sess.i > 0;
     stopBeeTimer();
     stopOralTimer();
-    if (act && act.kind === "practice" && act.sess.i > 0) return renderSummary();
+    if (practiceDone) return renderSummary();
+    act = null;
     renderHome();
   }
 
