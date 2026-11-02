@@ -630,3 +630,21 @@ textarea { background: var(--tile-low); color: var(--ink); border: 2px solid tra
 /* page-turn animation must never widen the page (scrollbar jiggle) */
 body { overflow-x: hidden; }
 #app { overflow-x: clip; }
+
+/* ---------- Regional buzzer round (js/buzzer.js) ---------- */
+.buzz-card { text-align: center; }
+.buzz-rules { text-align: left; max-width: 34rem; margin: 12px auto; line-height: 1.5; }
+.buzz-text {
+  min-height: 8.5rem; text-align: left; font-size: 1.3rem; line-height: 1.55;
+  background: var(--tile-low); color: var(--ink); border-radius: var(--r); padding: 16px 18px; margin: 14px 0;
+}
+.buzz-rest { color: var(--ink-soft); opacity: 0.75; }
+.buzz-mark { font-size: 1.1rem; }
+.buzz-btn {
+  width: min(70vw, 240px); height: min(70vw, 240px); border-radius: 50%;
+  font-size: 2.4rem; font-weight: 700; letter-spacing: 0.06em;
+  background: var(--terra-bright); color: #fff; border: 6px solid var(--terra);
+  box-shadow: var(--shadow-lift); cursor: pointer; touch-action: manipulation;
+}
+.buzz-btn:active { transform: scale(0.96); }
+@media (prefers-reduced-motion: reduce) { .buzz-btn:active { transform: none; } }

@@ -71,7 +71,29 @@
   function flush() { if (S && PID) window.Sync.flush(S, PID); }
   // Stop any running mock/oral timers and drop the activity, so nothing can
   // fire later into a different screen or a different child's profile.
-  function abortActivity() { stopBeeTimer(); stopOralTimer(); act = null; }
+  function abortActivity() {
+    stopBeeTimer(); stopOralTimer();
+    if (window.Buzzer) window.Buzzer.stop();
+    act = null;
+  }
+  // Regional buzzer round (js/buzzer.js). It owns its screen and timers; the
+  // app hands it the child's state, saving, sound and the way home.
+  function startBuzzer() {
+    if (!window.Buzzer || !window.GEO_TOSSUPS) return;
+    abortActivity();
+    show("#screen-quiz");
+    act = { kind: "buzzer", plan: { kind: "buzzer" } };
+    window.Buzzer.start({
+      el: $("#screen-quiz"),
+      getState: () => S,
+      speechOn: () => !!(S && S.settings.speech),
+      answerSecs: (S && S.settings.buzzSecs) || 5,
+      record: (id, outcome, bp) => { if (S) { E.buzzRecord(S, id, outcome, bp); save(); } },
+      finish: (m) => { if (S) { E.logMock(S, m); S.xp += m.correct * 10; save(); } },
+      sound: (ok) => (ok ? sndGood() : sndBad()),
+      exit: () => { act = null; renderHome(); },
+    });
+  }
 
   function topicMeta(id) {
     return window.GEO_DATA.TOPICS.find((t) => t.id === id) || { name: id, emoji: "🌍" };
@@ -338,6 +360,7 @@
       </div>
       <button class="big green" id="btn-play">▶️ &nbsp;Play Adventure</button>
       <button class="big ghost" id="btn-learn">📚 &nbsp;Learn — explore the world</button>
+      <button class="big amber" id="btn-buzzer">🛎️ &nbsp;Buzzer Round — practice for the real bee</button>
       <div class="row">
         <button class="big violet" id="btn-bee-written">📝 Written Bee</button>
         <button class="big amber" id="btn-bee-oral">🎤 Oral Bee</button>
@@ -352,6 +375,7 @@
     $("#btn-play").onclick = () => startPractice();
     $("#btn-learn").onclick = renderLearnTopics;
     $("#btn-bee-written").onclick = writtenBeePicker;
+    $("#btn-buzzer").onclick = startBuzzer;
     $("#btn-bee-oral").onclick = () => startBee("oral");
     $("#btn-progress").onclick = renderProgress;
     $("#btn-settings").onclick = renderSettings;
@@ -781,13 +805,15 @@
       <h2>📝 Pick your mock exam</h2>
       <div class="profile-list">
         <button class="green profile-btn" data-kind="nsf">🏫 NSF Mock — 25 questions<br><span class="note" style="color:inherit">+1 per correct, no penalty · 30-minute timer. Always guess!</span></button>
-        <button class="violet profile-btn" data-kind="iac">🌎 IAC Mock — 50 questions<br><span class="note" style="color:inherit">+2 / −1 / 0 skip · 30-minute timer</span></button>
+        <button class="green profile-btn" data-kind="buzzer">🛎️ Regional Buzzer Round — like the real Dec 5 bee<br><span class="note" style="color:inherit">Clue paragraphs read aloud · buzz early · race to 5 right</span></button>
+        <button class="violet profile-btn" data-kind="iac">🌎 IAC Qualifier Mock (ORQE) — 50 questions<br><span class="note" style="color:inherit">+2 per correct, no penalty · 20-minute timer. Answer every one!</span></button>
       </div>
       <p class="muted" style="margin-top:10px">tap outside to cancel</p></div>`;
     el.onclick = (e) => {
       const b = e.target.closest(".profile-btn");
       el.remove();
-      if (b) startBee(b.dataset.kind);
+      if (b && b.dataset.kind === "buzzer") startBuzzer();
+      else if (b) startBee(b.dataset.kind);
     };
     document.body.appendChild(el);
   }
@@ -1275,7 +1301,7 @@
         <div class="mascot">🌎</div>
         <h1>IAC Mock done!</h1>
         <p class="summary-line">Score: ${p.score} / 100</p>
-        <p class="muted">Real IAC qualifying-exam scoring: +2 correct, −1 wrong, 0 skipped, 30-minute limit. Skip only when you truly don't know!</p>
+        <p class="muted">Real IAC qualifying-exam (ORQE) scoring: +2 per correct, nothing taken off for wrong or blank, 20-minute limit. Always guess!</p>
         <p class="summary-line">🏅 Best: ${S.best.iac} &nbsp;·&nbsp; +${bonus} XP</p>
         ${events.some((e) => e.type === "badge") ? `<span class="event-chip">🎖️ New badge earned!</span>` : ""}`;
     } else if (act.kind === "oral") {

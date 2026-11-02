@@ -10,7 +10,7 @@ global.window = {};
 const fs = require("fs");
 const path = require("path");
 const base = path.join(__dirname, "..", "js") + path.sep;
-for (const f of ["data.js", "scenes.js", "maps.js", "questions.js", "engine.js"]) {
+for (const f of ["data.js", "scenes.js", "maps.js", "questions.js", "engine.js", "tossups.js", "buzzer.js"]) {
   eval(fs.readFileSync(base + f, "utf8"));
 }
 const D = window.GEO_DATA, Q = window.QBank, E = window.Engine;
@@ -169,6 +169,41 @@ for (const [label, test] of OFFICIAL) {
   s.settings.advanced = true;
   const advOn = E.topicFacts(s, "concepts").some((f) => f.adv);
   if (!advOn) errors.push("advanced facts missing with advanced on");
+}
+
+// ---------- buzzer tossups (js/tossups.js) ----------
+{
+  const T = window.GEO_TOSSUPS || [];
+  const B = window.Buzzer;
+  if (T.length < 100) errors.push(`only ${T.length} tossups (expected 100+)`);
+  const ids = new Set(), answers = new Set();
+  const STOPW = new Set(["the", "of", "and", "river", "mountains", "mount", "lake", "island", "islands", "city",
+    "national", "park", "sea", "strait", "peninsula", "desert", "canyon", "falls", "state", "line", "reef", "treaty",
+    "zone", "region", "volcano", "belt", "route", "beach", "degrees", "resources"]);
+  for (const t of T) {
+    const tag = "tossup " + t.id;
+    if (ids.has(t.id)) errors.push(`${tag}: duplicate id`); ids.add(t.id);
+    if (!Array.isArray(t.clues) || t.clues.length < 2) { errors.push(`${tag}: needs 2+ clues`); continue; }
+    if (!/for the point/i.test(t.clues[t.clues.length - 1])) errors.push(`${tag}: last clue must say 'For the point'`);
+    const words = t.clues.join(" ").split(/\s+/).length;
+    if (words < 35 || words > 90) errors.push(`${tag}: ${words} words (35-90)`);
+    if (!(t.t >= 1 && t.t <= 5)) errors.push(`${tag}: bad tier`);
+    const key = Q.normalize(t.a);
+    if (answers.has(key)) errors.push(`${tag}: duplicate answer ${t.a}`); answers.add(key);
+    // every listed answer must actually be accepted by the buzzer's matcher
+    for (const a of [t.a, ...(t.alt || [])]) if (B.judge(t, a) !== "yes") errors.push(`${tag}: listed answer not accepted: ${a}`);
+    for (const p of t.prompt || []) if (B.judge(t, p) !== "prompt") errors.push(`${tag}: prompt not prompted: ${p}`);
+    // the answer's own name must not appear before the giveaway sentence
+    const early = Q.normalize(t.clues.slice(0, -1).join(" "));
+    for (const w of Q.normalize(t.a).split(" ")) {
+      if (w.length > 3 && !STOPW.has(w) && new RegExp("\\b" + w + "\\b").test(early)) errors.push(`${tag}: answer word '${w}' appears before the final clue`);
+    }
+  }
+  // the matcher itself: one typo forgiven on long answers, not on short ones
+  const probe = { a: "Tegucigalpa", alt: [], prompt: [] };
+  if (B.judge(probe, "Tegucigalpa") !== "yes" || B.judge(probe, "Teguciglpa") !== "yes") errors.push("buzzer matcher: typo tolerance broken");
+  if (B.judge({ a: "Oslo", alt: [] }, "Olso") === "yes") errors.push("buzzer matcher: too lenient on short answers");
+  if (B.judge({ a: "Saint Paul", alt: [] }, "St. Paul") !== "yes") errors.push("buzzer matcher: St. -> Saint broken");
 }
 
 // ---------- fact-id stability (saved progress is keyed on these) ----------

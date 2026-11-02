@@ -73,6 +73,11 @@ window.Engine = (function () {
       log: [], placementDone: false,
       stickers: [], questDone: null, lastBee: null,
       learnPos: {},
+      // every mock attempt ({kind, at, score|correct, n, ...}); bests alone
+      // can't show a trend. Capped at MOCKS_MAX, newest kept.
+      mocks: [],
+      // buzzer tossups: seen[id] = {c, w, last, bp (0..1 buzz point of last right answer)}
+      buzz: { seen: {} },
     };
   }
 
@@ -158,6 +163,9 @@ window.Engine = (function () {
     s.best = s.best || {};
     if (s.best.nsf === undefined) s.best.nsf = null;
     if (s.best.iac === undefined) s.best.iac = null;
+    s.mocks = Array.isArray(s.mocks) ? s.mocks : [];
+    s.buzz = s.buzz && typeof s.buzz === "object" ? s.buzz : { seen: {} };
+    s.buzz.seen = s.buzz.seen || {};
     remapAliases(s);
     return s;
   }
@@ -516,8 +524,8 @@ window.Engine = (function () {
   //          negative marking (always guess!). Mix mirrors the official
   //          sample: ~12 three-option MCQs, ~8 open-ended (typed), ~5
   //          two-option — with clue-rich stems.
-  //   iac  — IAC/IGB qualifying-exam style: 50 four-option MCQs, +2/−1/0
-  //          with skip, 30-minute timer (enforced by the UI)
+  //   iac  — IAC ORQE style: 50 four-option MCQs, +2 right / 0 wrong / 0 blank,
+  //          20-minute timer (enforced by the UI). orqe.iac-exams.com/faq
   //   oral — spoken-round practice: typed/spoken answers, 3 strikes,
   //          with progressive-clue "pyramid" questions mixed in (buzzer style)
   const PYRAMID_SLOTS = [2, 6, 10, 14];
@@ -535,7 +543,8 @@ window.Engine = (function () {
       asked: new Set(), topics, cursor: Math.floor(Math.random() * topics.length),
       pyUsed: new Set(), clueBonus: 0,
       // real Phase I limits: NSF 25Q/30min, IAC 50Q/30min
-      timeLimit: kind === "iac" || kind === "nsf" ? 30 * 60 : null,
+      // NSF Phase I: 25Q/30min. IAC ORQE: 50Q/20min (orqe.iac-exams.com/faq).
+      timeLimit: kind === "iac" ? 20 * 60 : kind === "nsf" ? 30 * 60 : null,
     };
   }
   function beeNext(s, plan) {
@@ -601,7 +610,8 @@ window.Engine = (function () {
       plan.correct++;
       plan.score += plan.kind === "iac" ? 2 : 1;
     } else if (result === "wrong") {
-      if (plan.kind === "iac") plan.score -= 1;
+      // IAC ORQE: +2 right, 0 wrong, 0 blank (no penalty, so always answer).
+      // Source: https://orqe.iac-exams.com/faq
       plan.strikes++;
     }
     // debrief list: every non-correct question, for the post-mock review
@@ -627,9 +637,29 @@ window.Engine = (function () {
     for (const b of BADGES) {
       if (!s.badges.includes(b.id) && b.test(s)) { s.badges.push(b.id); events.push({ type: "badge", badge: b }); }
     }
+    logMock(s, { kind: plan.kind, at: Date.now(), n: plan.i, correct: plan.correct, score: plan.score,
+      max: plan.kind === "iac" ? plan.tiers.length * 2 : plan.kind === "nsf" ? plan.tiers.length : null,
+      missed: (plan.review || []).map((r) => r.factId).filter(Boolean).slice(0, 60) });
     s.lastBee = Date.now();
     s.metaUpdated = Date.now();
     return events;
+  }
+  const MOCKS_MAX = 300;
+  function logMock(s, m) {
+    s.mocks = s.mocks || [];
+    s.mocks.push(m);
+    if (s.mocks.length > MOCKS_MAX) s.mocks = s.mocks.slice(-MOCKS_MAX);
+    s.metaUpdated = Date.now();
+  }
+  // One buzzer tossup result. outcome: 'right' | 'wrong' | 'nobuzz'.
+  function buzzRecord(s, id, outcome, bp) {
+    s.buzz = s.buzz || { seen: {} };
+    const r = s.buzz.seen[id] || (s.buzz.seen[id] = { c: 0, w: 0, last: 0 });
+    if (outcome === "right") { r.c++; r.bp = bp == null ? null : Math.round(bp * 100) / 100; }
+    else r.w++;
+    r.last = Date.now();
+    s.totals.answered++; if (outcome === "right") s.totals.correct++;
+    s.metaUpdated = Date.now();
   }
 
   // --- dashboard -----------------------------------------------------------
@@ -726,6 +756,21 @@ window.Engine = (function () {
     for (const [id, t] of Object.entries(other.topics || {})) {
       if (!out.topics[id] || t.tier > out.topics[id].tier) out.topics[id] = t;
     }
+    // mock history: union of both devices' attempts (keyed on kind + time)
+    const mk = new Map();
+    for (const m of [...(a.mocks || []), ...(b.mocks || [])]) mk.set(m.kind + "@" + m.at, m);
+    out.mocks = [...mk.values()].sort((x, y) => x.at - y.at).slice(-MOCKS_MAX);
+    // buzzer tossups: max counts, buzz point from the most recent answer
+    out.buzz = { seen: {} };
+    for (const src of [a.buzz, b.buzz]) {
+      for (const [id, r] of Object.entries((src && src.seen) || {})) {
+        const m = out.buzz.seen[id];
+        if (!m) { out.buzz.seen[id] = { ...r }; continue; }
+        const newer = (r.last || 0) > (m.last || 0);
+        out.buzz.seen[id] = { c: Math.max(m.c || 0, r.c || 0), w: Math.max(m.w || 0, r.w || 0),
+          last: Math.max(m.last || 0, r.last || 0), bp: newer ? r.bp : m.bp };
+      }
+    }
     out.xp = Math.max(a.xp || 0, b.xp || 0);
     out.badges = Array.from(new Set([...(a.badges || []), ...(b.badges || [])]));
     out.best = {
@@ -768,6 +813,6 @@ window.Engine = (function () {
     placementPlan, placementNext, placementRecord, placementFinish,
     beePlan, beeNext, beeRecord, beeFinish,
     topicSummary, dueCount, mergeState, factLabel, topicKnown, topicFacts, migrate,
-    awardSticker, dayStreak, questProgress, coach, noteSeen, solidKnown, dayKey,
+    awardSticker, dayStreak, questProgress, coach, noteSeen, solidKnown, dayKey, logMock, buzzRecord,
   };
 })();

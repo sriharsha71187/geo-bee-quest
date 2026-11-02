@@ -1,0 +1,2996 @@
+/* GeoBee Quest — IAC-style buzzer tossups (National Geography Bee regional format).
+ * Each tossup is a short paragraph: hard clues first, giveaway last ("For the point, ...").
+ * Written to the 2021-22 IAC elementary regional style, every clue source-checked by the
+ * writer and then independently fact-checked; see tools-local in the parent workspace.
+ * Fields: id, region, cat, clues[], a (answer), alt[] (accepted), prompt[] (too vague),
+ *         t (1 easy … 5 hard), x (fun fact), redset (2026-27 Red Set study-guide item).
+ */
+window.GEO_TOSSUPS = [
+ {
+  "id": "europe-bosporus",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Three huge bridges cross this narrow waterway, and a railway tunnel called Marmaray runs underneath it.",
+   "This strait connects the Black Sea to the Sea of Marmara, and the city of Istanbul sits on both of its shores.",
+   "For the point, name this strait that divides the European and Asian parts of Turkey."
+  ],
+  "a": "Bosporus",
+  "alt": [
+   "Bosphorus",
+   "Bosporus Strait",
+   "Bosphorus Strait",
+   "Strait of Istanbul",
+   "Istanbul Strait",
+   "Istanbul Bogazi"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Ancient Greek stories say the hero Jason sailed safely between giant 'clashing rocks' that guarded this strait.",
+  "redset": "Bosporus"
+ },
+ {
+  "id": "europe-danube",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "This river begins in Germany's Black Forest and flows through or along the borders of ten countries.",
+   "Four capital cities sit on its banks: Vienna, Bratislava, Budapest, and Belgrade.",
+   "For the point, name this second-longest river in Europe, which ends in a huge delta on the Black Sea."
+  ],
+  "a": "Danube River",
+  "alt": [
+   "Danube",
+   "Donau",
+   "Duna",
+   "Dunav",
+   "Dunarea"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A famous waltz by the composer Johann Strauss II is named after this river.",
+  "redset": "Danube + Vienna"
+ },
+ {
+  "id": "europe-vienna",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city's Schönbrunn Palace grounds hold the oldest zoo in the world that is still open, founded in 1752.",
+   "The composer Mozart spent the last ten years of his life here, and this city is famous for its coffeehouses and a chocolate cake called Sachertorte.",
+   "For the point, name this capital of Austria on the Danube River."
+  ],
+  "a": "Vienna",
+  "alt": [
+   "Wien"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Vienna's zoo is home to giant pandas, and several panda cubs have been born there.",
+  "redset": "Danube + Vienna"
+ },
+ {
+  "id": "europe-rome",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "According to legend, this city was founded by twin brothers who were raised by a wolf, and it was built on seven hills beside the Tiber River.",
+   "Visitors toss coins over their shoulders into its Trevi Fountain, and ancient gladiators fought in its giant arena, the Colosseum.",
+   "For the point, name this capital of Italy."
+  ],
+  "a": "Rome",
+  "alt": [
+   "Roma"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "About 3,000 euros are tossed into the Trevi Fountain each day, and the money goes to a charity that helps people in need.",
+  "redset": "Rome / Trevi Fountain / Colosseum"
+ },
+ {
+  "id": "europe-black-sea",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Deep in this sea, the water has almost no oxygen, so very old shipwrecks have been found almost perfectly preserved on its floor.",
+   "The Crimean Peninsula sticks out into this sea from the north, and the narrow Bosporus strait connects it to the Sea of Marmara.",
+   "For the point, name this sea bordered by Turkey, Ukraine, Romania, and Bulgaria, whose name is a color."
+  ],
+  "a": "Black Sea",
+  "alt": [
+   "Euxine Sea"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "This sea's water is only partly salty, and bottlenose dolphins swim in it.",
+  "redset": "Black Sea + Crimea"
+ },
+ {
+  "id": "europe-sicily",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "Ancient Greeks built the temples of the Valley of the Temples near Agrigento on this island.",
+   "Mount Etna, one of the most active volcanoes in the world, towers over this island, which is separated from the 'toe' of Italy by the Strait of Messina.",
+   "For the point, name this largest island in the Mediterranean Sea, whose capital is Palermo."
+  ],
+  "a": "Sicily",
+  "alt": [
+   "Sicilia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A chestnut tree on the slopes of Mount Etna may be 2,000 to 4,000 years old, the oldest known chestnut tree in the world.",
+  "redset": "Sicily"
+ },
+ {
+  "id": "europe-iberian-peninsula",
+  "region": "europe",
+  "cat": "region",
+  "clues": [
+   "The Pyrenees Mountains separate this peninsula from France, and the British territory of Gibraltar sits near its southern tip.",
+   "The Tagus, the longest river on this peninsula, flows west and empties into the Atlantic Ocean at Lisbon.",
+   "For the point, name this peninsula in southwestern Europe that is home to Spain and Portugal."
+  ],
+  "a": "Iberian Peninsula",
+  "alt": [
+   "Iberia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The endangered Iberian lynx, a wild cat with tufted ears, lives along the Tagus River.",
+  "redset": "Iberian Peninsula"
+ },
+ {
+  "id": "europe-oslo",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city's Holmenkollen ski jump has hosted ski-jumping contests since 1892.",
+   "Its harbor is guarded by Akershus Fortress, a castle built around the year 1300, and the Nobel Peace Prize is handed out each December in its City Hall.",
+   "For the point, name this capital of Norway."
+  ],
+  "a": "Oslo",
+  "alt": [
+   "Christiania",
+   "Kristiania"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Oslo City Hall is built of big red bricks, and one of its towers holds a set of 49 bells.",
+  "redset": "Oslo + Akershus Fortress"
+ },
+ {
+  "id": "europe-schengen-area",
+  "region": "europe",
+  "cat": "concept",
+  "clues": [
+   "In 2025, Bulgaria and Romania became full members of this zone, while Ireland has chosen to stay out of it.",
+   "Inside this zone, people can usually drive from one country to another, like France to Germany, without stopping to show a passport.",
+   "For the point, name this European travel area named after a village in Luxembourg, where its first agreement was signed on a boat in 1985."
+  ],
+  "a": "Schengen Area",
+  "alt": [
+   "Schengen",
+   "Schengen Zone",
+   "Schengen Agreement"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "More than 450 million people live inside this passport-free zone.",
+  "redset": "Schengen Area"
+ },
+ {
+  "id": "europe-stromboli",
+  "region": "europe",
+  "cat": "mountain",
+  "clues": [
+   "This volcano has been erupting almost nonstop for at least 2,000 years, usually with small bursts every few minutes to hours.",
+   "It forms one of the seven Aeolian Islands north of Sicily, and a gentle, bursting type of eruption is named after it.",
+   "For the point, name this Italian island volcano nicknamed the 'Lighthouse of the Mediterranean.'"
+  ],
+  "a": "Stromboli",
+  "alt": [
+   "Mount Stromboli",
+   "Stromboli Island",
+   "Stromboli volcano"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "A stuffed, rolled-up bread called stromboli is named after this island.",
+  "redset": "Stromboli"
+ },
+ {
+  "id": "europe-naples",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "In 2017, UNESCO honored the bakers of this city for their special way of spinning dough and baking it in wood-fired ovens.",
+   "Mount Vesuvius, the volcano that buried the ancient town of Pompeii, looms over this city's bay.",
+   "For the point, name this city in southern Italy, often called the birthplace of pizza."
+  ],
+  "a": "Naples",
+  "alt": [
+   "Napoli"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "About 3,000 pizza makers live and work in this city.",
+  "redset": "Naples"
+ },
+ {
+  "id": "europe-belgium",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "This country's Atomium is a giant steel model of an iron crystal, built for a World's Fair in 1958.",
+   "The Flemish people of its northern region, Flanders, speak Dutch, while most people in its southern region, Wallonia, speak French.",
+   "For the point, name this country famous for waffles and chocolate, with its capital at Brussels."
+  ],
+  "a": "Belgium",
+  "alt": [
+   "Kingdom of Belgium",
+   "Belgie",
+   "Belgique",
+   "Belgien"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Flemish flag shows a black lion with red claws on a yellow background.",
+  "redset": "Flemish (people) / Belgium"
+ },
+ {
+  "id": "europe-france",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "This country's Mont-Saint-Michel is an abbey perched on a rocky island surrounded by sandbanks and powerful tides.",
+   "Its capital is home to the Eiffel Tower and the Louvre Museum, where the painting Mona Lisa hangs.",
+   "For the point, name this European country whose capital is Paris."
+  ],
+  "a": "France",
+  "alt": [
+   "French Republic",
+   "Republique francaise"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "About three million people visit Mont-Saint-Michel every year.",
+  "redset": ""
+ },
+ {
+  "id": "europe-london",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city's Greenwich neighborhood is home to the Prime Meridian, the line of 0 degrees longitude.",
+   "The famous bell called Big Ben rings in a clock tower at the Houses of Parliament, beside the River Thames.",
+   "For the point, name this capital city of the United Kingdom."
+  ],
+  "a": "London",
+  "alt": [
+   "Greater London",
+   "City of London"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "London's Underground, nicknamed 'the Tube,' opened in 1863 as the world's first underground railway.",
+  "redset": ""
+ },
+ {
+  "id": "europe-germany",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "This country's Neuschwanstein Castle helped inspire Sleeping Beauty Castle at Disneyland and became a UNESCO World Heritage Site in 2025.",
+   "Its city of Munich hosts the Oktoberfest festival, and its city of Cologne has a giant cathedral beside the Rhine River.",
+   "For the point, name this European country whose capital is Berlin."
+  ],
+  "a": "Germany",
+  "alt": [
+   "Federal Republic of Germany",
+   "Deutschland",
+   "Bundesrepublik Deutschland"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A meteorite that fell near Neuschwanstein Castle in 2002 was named after the castle.",
+  "redset": ""
+ },
+ {
+  "id": "europe-spain",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "This country's highest mountain, Mount Teide, is a volcano on the island of Tenerife in its Canary Islands.",
+   "In its city of Barcelona, the Sagrada Família church, begun in 1882, became the tallest church in the world in 2025.",
+   "For the point, name this country that shares the Iberian Peninsula with Portugal and has its capital at Madrid."
+  ],
+  "a": "Spain",
+  "alt": [
+   "Kingdom of Spain",
+   "Espana",
+   "Reino de Espana"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The architect Antoni Gaudí, who worked on the Sagrada Família for most of his life, is buried inside it.",
+  "redset": ""
+ },
+ {
+  "id": "europe-athens",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city's port, Piraeus, is the largest port in its country and one of the busiest passenger ports in Europe.",
+   "The first modern Olympic Games were held in this city in 1896.",
+   "For the point, name this capital of Greece, where the Parthenon stands on top of the Acropolis."
+  ],
+  "a": "Athens",
+  "alt": [
+   "Athina",
+   "Athinai"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "During the 2004 Olympics, cruise ships parked at Piraeus were used as floating hotels.",
+  "redset": ""
+ },
+ {
+  "id": "europe-netherlands",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "About 26 percent of this country's land lies below sea level, protected by dikes and a huge set of storm barriers called the Delta Works.",
+   "It is famous for windmills, wooden shoes, and colorful fields of tulips.",
+   "For the point, name this European country, sometimes called Holland, whose capital is Amsterdam."
+  ],
+  "a": "Netherlands",
+  "alt": [
+   "The Netherlands",
+   "Holland",
+   "Kingdom of the Netherlands",
+   "Nederland"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "This country's water boards, which take care of dikes and canals, are among the oldest elected groups in the world; the first one appeared in 1196.",
+  "redset": ""
+ },
+ {
+  "id": "europe-iceland",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "The English word 'geyser' comes from this country's hot spring Geysir, and its nearby Strokkur geyser shoots water up every few minutes.",
+   "Its Reynisfjara is a famous black sand beach, and the country has many glaciers and volcanoes.",
+   "For the point, name this island nation in the North Atlantic whose capital is Reykjavík."
+  ],
+  "a": "Iceland",
+  "alt": [
+   "Republic of Iceland"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Reykjavík is the northernmost capital city of any country in the world.",
+  "redset": ""
+ },
+ {
+  "id": "europe-fjords",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Norway's longest one stretches 205 kilometers inland and is more than 1,300 meters deep in places.",
+   "These landforms were carved by giant glaciers during the Ice Age and then filled with seawater, leaving steep cliffs and waterfalls on both sides.",
+   "For the point, name these long, narrow sea inlets that make Norway's coastline famous."
+  ],
+  "a": "Fjords",
+  "alt": [
+   "Fjord",
+   "Fiord",
+   "Fiords",
+   "Norwegian fjords"
+  ],
+  "prompt": [
+   "inlet",
+   "sea inlet",
+   "bay"
+  ],
+  "t": 3,
+  "x": "The world's first battery-powered car ferry crosses Norway's longest fjord.",
+  "redset": ""
+ },
+ {
+  "id": "europe-alps",
+  "region": "europe",
+  "cat": "mountain",
+  "clues": [
+   "In 1991, hikers found a 5,300-year-old man nicknamed Ötzi the Iceman melting out of the ice in these mountains.",
+   "The pointy Matterhorn, on the border of Switzerland and Italy, is one of the most famous peaks in this range.",
+   "For the point, name this mountain range whose highest peak is Mont Blanc."
+  ],
+  "a": "Alps",
+  "alt": [
+   "The Alps",
+   "Alps Mountains",
+   "Alpine Mountains"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Ötzi's shoes were waterproof and stuffed with soft grass that worked like socks.",
+  "redset": ""
+ },
+ {
+  "id": "europe-volga",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "This river starts in the Valdai Hills northwest of Moscow and flows past the city of Kazan.",
+   "It does not reach any ocean; instead, it empties into the Caspian Sea through a delta with about 500 channels.",
+   "For the point, name this national river of Russia, the longest river in Europe."
+  ],
+  "a": "Volga River",
+  "alt": [
+   "Volga",
+   "Itil",
+   "Atil"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Russian songs and stories often call this river 'Mother Volga.'",
+  "redset": ""
+ },
+ {
+  "id": "africa-niger-river",
+  "region": "africa",
+  "cat": "river",
+  "clues": [
+   "This river begins in the Guinea Highlands only about 240 kilometers from the Atlantic Ocean, but it first flows away from the sea toward the Sahara.",
+   "It makes a giant boomerang-shaped bend near the old desert city of Timbuktu, then turns southeast to the Gulf of Guinea.",
+   "For the point, name this third-longest river in Africa, which shares its name with the country whose capital is Niamey."
+  ],
+  "a": "Niger River",
+  "alt": [
+   "Niger",
+   "Joliba"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The country of Nigeria is also named after this river.",
+  "redset": "Niger River"
+ },
+ {
+  "id": "africa-kilimanjaro",
+  "region": "africa",
+  "cat": "mountain",
+  "clues": [
+   "This mountain is the largest free-standing volcanic mass in the world, and it has three main volcanic peaks named Kibo, Mawenzi, and Shira.",
+   "Even though it is close to the equator, its top is capped with snow and glaciers, which are slowly shrinking.",
+   "For the point, name this tallest mountain in Africa, found in Tanzania."
+  ],
+  "a": "Mount Kilimanjaro",
+  "alt": [
+   "Kilimanjaro",
+   "Mt. Kilimanjaro",
+   "Kili"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Some of the most famous views of this mountain are from Amboseli National Park in Kenya.",
+  "redset": "Kilimanjaro / Tanzania"
+ },
+ {
+  "id": "africa-sahel",
+  "region": "africa",
+  "cat": "region",
+  "clues": [
+   "Africa's Great Green Wall project aims to restore land and plant trees across this region to help stop deserts from spreading.",
+   "Its name comes from an Arabic word meaning 'shore' or 'coast,' because it lies along the edge of a giant desert like a shore.",
+   "For the point, name this dry belt of grassland that stretches across Africa just south of the Sahara."
+  ],
+  "a": "Sahel",
+  "alt": [
+   "The Sahel",
+   "Sahel region"
+  ],
+  "prompt": [
+   "savanna",
+   "grassland"
+  ],
+  "t": 4,
+  "x": "This region stretches about 5,900 kilometers, from the Atlantic Ocean all the way to the Red Sea.",
+  "redset": "Sahel"
+ },
+ {
+  "id": "africa-somalia",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "Cape Guardafui, the very tip of the Horn of Africa, is in this country, which has the longest coastline of any country on Africa's mainland.",
+   "This country borders Djibouti, Ethiopia, and Kenya, and its coast faces the Gulf of Aden and the Indian Ocean.",
+   "For the point, name this East African country whose capital is Mogadishu."
+  ],
+  "a": "Somalia",
+  "alt": [
+   "Federal Republic of Somalia",
+   "Soomaaliya"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Sailors long ago gave Cape Guardafui a name meaning 'look and escape' because the seas there were so dangerous.",
+  "redset": "Somalia"
+ },
+ {
+  "id": "africa-lake-turkana",
+  "region": "africa",
+  "cat": "lake",
+  "clues": [
+   "Scientists have found fossils of early humans and their relatives around this lake, whose national parks are a UNESCO World Heritage Site.",
+   "It is the largest desert lake in the world, and its islands are breeding grounds for Nile crocodiles.",
+   "For the point, name this long lake in northern Kenya nicknamed the 'Jade Sea' for its jade-green color."
+  ],
+  "a": "Lake Turkana",
+  "alt": [
+   "Turkana",
+   "Lake Rudolf",
+   "Jade Sea"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The lake is about 249 kilometers long but only about 44 kilometers across at its widest point.",
+  "redset": "Lake Turkana"
+ },
+ {
+  "id": "africa-congo-rainforest",
+  "region": "africa",
+  "cat": "region",
+  "clues": [
+   "Okapis, which look like a mix of a giraffe and a zebra, and apes called bonobos live in this forest.",
+   "This forest grows around a giant river that is the only major river to cross the equator twice.",
+   "For the point, name this rainforest in central Africa, the second-largest tropical rainforest on Earth after the Amazon."
+  ],
+  "a": "Congo Rainforest",
+  "alt": [
+   "Congo Basin rainforest",
+   "Congo Basin",
+   "Congolian rainforests",
+   "Congolian rainforest",
+   "Congo jungle",
+   "Congo"
+  ],
+  "prompt": [
+   "rainforest",
+   "jungle"
+  ],
+  "t": 3,
+  "x": "Forest elephants and lowland gorillas live in this rainforest.",
+  "redset": "Congo rainforests"
+ },
+ {
+  "id": "africa-conflict-minerals",
+  "region": "africa",
+  "cat": "concept",
+  "clues": [
+   "Tin, tantalum, tungsten, and gold are the four main examples of these resources.",
+   "A U.S. law passed in 2010 led to rules making many companies report whether their products use these, especially ones from the Democratic Republic of the Congo or nearby countries.",
+   "For the point, name these minerals that are mined in places with fighting, where selling them can help pay for armed groups."
+  ],
+  "a": "Conflict minerals",
+  "alt": [
+   "Conflict mineral",
+   "3TG",
+   "Conflict resources"
+  ],
+  "prompt": [
+   "minerals",
+   "metals"
+  ],
+  "t": 5,
+  "x": "Companies can call their products 'DRC conflict free' only after an outside check shows their minerals did not help armed groups.",
+  "redset": "conflict minerals"
+ },
+ {
+  "id": "africa-nile",
+  "region": "africa",
+  "cat": "river",
+  "clues": [
+   "This river's two main branches, the White and the Blue, meet at Khartoum, the capital of Sudan.",
+   "Lake Nasser, one of the world's largest human-made lakes, formed on this river after the Aswan High Dam was built.",
+   "For the point, name this river that flows north through Egypt, often called the longest river in the world."
+  ],
+  "a": "Nile River",
+  "alt": [
+   "Nile",
+   "River Nile",
+   "Al-Nil",
+   "Bahr al-Nil"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Ancient Egyptians called their land 'the black land' after the dark mud this river's floods left behind.",
+  "redset": ""
+ },
+ {
+  "id": "africa-sahara",
+  "region": "africa",
+  "cat": "desert",
+  "clues": [
+   "This desert's highest point is Emi Koussi, a volcano in the Tibesti Mountains of Chad.",
+   "Camels have carried goods across this desert for centuries, and some of its sand dunes rise more than 180 meters high.",
+   "For the point, name this largest hot desert in the world, which covers much of North Africa."
+  ],
+  "a": "Sahara Desert",
+  "alt": [
+   "Sahara",
+   "The Sahara",
+   "Great Desert"
+  ],
+  "prompt": [
+   "desert"
+  ],
+  "t": 1,
+  "x": "The name of this desert comes from an Arabic word that simply means 'deserts.'",
+  "redset": ""
+ },
+ {
+  "id": "africa-kenya",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "This country's Lamu Old Town is the oldest and best-preserved Swahili settlement in East Africa.",
+   "Each year, huge herds of wildebeest cross the Mara River into its Maasai Mara reserve during the Great Migration.",
+   "For the point, name this East African country whose capital is Nairobi."
+  ],
+  "a": "Kenya",
+  "alt": [
+   "Republic of Kenya",
+   "Jamhuri ya Kenya"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The colorful lilac-breasted roller is often called Kenya's national bird, even though it was never made official.",
+  "redset": ""
+ },
+ {
+  "id": "africa-south-africa",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "A flat-topped peak in this country, Table Mountain, is often covered by a 'tablecloth' of clouds.",
+   "This country has three capital cities: Pretoria, Cape Town, and Bloemfontein.",
+   "For the point, name this country at the southern tip of Africa, where Nelson Mandela became president in 1994."
+  ],
+  "a": "South Africa",
+  "alt": [
+   "Republic of South Africa",
+   "RSA"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Table Mountain is the only land feature on Earth with a star constellation named after it, called Mensa.",
+  "redset": ""
+ },
+ {
+  "id": "africa-nigeria",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "This country's busy film industry, nicknamed Nollywood, makes movies in English and in languages like Yoruba, Igbo, and Hausa.",
+   "With more than 230 million people, it has the largest population of any country in Africa, and its biggest city is Lagos.",
+   "For the point, name this West African country whose capital is Abuja."
+  ],
+  "a": "Nigeria",
+  "alt": [
+   "Federal Republic of Nigeria",
+   "Naija"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "This country is named after the Niger River, which flows through it.",
+  "redset": ""
+ },
+ {
+  "id": "africa-morocco",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "This country's city of Fez is home to the University of al-Qarawiyyin, which UNESCO and Guinness World Records have called the oldest university in the world.",
+   "The Atlas Mountains cross this country, and only about 14 kilometers of water, the Strait of Gibraltar, separate it from Spain.",
+   "For the point, name this North African country whose capital is Rabat and whose biggest city is Casablanca."
+  ],
+  "a": "Morocco",
+  "alt": [
+   "Kingdom of Morocco",
+   "Al-Maghrib",
+   "Maroc"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The famous school in Fez was started in the 800s by a woman named Fatima al-Fihri.",
+  "redset": ""
+ },
+ {
+  "id": "africa-madagascar",
+  "region": "africa",
+  "cat": "island",
+  "clues": [
+   "This island's Avenue of the Baobabs is a dirt road lined with giant trees about 30 meters tall.",
+   "Lemurs, a group of wide-eyed primates, are found naturally only on this island.",
+   "For the point, name this island country off Africa's southeast coast, the fourth-largest island in the world."
+  ],
+  "a": "Madagascar",
+  "alt": [
+   "Republic of Madagascar",
+   "Madagasikara"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Six of the world's eight kinds of baobab trees grow only in Madagascar.",
+  "redset": ""
+ },
+ {
+  "id": "latam-honduras",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "The ancient Maya city of Copán, famous for a giant stone staircase carved with writing, is in this country near Guatemala.",
+   "Divers explore coral reefs around Roatán, the largest of this country's Bay Islands in the Caribbean Sea.",
+   "For the point, name this Central American country that borders El Salvador and Nicaragua and has its capital at Tegucigalpa."
+  ],
+  "a": "Honduras",
+  "alt": [
+   "Honduras",
+   "Republic of Honduras",
+   "Republica de Honduras"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Honduras has coastlines on both the Caribbean Sea and the Pacific Ocean.",
+  "redset": "Honduras borders El Salvador and Nicaragua; capital Tegucigalpa"
+ },
+ {
+  "id": "latam-el-salvador",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "This country is so small that it is nicknamed Pulgarcito de América, or the 'Tom Thumb of the Americas.'",
+   "It is the smallest country in Central America and the only one with no coastline on the Caribbean Sea.",
+   "Pupusas, thick corn tortillas stuffed with cheese or beans, are a famous food from this country.",
+   "For the point, name this Pacific coast country between Guatemala and Honduras whose capital is San Salvador."
+  ],
+  "a": "El Salvador",
+  "alt": [
+   "El Salvador",
+   "Republic of El Salvador",
+   "Republica de El Salvador"
+  ],
+  "prompt": [
+   "Salvador"
+  ],
+  "t": 3,
+  "x": "El Salvador uses the U.S. dollar as its everyday money.",
+  "redset": "Honduras item (neighbor El Salvador)"
+ },
+ {
+  "id": "latam-nicaragua",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Ometepe Island, made of two volcanoes, rises out of the biggest freshwater lake in Central America, which lies in this country.",
+   "That giant lake is one of the very few freshwater lakes in the world where sharks live.",
+   "For the point, name this largest country in Central America, whose capital is Managua."
+  ],
+  "a": "Nicaragua",
+  "alt": [
+   "Nicaragua",
+   "Republic of Nicaragua"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Nicaragua's flag has blue and white stripes, much like the flags of its neighbors Honduras and El Salvador.",
+  "redset": "Honduras item (neighbor Nicaragua)"
+ },
+ {
+  "id": "latam-perito-moreno-glacier",
+  "region": "latam",
+  "cat": "landmark",
+  "clues": [
+   "Many times in the last hundred years, this ice mass has blocked an arm of Lake Argentino until the trapped water burst through it in a spectacular rupture.",
+   "Visitors who come from the town of El Calafate stand on walkways to watch huge chunks of ice break off its tall front and splash into the lake.",
+   "For the point, name this famous glacier in Argentina's Los Glaciares National Park, named after explorer Francisco Moreno."
+  ],
+  "a": "Perito Moreno Glacier",
+  "alt": [
+   "Perito Moreno Glacier",
+   "Perito Moreno",
+   "Glaciar Perito Moreno",
+   "Moreno Glacier"
+  ],
+  "prompt": [
+   "Los Glaciares",
+   "Patagonia",
+   "glacier"
+  ],
+  "t": 4,
+  "x": "The glacier is fed by the Southern Patagonian Ice Field, one of the biggest stores of fresh water on Earth.",
+  "redset": "Perito Moreno Glacier (Argentina)"
+ },
+ {
+  "id": "latam-lake-titicaca",
+  "region": "latam",
+  "cat": "lake",
+  "clues": [
+   "The Uros people live on floating islands that they build from totora reeds on this body of water near the Peruvian town of Puno.",
+   "This lake sits high in the Andes Mountains on the border between Peru and Bolivia.",
+   "For the point, name this largest lake in South America by area."
+  ],
+  "a": "Lake Titicaca",
+  "alt": [
+   "Lake Titicaca",
+   "Titicaca",
+   "Lago Titicaca"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "On Taquile Island in this lake, the men do the knitting, starting when they are about eight years old.",
+  "redset": "Lake Titicaca, largest lake in South America by area"
+ },
+ {
+  "id": "latam-cuba",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Isla de la Juventud, once called the Isle of Pines, is the second-largest island of this country.",
+   "Colorful old American cars from the 1950s still drive past the seaside forts of this country's capital city.",
+   "For the point, name this largest island in the Caribbean Sea, a country whose capital is Havana."
+  ],
+  "a": "Cuba",
+  "alt": [
+   "Cuba",
+   "Republic of Cuba",
+   "Republica de Cuba"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The bee hummingbird, the world's smallest bird, lives only in Cuba.",
+  "redset": "Cuba, capital Havana"
+ },
+ {
+  "id": "latam-saint-kitts-and-nevis",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Brimstone Hill Fortress, a UNESCO World Heritage Site built by the British, sits on a volcanic hill in this country.",
+   "Alexander Hamilton, the Founding Father on the U.S. ten-dollar bill, was born on the smaller of its two islands.",
+   "For the point, name this Caribbean country, the smallest in the Western Hemisphere, whose capital is Basseterre."
+  ],
+  "a": "Saint Kitts and Nevis",
+  "alt": [
+   "Saint Kitts and Nevis",
+   "St. Kitts and Nevis",
+   "St Kitts and Nevis",
+   "Saint Christopher and Nevis",
+   "Federation of Saint Kitts and Nevis"
+  ],
+  "prompt": [
+   "Saint Kitts",
+   "St. Kitts",
+   "Nevis"
+  ],
+  "t": 4,
+  "x": "Nevis got its name from a Spanish phrase about snow, because the clouds on its peak reminded someone of snow.",
+  "redset": "Saint Kitts and Nevis"
+ },
+ {
+  "id": "latam-mexico-city",
+  "region": "latam",
+  "cat": "city",
+  "clues": [
+   "The golden Angel of Independence statue stands on this city's Paseo de la Reforma, a grand avenue lined with monuments.",
+   "This city was built on the ruins of Tenochtitlan, the Aztec capital that stood on an island in a lake.",
+   "For the point, name this capital and largest city of Mexico."
+  ],
+  "a": "Mexico City",
+  "alt": [
+   "Mexico City",
+   "Ciudad de Mexico",
+   "CDMX",
+   "Mexico D.F."
+  ],
+  "prompt": [
+   "Mexico"
+  ],
+  "t": 3,
+  "x": "Mexico City sits more than 7,000 feet above sea level, higher than Denver, Colorado.",
+  "redset": "Paseo de la Reforma"
+ },
+ {
+  "id": "latam-mexico",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Millions of monarch butterflies fly south each fall to spend the winter in fir forests in this country's mountains.",
+   "The Maya pyramid called El Castillo stands at Chichén Itzá on this country's Yucatán Peninsula.",
+   "The Rio Grande forms part of this country's border with Texas.",
+   "For the point, name this country just south of the United States, whose capital is Mexico City."
+  ],
+  "a": "Mexico",
+  "alt": [
+   "Mexico",
+   "United Mexican States",
+   "Estados Unidos Mexicanos"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "More people speak Spanish in Mexico than in any other country, even Spain.",
+  "redset": ""
+ },
+ {
+  "id": "latam-brazil",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Most of the Pantanal, the world's largest tropical wetland, lies in this country.",
+   "Its city of Manaus sits deep in the Amazon rainforest, far up the Amazon River.",
+   "This is the largest country in South America and the only one where Portuguese is the main language.",
+   "For the point, name this country, home of Rio de Janeiro and its capital, Brasília."
+  ],
+  "a": "Brazil",
+  "alt": [
+   "Brazil",
+   "Brasil",
+   "Federative Republic of Brazil"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Brazil has won the men's soccer World Cup five times, more than any other country.",
+  "redset": ""
+ },
+ {
+  "id": "latam-rio-de-janeiro",
+  "region": "latam",
+  "cat": "city",
+  "clues": [
+   "In 1808 the Portuguese royal family moved to this city, which stayed its country's capital until 1960.",
+   "A cable car carries visitors up Sugarloaf Mountain here, and the Christ the Redeemer statue looks down from Corcovado.",
+   "For the point, name this Brazilian city famous for Carnival and Copacabana Beach, which hosted the 2016 Summer Olympics."
+  ],
+  "a": "Rio de Janeiro",
+  "alt": [
+   "Rio de Janeiro",
+   "Rio"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Rio de Janeiro means 'River of January,' because Portuguese sailors arrived in January and thought its bay was a river.",
+  "redset": ""
+ },
+ {
+  "id": "latam-amazon-river",
+  "region": "latam",
+  "cat": "river",
+  "clues": [
+   "Near Manaus, the dark water of the Rio Negro meets this river's tan water, and the two flow side by side for miles without mixing.",
+   "Pink river dolphins live in this river, which carries more water into the ocean than any other river on Earth.",
+   "For the point, name this longest river in South America, which flows through the world's largest rainforest."
+  ],
+  "a": "Amazon River",
+  "alt": [
+   "Amazon River",
+   "Amazon",
+   "Rio Amazonas",
+   "Amazonas"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Amazon starts as tiny streams high in the Andes Mountains of Peru.",
+  "redset": ""
+ },
+ {
+  "id": "latam-andes",
+  "region": "latam",
+  "cat": "mountain",
+  "clues": [
+   "Because Earth bulges at the equator, the top of Chimborazo, a volcano in these mountains in Ecuador, is the farthest point from Earth's center.",
+   "Llamas, alpacas and condors live in these mountains, where the Inca built roads, terraces and cities.",
+   "For the point, name this longest mountain range on any continent, which runs down the western side of South America."
+  ],
+  "a": "Andes Mountains",
+  "alt": [
+   "Andes Mountains",
+   "Andes",
+   "Andean Mountains",
+   "Cordillera de los Andes"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Aconcagua in Argentina is the tallest mountain in the Andes and in all of the Americas.",
+  "redset": ""
+ },
+ {
+  "id": "latam-buenos-aires",
+  "region": "latam",
+  "cat": "city",
+  "clues": [
+   "A tall white obelisk stands on this city's Avenida 9 de Julio, the widest avenue in the world.",
+   "Brightly painted houses line this city's La Boca neighborhood, and the country's president works here in the Casa Rosada, or Pink House.",
+   "For the point, name this capital of Argentina on the Río de la Plata."
+  ],
+  "a": "Buenos Aires",
+  "alt": [
+   "Buenos Aires"
+  ],
+  "prompt": [
+   "Argentina"
+  ],
+  "t": 3,
+  "x": "People from Buenos Aires are called porteños, which means 'people of the port.'",
+  "redset": ""
+ },
+ {
+  "id": "latam-chile",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Giant telescopes are built in this country's Atacama Desert, one of the driest places on Earth outside the poles.",
+   "This country owns Easter Island, home of the giant stone statues called moai.",
+   "For the point, name this long, skinny South American country whose capital is Santiago."
+  ],
+  "a": "Chile",
+  "alt": [
+   "Chile",
+   "Republic of Chile"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Chile is more than 2,600 miles long but only about 110 miles wide on average.",
+  "redset": ""
+ },
+ {
+  "id": "latam-peru",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Giant drawings of a hummingbird, a monkey and a spider, called the Nazca Lines, are scratched into the desert of this country.",
+   "The Inca built the mountaintop city of Machu Picchu in this country, not far from their old capital of Cusco.",
+   "For the point, name this South American country whose capital is Lima."
+  ],
+  "a": "Peru",
+  "alt": [
+   "Peru",
+   "Republic of Peru"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Potatoes were first grown as a crop in the Andes of southern Peru and northwestern Bolivia.",
+  "redset": ""
+ },
+ {
+  "id": "latam-colombia",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Caño Cristales, nicknamed the 'River of Five Colors,' turns bright red from underwater plants in this country.",
+   "It is the only South American country with coastlines on both the Pacific Ocean and the Caribbean Sea.",
+   "For the point, name this country famous for its coffee, whose capital is Bogotá."
+  ],
+  "a": "Colombia",
+  "alt": [
+   "Colombia",
+   "Republic of Colombia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Colombia is named after the explorer Christopher Columbus.",
+  "redset": ""
+ },
+ {
+  "id": "latam-panama-canal",
+  "region": "latam",
+  "cat": "landmark",
+  "clues": [
+   "Many ships on this waterway pass through the Miraflores and Gatún locks, which lift and lower them like water elevators.",
+   "It opened in 1914, and a new, bigger set of locks opened in 2016 so giant cargo ships could fit.",
+   "For the point, name this shortcut for world trade that crosses a narrow Central American country to connect the Atlantic and Pacific Oceans."
+  ],
+  "a": "Panama Canal",
+  "alt": [
+   "Panama Canal",
+   "Canal de Panama"
+  ],
+  "prompt": [
+   "Panama"
+  ],
+  "t": 3,
+  "x": "Ships that use the canal skip a trip of thousands of miles around the southern tip of South America.",
+  "redset": ""
+ },
+ {
+  "id": "latam-galapagos-islands",
+  "region": "latam",
+  "cat": "island",
+  "clues": [
+   "Lonesome George, the last known Pinta Island tortoise, lived on these islands until he died in 2012.",
+   "Charles Darwin studied finches and giant tortoises here in 1835, and marine iguanas that swim in the sea live nowhere else.",
+   "For the point, name these Pacific islands that belong to Ecuador."
+  ],
+  "a": "Galápagos Islands",
+  "alt": [
+   "Galapagos Islands",
+   "Galápagos Islands",
+   "Galapagos",
+   "Islas Galapagos",
+   "Archipielago de Colon"
+  ],
+  "prompt": [
+   "Ecuador"
+  ],
+  "t": 3,
+  "x": "The islands' name comes from an old Spanish word for the giant tortoises that live there.",
+  "redset": ""
+ },
+ {
+  "id": "latam-venezuela",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Lake Maracaibo in this country is famous for the Catatumbo lightning, which flashes over the lake on many nights of the year.",
+   "Angel Falls, the world's tallest uninterrupted waterfall, pours off a flat-topped mountain called a tepui in this country.",
+   "For the point, name this northern South American country whose capital is Caracas."
+  ],
+  "a": "Venezuela",
+  "alt": [
+   "Venezuela",
+   "Bolivarian Republic of Venezuela"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Angel Falls is named after Jimmie Angel, an American pilot who flew over it in 1933.",
+  "redset": ""
+ },
+ {
+  "id": "latam-jamaica",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Montego Bay and Ocho Rios are popular beach towns on this island's north side.",
+   "A famous kind of coffee is grown in this island's Blue Mountains.",
+   "Reggae music and the record-setting sprinter Usain Bolt both come from this island.",
+   "For the point, name this Caribbean island country south of Cuba whose capital is Kingston."
+  ],
+  "a": "Jamaica",
+  "alt": [
+   "Jamaica"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Jamaica's black, green and gold flag is the only national flag with no red, white or blue.",
+  "redset": ""
+ },
+ {
+  "id": "latam-hispaniola",
+  "region": "latam",
+  "cat": "island",
+  "clues": [
+   "Lake Enriquillo, a salty lake where American crocodiles live, is the lowest point in the Caribbean and lies on this island.",
+   "Pico Duarte, the tallest mountain in the Caribbean, also rises on this island.",
+   "Christopher Columbus landed here in 1492, and it is the second-largest island in the Caribbean, after Cuba.",
+   "For the point, name this island shared by Haiti and the Dominican Republic."
+  ],
+  "a": "Hispaniola",
+  "alt": [
+   "Hispaniola",
+   "La Española",
+   "La Espanola"
+  ],
+  "prompt": [
+   "Dominican Republic",
+   "Haiti"
+  ],
+  "t": 3,
+  "x": "Santo Domingo, a city on this island, has the first cathedral ever built in the Americas.",
+  "redset": ""
+ },
+ {
+  "id": "world-equator",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "A monument called Mitad del Mundo, meaning 'Middle of the World,' was built near Quito to mark this line.",
+   "Brazil, Kenya and Indonesia are all crossed by this line, which sits at zero degrees latitude.",
+   "For the point, name this imaginary line that divides Earth into the Northern and Southern Hemispheres."
+  ],
+  "a": "Equator",
+  "alt": [
+   "Equator",
+   "the Equator",
+   "0 degrees latitude"
+  ],
+  "prompt": [
+   "latitude"
+  ],
+  "t": 2,
+  "x": "The country of Ecuador is named after the equator, because ecuador is the Spanish word for it.",
+  "redset": ""
+ },
+ {
+  "id": "world-international-date-line",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "At the end of 1994, the eastern islands of Kiribati skipped a day on the calendar so the whole country would be on the same side of this line.",
+   "Samoa jumped across this line in 2011 by skipping December 30 on its calendar.",
+   "For the point, name this line in the Pacific Ocean, mostly along 180 degrees longitude, where the date changes by one day."
+  ],
+  "a": "International Date Line",
+  "alt": [
+   "International Date Line",
+   "Date Line",
+   "IDL"
+  ],
+  "prompt": [
+   "180th meridian",
+   "antimeridian"
+  ],
+  "t": 4,
+  "x": "Kiribati's Line Islands are among the first places on Earth to start each new day.",
+  "redset": ""
+ },
+ {
+  "id": "world-ring-of-fire",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Deep ocean trenches, like the Mariana Trench, form along this belt where one tectonic plate slides beneath another.",
+   "Mount Fuji in Japan and Mount St. Helens in Washington State are volcanoes in this zone.",
+   "For the point, name this horseshoe-shaped zone of volcanoes and earthquakes around the Pacific Ocean that has a fiery name."
+  ],
+  "a": "Ring of Fire",
+  "alt": [
+   "Ring of Fire",
+   "Pacific Ring of Fire",
+   "Circum-Pacific Belt"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Most of the world's earthquakes happen along the Ring of Fire.",
+  "redset": ""
+ },
+ {
+  "id": "world-monsoon",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "The English name of this weather pattern comes from an Arabic word meaning 'season.'",
+   "The village of Mawsynram in northeastern India, one of the rainiest places on Earth, gets most of its rain from it.",
+   "In India, it brings heavy summer rains from the ocean that farmers need to grow rice.",
+   "For the point, name this seasonal wind that brings a rainy season to South Asia."
+  ],
+  "a": "Monsoon",
+  "alt": [
+   "monsoon",
+   "monsoons"
+  ],
+  "prompt": [
+   "rainy season"
+  ],
+  "t": 3,
+  "x": "Arizona and New Mexico have a summer monsoon too, which brings afternoon thunderstorms.",
+  "redset": ""
+ },
+ {
+  "id": "world-2026-fifa-world-cup",
+  "region": "world",
+  "cat": "current",
+  "clues": [
+   "Spain beat Argentina 1–0 in extra time to win this event's final, played at MetLife Stadium in New Jersey on July 19.",
+   "For the first time, 48 teams took part, and Mexico City's Estadio Azteca hosted the opening match.",
+   "For the point, name this soccer championship held in summer 2026 in the United States, Canada and Mexico."
+  ],
+  "a": "2026 FIFA World Cup",
+  "alt": [
+   "2026 FIFA World Cup",
+   "World Cup",
+   "FIFA World Cup",
+   "2026 World Cup"
+  ],
+  "prompt": [
+   "soccer",
+   "FIFA"
+  ],
+  "t": 2,
+  "x": "Mexico became the first country to host the men's World Cup three times.",
+  "redset": ""
+ },
+ {
+  "id": "world-milan",
+  "region": "world",
+  "cat": "current",
+  "clues": [
+   "Ice hockey games at the 2026 Winter Olympics were played in a brand-new arena in this city's Santa Giulia district.",
+   "Leonardo da Vinci's painting The Last Supper is in this fashion capital, which has a huge cathedral called the Duomo.",
+   "For the point, name this northern Italian city that co-hosted the 2026 Winter Olympics with Cortina d'Ampezzo."
+  ],
+  "a": "Milan",
+  "alt": [
+   "Milan",
+   "Milano",
+   "Milan-Cortina",
+   "Milano Cortina"
+  ],
+  "prompt": [
+   "Italy"
+  ],
+  "t": 3,
+  "x": "Milan's cathedral took nearly 600 years to finish.",
+  "redset": ""
+ },
+ {
+  "id": "world-los-angeles",
+  "region": "world",
+  "cat": "current",
+  "clues": [
+   "Flag football and squash will make their Olympic debuts when this city hosts the Summer Games in 2028.",
+   "It also hosted the Summer Olympics in 1932 and 1984, so it will join London and Paris as a three-time host.",
+   "For the point, name this largest city in California, home of Hollywood."
+  ],
+  "a": "Los Angeles",
+  "alt": [
+   "Los Angeles",
+   "LA",
+   "L.A."
+  ],
+  "prompt": [
+   "California",
+   "Hollywood"
+  ],
+  "t": 2,
+  "x": "Olympic swimming races in 2028 will be held inside SoFi Stadium, a football stadium, making it the biggest Olympic swimming venue ever.",
+  "redset": ""
+ },
+ {
+  "id": "world-equatorial-guinea",
+  "region": "world",
+  "cat": "current",
+  "clues": [
+   "In January 2026, this country's president signed a decree naming Ciudad de la Paz, a planned city still being built in the rainforest, as its capital.",
+   "Its old capital, Malabo, sits on Bioko Island off the coast of Cameroon.",
+   "For the point, name this small country on Africa's west coast, the only African country where Spanish is an official language."
+  ],
+  "a": "Equatorial Guinea",
+  "alt": [
+   "Equatorial Guinea",
+   "Republic of Equatorial Guinea",
+   "Guinea Ecuatorial"
+  ],
+  "prompt": [
+   "Guinea"
+  ],
+  "t": 5,
+  "x": "Ciudad de la Paz means 'City of Peace' in Spanish.",
+  "redset": ""
+ },
+ {
+  "id": "world-european-union",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "On January 1, 2026, Bulgaria became the 21st member of this group to start using its shared money, the euro.",
+   "This group's flag shows a circle of twelve gold stars on a blue background.",
+   "The United Kingdom left this group in 2020, a move nicknamed Brexit.",
+   "For the point, name this group of 27 European countries with its headquarters in Brussels, Belgium."
+  ],
+  "a": "European Union",
+  "alt": [
+   "European Union",
+   "EU"
+  ],
+  "prompt": [
+   "Europe",
+   "eurozone"
+  ],
+  "t": 3,
+  "x": "Euro coins have one side that looks the same everywhere and another side with a design chosen by each country.",
+  "redset": ""
+ },
+ {
+  "id": "world-silk-road",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "The German geographer Ferdinand von Richthofen gave this route its popular name in 1877.",
+   "Cities such as Samarkand in Uzbekistan grew rich as stops along this route, which Marco Polo followed to reach China.",
+   "For the point, name this ancient network of trade routes between China and Europe, named after a soft, shiny cloth."
+  ],
+  "a": "Silk Road",
+  "alt": [
+   "Silk Road",
+   "Silk Roads",
+   "Silk Route"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Ideas such as papermaking spread from China to the west along this route.",
+  "redset": ""
+ },
+ {
+  "id": "world-black-sand-beaches",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Reynisfjara in Iceland, which has tall columns of basalt rock on its shore, is a famous example of these.",
+   "Green sea turtles often rest on one of these called Punaluʻu Beach on Hawaii's Big Island.",
+   "For the point, name these beaches whose dark grains come from lava that cooled and broke into tiny pieces."
+  ],
+  "a": "Black sand beaches",
+  "alt": [
+   "black sand beaches",
+   "black sand beach",
+   "black sand",
+   "volcanic sand beaches"
+  ],
+  "prompt": [
+   "beaches",
+   "sand"
+  ],
+  "t": 3,
+  "x": "Black sand gets hotter in the sun than white sand, so it can feel very warm on bare feet.",
+  "redset": "black sand beaches"
+ },
+ {
+  "id": "world-estuary",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "The Chesapeake Bay is the largest of these in the United States.",
+   "In these places, salty ocean water mixes with fresh river water to make 'brackish' water, where many young fish and crabs grow up.",
+   "For the point, name this kind of body of water at the mouth of a river, where the river meets the sea."
+  ],
+  "a": "Estuary",
+  "alt": [
+   "estuary",
+   "estuaries"
+  ],
+  "prompt": [
+   "bay"
+  ],
+  "t": 4,
+  "x": "The Hudson River in New York is an estuary for about 150 miles, so ocean tides push up it all the way to Troy.",
+  "redset": "estuary"
+ },
+ {
+  "id": "world-escarpment",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "The Dogon people of Mali built villages along the Bandiagara cliffs, a famous example of this landform.",
+   "Niagara Falls pours over a long one of these that stretches from New York into Ontario, and part of Hamilton, Ontario, sits on top of it.",
+   "For the point, name this kind of long, steep slope, sometimes called a scarp, that separates two areas of land at different heights."
+  ],
+  "a": "Escarpment",
+  "alt": [
+   "escarpment",
+   "escarpments",
+   "scarp"
+  ],
+  "prompt": [
+   "cliff",
+   "cliffs"
+  ],
+  "t": 4,
+  "x": "People in Hamilton, Ontario, call the Niagara Escarpment 'the Mountain,' even though it is really a long cliff.",
+  "redset": "escarpment"
+ },
+ {
+  "id": "world-geyser",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Steamboat, in Yellowstone National Park's Norris basin, is the tallest active one of these in the world.",
+   "Strokkur in Iceland is one of these, and the most famous one in Yellowstone is called Old Faithful.",
+   "For the point, name this kind of hot spring that shoots boiling water and steam high into the air."
+  ],
+  "a": "Geyser",
+  "alt": [
+   "geyser",
+   "geysers"
+  ],
+  "prompt": [
+   "hot spring"
+  ],
+  "t": 2,
+  "x": "The word comes from Geysir, a hot spring in Iceland.",
+  "redset": "geyser"
+ },
+ {
+  "id": "us-new-orleans",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "St. Louis Cathedral faces Jackson Square in this city's French Quarter, and a bend in the Mississippi River around it earned it the nickname 'Crescent City.'",
+   "Louis Armstrong was born in this city, which is known as the birthplace of jazz music.",
+   "For the point, name this largest city in Louisiana, famous for Creole and Cajun food and its big Mardi Gras parades."
+  ],
+  "a": "New Orleans",
+  "alt": [
+   "New Orleans",
+   "NOLA",
+   "Nouvelle-Orleans",
+   "La Nouvelle-Orleans"
+  ],
+  "prompt": [
+   "Louisiana"
+  ],
+  "t": 3,
+  "x": "Much of New Orleans sits below sea level, so walls called levees help hold back the water.",
+  "redset": "New Orleans: Louisiana city known for Cajun cuisine and Mardi Gras"
+ },
+ {
+  "id": "us-san-andreas-fault",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "The great 1906 San Francisco earthquake happened along this feature, which runs for hundreds of miles through California.",
+   "Along this feature, the Pacific Plate slides past the North American Plate, slowly carrying Los Angeles closer to San Francisco.",
+   "For the point, name this famous fault, a giant crack in Earth's crust, whose name starts with the word 'San.'"
+  ],
+  "a": "San Andreas Fault",
+  "alt": [
+   "San Andreas Fault",
+   "San Andreas"
+  ],
+  "prompt": [
+   "fault",
+   "fault line",
+   "plate boundary",
+   "transform fault"
+  ],
+  "t": 4,
+  "x": "On California's Carrizo Plain, you can see the fault from the air as a long, straight scar across the land.",
+  "redset": "Tectonic plates under California slowly closing the distance between Los Angeles and San Francisco"
+ },
+ {
+  "id": "us-lake-superior",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "Isle Royale, the largest island in this lake, is a national park, and the port of Duluth, Minnesota, sits at the lake's western tip.",
+   "This lake drains into Lake Huron through the St. Marys River, and Thunder Bay, Ontario, lies on its northern shore.",
+   "For the point, name this largest of the Great Lakes, the biggest freshwater lake in the world by area."
+  ],
+  "a": "Lake Superior",
+  "alt": [
+   "Lake Superior",
+   "Superior",
+   "Lac Superieur",
+   "Gichigami"
+  ],
+  "prompt": [
+   "Great Lakes"
+  ],
+  "t": 3,
+  "x": "Lake Superior holds enough water to cover all of North and South America about one foot deep.",
+  "redset": "Great Lakes; Lake Superior, the largest freshwater lake in the world"
+ },
+ {
+  "id": "us-rocky-mountains",
+  "region": "us",
+  "cat": "mountain",
+  "clues": [
+   "Mount Elbert in Colorado is the highest peak of this mountain system, which also runs through Canada's Banff and Jasper National Parks.",
+   "The Continental Divide follows these mountains, splitting rivers that flow toward the Pacific Ocean from rivers that flow the other way.",
+   "For the point, name these mountains that stretch about 3,000 miles from Canada to New Mexico, nicknamed the 'Rockies.'"
+  ],
+  "a": "Rocky Mountains",
+  "alt": [
+   "Rocky Mountains",
+   "Rockies",
+   "the Rockies"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Mount Elbert is called the 'gentle giant' because hikers can walk all the way to its top without climbing ropes.",
+  "redset": "The Rocky Mountains, the longest mountain system in North America"
+ },
+ {
+  "id": "us-death-valley",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "Rocks seem to slide across a dry lakebed called the Racetrack in this place, where Badwater Basin is the lowest point in North America.",
+   "In 1913, Furnace Creek in this place hit 134 degrees Fahrenheit, the hottest air temperature ever recorded on Earth.",
+   "For the point, name this very hot, dry national park in California whose name starts with the word 'Death.'"
+  ],
+  "a": "Death Valley National Park",
+  "alt": [
+   "Death Valley",
+   "Death Valley National Park"
+  ],
+  "prompt": [
+   "Mojave Desert",
+   "Mojave"
+  ],
+  "t": 2,
+  "x": "A story says Badwater Basin got its name when a surveyor's mule refused to drink the salty water there.",
+  "redset": "Death Valley National Park in California once recorded the world's hottest temperature"
+ },
+ {
+  "id": "us-cape-cod",
+  "region": "us",
+  "cat": "region",
+  "clues": [
+   "The Pilgrims on the Mayflower first saw the New World at this place in 1620 and signed the Mayflower Compact in the harbor at its tip.",
+   "This hook-shaped peninsula has a National Seashore, and ferries carry visitors from it to the islands of Martha's Vineyard and Nantucket.",
+   "For the point, name this cape in Massachusetts named after a kind of fish."
+  ],
+  "a": "Cape Cod",
+  "alt": [
+   "Cape Cod"
+  ],
+  "prompt": [
+   "Massachusetts",
+   "Provincetown"
+  ],
+  "t": 3,
+  "x": "Since 1914, a canal has cut across the base of Cape Cod, so most of it is separated from the mainland.",
+  "redset": "Cape Cod in Massachusetts is located across from Martha's Vineyard"
+ },
+ {
+  "id": "us-charleston",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "Rainbow Row is a line of brightly painted houses in this city, and a popular 1920s dance was named after it.",
+   "This city sits where the Ashley and Cooper Rivers meet at its harbor, and the first shots of the Civil War were fired at nearby Fort Sumter.",
+   "For the point, name this harbor city, the largest city in South Carolina."
+  ],
+  "a": "Charleston",
+  "alt": [
+   "Charleston",
+   "Charleston, South Carolina",
+   "Charles Town"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Charleston was first named Charles Town, after King Charles II of England.",
+  "redset": "Charleston, on a namesake harbor, is the largest city by population in South Carolina"
+ },
+ {
+  "id": "us-bryce-canyon",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "Despite its name, this place is not really one canyon but a row of giant bowl-shaped amphitheaters on the edge of a plateau.",
+   "This park in southern Utah has the world's largest collection of hoodoos, which are tall, thin spires of orange and pink rock.",
+   "For the point, name this national park named for Ebenezer Bryce, a pioneer who lived nearby."
+  ],
+  "a": "Bryce Canyon National Park",
+  "alt": [
+   "Bryce Canyon",
+   "Bryce Canyon National Park",
+   "Bryce"
+  ],
+  "prompt": [
+   "Utah"
+  ],
+  "t": 3,
+  "x": "Bryce Canyon has some of the darkest night skies in the country, so visitors can see thousands of stars.",
+  "redset": "Bryce Canyon National Park"
+ },
+ {
+  "id": "us-arizona",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Stones from the old London Bridge were shipped from England and rebuilt into a bridge in this state's Lake Havasu City.",
+   "Giant saguaro cactuses grow in this state's Sonoran Desert, and this state meets Utah, Colorado, and New Mexico at the Four Corners.",
+   "For the point, name this 'Grand Canyon State,' whose capital is Phoenix."
+  ],
+  "a": "Arizona",
+  "alt": [
+   "Arizona",
+   "AZ"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Most of Arizona does not change its clocks for daylight saving time.",
+  "redset": "Arizona"
+ },
+ {
+  "id": "us-hollywood",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "More than 2,800 stars honoring famous entertainers are set into the sidewalks of this district's Walk of Fame.",
+   "A giant white sign with nine tall letters stands on Mount Lee, high above this district.",
+   "For the point, name this part of Los Angeles that is famous as the home of the American movie industry."
+  ],
+  "a": "Hollywood",
+  "alt": [
+   "Hollywood",
+   "Hollywood, Los Angeles",
+   "Hollywood, California"
+  ],
+  "prompt": [
+   "Los Angeles",
+   "LA"
+  ],
+  "t": 2,
+  "x": "The famous sign first spelled 'HOLLYWOODLAND' to sell houses, and the last four letters were taken down in 1949.",
+  "redset": "Hollywood"
+ },
+ {
+  "id": "us-arkansas",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Visitors can dig for real diamonds and keep what they find at Crater of Diamonds State Park in this state.",
+   "Hot Springs National Park and part of the Ozark Mountains are in this state, which lies across the Mississippi River from Tennessee and Mississippi.",
+   "For the point, name this state with its capital at Little Rock, whose name ends in a silent 's.'"
+  ],
+  "a": "Arkansas",
+  "alt": [
+   "Arkansas",
+   "AR"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The biggest diamond ever dug up in the U.S., the 40-carat 'Uncle Sam,' came from Crater of Diamonds.",
+  "redset": "Arkansas"
+ },
+ {
+  "id": "us-apostle-islands",
+  "region": "us",
+  "cat": "island",
+  "clues": [
+   "An expert once called this place's collection of old lighthouses the largest and finest in the country.",
+   "In very cold winters, people have walked across the frozen lake to see icy sea caves near this group of 21 islands.",
+   "For the point, name this island group in Lake Superior off northern Wisconsin, whose name is also a word for the twelve followers of Jesus."
+  ],
+  "a": "Apostle Islands",
+  "alt": [
+   "Apostle Islands",
+   "Apostle Islands National Lakeshore",
+   "Apostles"
+  ],
+  "prompt": [
+   "Wisconsin"
+  ],
+  "t": 4,
+  "x": "Campers can pitch tents on 18 of the 21 Apostle Islands.",
+  "redset": "Apostle Islands"
+ },
+ {
+  "id": "us-mystic-connecticut",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "The Charles W. Morgan, a whaling ship built in 1841 and the oldest merchant ship in the country, is kept at this village's seaport museum.",
+   "This village lies on both sides of a river with the same name, and its aquarium is famous for beluga whales.",
+   "For the point, name this seaside village in Connecticut whose name is a word that can mean 'mysterious.'"
+  ],
+  "a": "Mystic, Connecticut",
+  "alt": [
+   "Mystic",
+   "Mystic, Connecticut",
+   "Mystic CT"
+  ],
+  "prompt": [
+   "Groton",
+   "Stonington",
+   "Connecticut"
+  ],
+  "t": 4,
+  "x": "Mystic Seaport is the largest museum about ships and the sea in the United States.",
+  "redset": "Mystic, Connecticut"
+ },
+ {
+  "id": "us-olympic-peninsula",
+  "region": "us",
+  "cat": "region",
+  "clues": [
+   "The Hoh Rain Forest, which gets about 140 inches of rain and snow each year, grows on this piece of land.",
+   "This land sits across the Strait of Juan de Fuca from Canada's Vancouver Island, with the Pacific Ocean to its west and Puget Sound to its east.",
+   "For the point, name this peninsula in Washington state, home to Olympic National Park and its tallest peak, Mount Olympus."
+  ],
+  "a": "Olympic Peninsula",
+  "alt": [
+   "Olympic Peninsula"
+  ],
+  "prompt": [
+   "Olympic National Park",
+   "Washington"
+  ],
+  "t": 4,
+  "x": "Banana slugs crawl across the mossy floor of the Hoh Rain Forest.",
+  "redset": "Olympic Peninsula"
+ },
+ {
+  "id": "us-yellowstone",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "This park's Grand Prismatic Spring is its largest hot spring, with rings of rainbow colors made by tiny living things.",
+   "This park has more geysers than anywhere else on Earth, including Old Faithful, which erupts about 17 times a day.",
+   "For the point, name this national park, mostly in Wyoming, that became America's first national park in 1872."
+  ],
+  "a": "Yellowstone National Park",
+  "alt": [
+   "Yellowstone",
+   "Yellowstone National Park"
+  ],
+  "prompt": [
+   "Wyoming"
+  ],
+  "t": 2,
+  "x": "Steamboat Geyser in Yellowstone is the largest geyser in the world and can shoot water 300 to 400 feet high.",
+  "redset": "geyser"
+ },
+ {
+  "id": "us-alaska",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "The Iditarod sled dog race crosses about 1,000 miles of this state, and the Bering Strait separates it from Russia.",
+   "North America's tallest mountain, known as both Denali and Mount McKinley, rises in this state.",
+   "For the point, name this largest U.S. state, with its capital at Juneau."
+  ],
+  "a": "Alaska",
+  "alt": [
+   "Alaska",
+   "AK"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "Alaska is more than twice as big as Texas.",
+  "redset": ""
+ },
+ {
+  "id": "us-hawaii",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Measured from its base on the ocean floor, this state's Mauna Kea is taller than Mount Everest.",
+   "Kilauea, one of the world's most active volcanoes, erupts on this state's Big Island, and Pearl Harbor is on its island of Oahu.",
+   "For the point, name this island state in the Pacific Ocean, with its capital at Honolulu."
+  ],
+  "a": "Hawaii",
+  "alt": [
+   "Hawaii",
+   "Hawai'i",
+   "HI"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Hawaii became the 50th and newest U.S. state in 1959.",
+  "redset": ""
+ },
+ {
+  "id": "us-texas",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Big Bend National Park in this state sits inside a giant curve of the Rio Grande, which forms the state's border with Mexico.",
+   "The Alamo, a famous old Spanish mission, stands in this state's city of San Antonio.",
+   "For the point, name this 'Lone Star State,' the second-largest state in area and population, home to Houston and its capital, Austin."
+  ],
+  "a": "Texas",
+  "alt": [
+   "Texas",
+   "TX"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Texas was its own country, the Republic of Texas, before it joined the United States in 1845.",
+  "redset": ""
+ },
+ {
+  "id": "us-florida",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Fort Jefferson, the largest brick-and-stone fort in the Western Hemisphere, stands on an island in this state's Dry Tortugas National Park.",
+   "Alligators swim through this state's Everglades, a huge wetland nicknamed the 'River of Grass.'",
+   "For the point, name this 'Sunshine State,' a peninsula that is home to Miami and Orlando."
+  ],
+  "a": "Florida",
+  "alt": [
+   "Florida",
+   "FL"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Key West, Florida, is the southernmost city in the lower 48 states.",
+  "redset": ""
+ },
+ {
+  "id": "us-california",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Mount Whitney, the highest peak in the lower 48 states, rises in this state, and Redwood National Park protects some of the tallest trees on Earth.",
+   "The huge granite cliffs Half Dome and El Capitan tower over Yosemite Valley in this state.",
+   "For the point, name this most populous U.S. state, whose capital is Sacramento and whose biggest city is Los Angeles."
+  ],
+  "a": "California",
+  "alt": [
+   "California",
+   "CA"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A grizzly bear appears on California's state flag.",
+  "redset": ""
+ },
+ {
+  "id": "us-washington-state",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Mount Rainier in this state is covered by more glacier ice than any other peak in the lower 48 states, and this state's Mount St. Helens blew its top in a huge eruption in 1980.",
+   "The Space Needle towers over this state's largest city, Seattle, and the Columbia River forms much of its border with Oregon.",
+   "For the point, name this 'Evergreen State' in the Pacific Northwest, named after the first U.S. president."
+  ],
+  "a": "Washington",
+  "alt": [
+   "Washington",
+   "Washington state",
+   "WA"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Washington's capital is Olympia, not its biggest city, Seattle.",
+  "redset": ""
+ },
+ {
+  "id": "us-mississippi-river",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "This river begins at Lake Itasca in Minnesota, where visitors can walk across it on stepping stones.",
+   "Mark Twain once worked as a steamboat pilot on this river, and the Gateway Arch in St. Louis rises beside it.",
+   "For the point, name this great river that flows south past New Orleans and shares its name with a state."
+  ],
+  "a": "Mississippi River",
+  "alt": [
+   "Mississippi River",
+   "Mississippi",
+   "Old Man River"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Rain that falls in parts of 31 states drains into the Mississippi River.",
+  "redset": ""
+ },
+ {
+  "id": "us-chicago",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "This city's Willis Tower, once called the Sears Tower, was the world's tallest building when it was finished.",
+   "A shiny sculpture nicknamed 'The Bean' sits in this city's Millennium Park, and every year the city dyes its river green for St. Patrick's Day.",
+   "For the point, name this 'Windy City' on Lake Michigan, the largest city in Illinois."
+  ],
+  "a": "Chicago",
+  "alt": [
+   "Chicago"
+  ],
+  "prompt": [
+   "Illinois"
+  ],
+  "t": 3,
+  "x": "In 1900, Chicago made its river flow backward, away from Lake Michigan.",
+  "redset": ""
+ },
+ {
+  "id": "us-washington-dc",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "Pierre L'Enfant drew the plan for this city, which sits where the Anacostia River meets the Potomac River.",
+   "The Lincoln Memorial and the Smithsonian museums line this city's National Mall, and the president lives here in the White House.",
+   "For the point, name this capital of the United States, which is not part of any state."
+  ],
+  "a": "Washington, D.C.",
+  "alt": [
+   "Washington, D.C.",
+   "Washington DC",
+   "District of Columbia",
+   "D.C.",
+   "DC"
+  ],
+  "prompt": [
+   "Washington"
+  ],
+  "t": 1,
+  "x": "The letters D.C. stand for District of Columbia.",
+  "redset": ""
+ },
+ {
+  "id": "us-boston",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "A red line on the sidewalks of this city marks the 2.5-mile Freedom Trail, which connects 16 historic sites.",
+   "Colonists dumped British tea into this city's harbor in 1773, and its Fenway Park is the oldest Major League Baseball stadium still in use.",
+   "For the point, name this capital and largest city of Massachusetts."
+  ],
+  "a": "Boston",
+  "alt": [
+   "Boston"
+  ],
+  "prompt": [
+   "Massachusetts"
+  ],
+  "t": 3,
+  "x": "Boston Common, started in 1634, is the oldest city park in the United States.",
+  "redset": ""
+ },
+ {
+  "id": "us-puerto-rico",
+  "region": "us",
+  "cat": "island",
+  "clues": [
+   "El Yunque, the only tropical rainforest in the U.S. National Forest System, is on this island.",
+   "Tiny glowing plankton light up Mosquito Bay on this place's island of Vieques, and the old fort of El Morro guards its capital, San Juan.",
+   "For the point, name this Spanish-speaking Caribbean island, a U.S. territory that is not a state."
+  ],
+  "a": "Puerto Rico",
+  "alt": [
+   "Puerto Rico",
+   "Commonwealth of Puerto Rico",
+   "Borinquen",
+   "Boriken"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The coqui, a tiny frog that sings 'ko-KEE' at night, is a symbol of Puerto Rico.",
+  "redset": ""
+ },
+ {
+  "id": "canada-baffin-island",
+  "region": "canada",
+  "cat": "island",
+  "clues": [
+   "Mount Thor, a peak with a giant sheer cliff, is named for the Norse god of thunder and stands in this island's Auyuittuq National Park.",
+   "Iqaluit, the capital of Nunavut, sits on this island's Frobisher Bay, and this is the fifth-largest island in the world.",
+   "For the point, name this largest island in Canada, named after the English explorer William Baffin."
+  ],
+  "a": "Baffin Island",
+  "alt": [
+   "Baffin Island",
+   "Baffin",
+   "Qikiqtaaluk"
+  ],
+  "prompt": [
+   "Nunavut"
+  ],
+  "t": 3,
+  "x": "In the Inuktitut language, the island's name Qikiqtaaluk means 'very big island.'",
+  "redset": "The largest island of Canada is Baffin Island"
+ },
+ {
+  "id": "canada-newfoundland-and-labrador",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "L'Anse aux Meadows, the only known Viking settlement in North America outside Greenland, is in this province.",
+   "This province's capital, St. John's, is the easternmost city in Canada, and icebergs often float past its coast in spring.",
+   "For the point, name this Atlantic province made of a large island and a mainland region called Labrador."
+  ],
+  "a": "Newfoundland and Labrador",
+  "alt": [
+   "Newfoundland and Labrador",
+   "Newfoundland",
+   "NL",
+   "Terre-Neuve-et-Labrador"
+  ],
+  "prompt": [
+   "Labrador"
+  ],
+  "t": 3,
+  "x": "Newfoundland and Labrador was the last province to join Canada, in 1949.",
+  "redset": "The island of Newfoundland forms a Canadian province with the region of Labrador"
+ },
+ {
+  "id": "canada-ontario",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "Polar bears roam this province's Polar Bear Provincial Park, on the coast where James Bay meets Hudson Bay.",
+   "This province borders four of the five Great Lakes, and it contains both Canada's capital, Ottawa, and its largest city, Toronto.",
+   "For the point, name this most populous Canadian province, which shares its name with one of the Great Lakes."
+  ],
+  "a": "Ontario",
+  "alt": [
+   "Ontario",
+   "ON"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Almost all of Ontario's border with the United States runs along rivers and lakes.",
+  "redset": ""
+ },
+ {
+  "id": "canada-quebec",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "Percé Rock, a huge rock in the sea with an arch cut through it, stands off the tip of this province's Gaspé Peninsula.",
+   "This is Canada's largest province by area, and its biggest city, Montreal, is on an island in the St. Lawrence River.",
+   "For the point, name this mostly French-speaking province whose capital city has the same name."
+  ],
+  "a": "Quebec",
+  "alt": [
+   "Quebec",
+   "Québec",
+   "QC"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Quebec is famous for making maple syrup.",
+  "redset": ""
+ },
+ {
+  "id": "canada-british-columbia",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "Carved cedar poles stand among the ruins of an old Haida village on the island of SGang Gwaay, off this province's coast.",
+   "This province's largest city, Vancouver, is a busy Pacific port, but its capital, Victoria, is on Vancouver Island.",
+   "For the point, name this westernmost Canadian province, often called 'B.C.'"
+  ],
+  "a": "British Columbia",
+  "alt": [
+   "British Columbia",
+   "BC",
+   "B.C.",
+   "Colombie-Britannique"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Vancouver hosted the Winter Olympics in 2010.",
+  "redset": ""
+ },
+ {
+  "id": "canada-alberta",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "More than 150 complete dinosaur skeletons have come from Dinosaur Provincial Park in this province.",
+   "Lake Louise and Banff National Park sit in the Rocky Mountains in this province, and its city of Calgary holds a giant rodeo called the Stampede.",
+   "For the point, name this province between British Columbia and Saskatchewan, with its capital at Edmonton."
+  ],
+  "a": "Alberta",
+  "alt": [
+   "Alberta",
+   "AB"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Calgary Stampede calls itself 'The Greatest Outdoor Show on Earth.'",
+  "redset": ""
+ },
+ {
+  "id": "canada-nunavut",
+  "region": "canada",
+  "cat": "region",
+  "clues": [
+   "This place's flag shows a red inuksuk, a stone landmark shaped like a person, and a blue star for the North Star.",
+   "Most people here are Inuit, and its capital, Iqaluit, is on Baffin Island.",
+   "For the point, name this largest Canadian territory, created in 1999, whose name means 'our land' in Inuktitut."
+  ],
+  "a": "Nunavut",
+  "alt": [
+   "Nunavut",
+   "NU"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Nunavut was carved out of the Northwest Territories, the first change to Canada's map since 1949.",
+  "redset": ""
+ },
+ {
+  "id": "canada-toronto",
+  "region": "canada",
+  "cat": "city",
+  "clues": [
+   "This city's Rogers Centre was the first stadium with a roof that fully opens and closes, and its Hockey Hall of Fame displays the Stanley Cup.",
+   "The CN Tower, the tallest free-standing structure in the Western Hemisphere, rises over this city on the shore of Lake Ontario.",
+   "For the point, name this largest city in Canada, the capital of Ontario."
+  ],
+  "a": "Toronto",
+  "alt": [
+   "Toronto"
+  ],
+  "prompt": [
+   "Ontario"
+  ],
+  "t": 3,
+  "x": "The CN Tower was the world's tallest free-standing structure for 32 years.",
+  "redset": ""
+ },
+ {
+  "id": "canada-ottawa",
+  "region": "canada",
+  "cat": "city",
+  "clues": [
+   "In cold winters, part of the Rideau Canal in this city becomes the world's largest naturally frozen skating rink.",
+   "This city's Parliament Hill overlooks a river with the same name, which separates it from the province of Quebec.",
+   "For the point, name this city in Ontario, the capital of Canada."
+  ],
+  "a": "Ottawa",
+  "alt": [
+   "Ottawa"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Skaters on the Rideau Canal can buy a fried-dough treat called a BeaverTail.",
+  "redset": ""
+ },
+ {
+  "id": "canada-niagara-falls",
+  "region": "canada",
+  "cat": "landmark",
+  "clues": [
+   "On her 63rd birthday in 1901, schoolteacher Annie Edson Taylor became the first person to survive a trip over this place in a barrel.",
+   "This place is made of three parts: the Horseshoe Falls, the American Falls, and the Bridal Veil Falls.",
+   "For the point, name these famous waterfalls on the border between Ontario and New York."
+  ],
+  "a": "Niagara Falls",
+  "alt": [
+   "Niagara Falls",
+   "Niagara"
+  ],
+  "prompt": [
+   "Horseshoe Falls",
+   "American Falls"
+  ],
+  "t": 2,
+  "x": "Annie Edson Taylor sent a cat over the falls in her barrel two days before her own trip, and the cat survived.",
+  "redset": ""
+ },
+ {
+  "id": "asia-philippines",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This country's Chocolate Hills, on the island of Bohol, are covered in grass that turns chocolate-brown in the dry season.",
+   "Its Mayon Volcano is famous for its \"perfect cone,\" and the tiny tarsier, one of the world's smallest primates, lives in its forests.",
+   "For the point, name this Southeast Asian country made of more than 7,000 islands, with its capital at Manila."
+  ],
+  "a": "Philippines",
+  "alt": [
+   "Philippines",
+   "The Philippines",
+   "Republic of the Philippines",
+   "Pilipinas",
+   "Filipinas"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Philippines has the fifth-longest coastline of any country in the world.",
+  "redset": "Philippines / Manila (many islands, capital Manila)"
+ },
+ {
+  "id": "asia-yangtze",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "This river rises in the Tanggula Mountains of the Tibetan Plateau and later flows past the huge city of Chongqing.",
+   "The world's largest power plant by capacity, the Three Gorges Dam, blocks this river, and the rare Chinese alligator lives along it.",
+   "For the point, name this longest river in China, which empties into the East China Sea at Shanghai."
+  ],
+  "a": "Yangtze River",
+  "alt": [
+   "Yangtze",
+   "Yangtze River",
+   "Yangzi",
+   "Yangzi River",
+   "Chang Jiang",
+   "Changjiang",
+   "Chang River"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Yangtze is the third-longest river in the whole world, after the Nile and the Amazon.",
+  "redset": "Yangtze (longest river in China)"
+ },
+ {
+  "id": "asia-bangkok",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Guinness World Records lists this city's full ceremonial name, 168 letters long, as the longest place name in the world.",
+   "The Temple of Dawn, or Wat Arun, stands on the west bank of the Chao Phraya River in this city, whose Grand Palace holds the Emerald Buddha.",
+   "For the point, name this capital of Thailand, once called the \"Venice of the East\" for its many canals."
+  ],
+  "a": "Bangkok",
+  "alt": [
+   "Bangkok",
+   "Krung Thep",
+   "Krung Thep Maha Nakhon"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Bangkok was built in the delta of the Chao Phraya River on land that was once swampy.",
+  "redset": "Bangkok + Chao Phraya River delta"
+ },
+ {
+  "id": "asia-jerusalem",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "In 1535, the Ottoman sultan Suleiman the Magnificent ordered the ruined walls around this city to be rebuilt.",
+   "This city's Old City is divided into Muslim, Christian, Armenian, and Jewish quarters and contains the Dome of the Rock and the Church of the Holy Sepulchre.",
+   "For the point, name this ancient city, home to the Western Wall, that is holy to Jews, Christians, and Muslims."
+  ],
+  "a": "Jerusalem",
+  "alt": [
+   "Jerusalem",
+   "Yerushalayim",
+   "Al-Quds",
+   "Al Quds"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "UNESCO counts about 220 historic monuments in Jerusalem's Old City.",
+  "redset": "Jerusalem (holy to Judaism, Islam, and Christianity)"
+ },
+ {
+  "id": "asia-borneo",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "Indonesia's planned future capital, Nusantara, is being built on this island.",
+   "This island's highest point, Mount Kinabalu, rises in the Malaysian state of Sabah, and endangered orangutans live in its rainforests.",
+   "For the point, name this third-largest island in the world, which is shared by Indonesia, Malaysia, and Brunei."
+  ],
+  "a": "Borneo",
+  "alt": [
+   "Borneo",
+   "Pulau Borneo"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Borneo is bigger than the U.S. state of Texas.",
+  "redset": "Borneo (shared by Indonesia, Brunei, Malaysia)"
+ },
+ {
+  "id": "asia-istanbul",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "This city's Grand Bazaar is one of the largest and oldest covered markets in the world, with more than 4,000 shops.",
+   "The Blue Mosque stands across from the Hagia Sophia, a giant domed building completed in the year 537, in this city.",
+   "For the point, name this largest city of Turkey, which sits on both sides of the Bosporus Strait."
+  ],
+  "a": "Istanbul",
+  "alt": [
+   "Istanbul",
+   "Constantinople"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Istanbul was once called Byzantium and later Constantinople.",
+  "redset": "Istanbul + Hagia Sophia"
+ },
+ {
+  "id": "asia-riyadh",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "The mud-brick ruins of At-Turaif, a UNESCO World Heritage Site, lie in Diriyah on this city's northwestern edge.",
+   "This city's Kingdom Centre skyscraper has a sky bridge across its top, and this city was chosen to host the World Expo in 2030.",
+   "For the point, name this desert city, the capital and largest city of Saudi Arabia."
+  ],
+  "a": "Riyadh",
+  "alt": [
+   "Riyadh",
+   "Ar Riyad",
+   "Ar-Riyad"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Riyadh is the largest city on the whole Arabian Peninsula.",
+  "redset": "Riyadh (Terms for Further Study)"
+ },
+ {
+  "id": "asia-red-river",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "This river begins in the mountains of China's Yunnan province and flows southeast into the Gulf of Tonkin.",
+   "Water puppet shows began in the rice paddies of its delta, and legend says a king saw a dragon rising from it at the site of Hanoi.",
+   "For the point, name this river of northern Vietnam, named for the reddish-brown silt it carries."
+  ],
+  "a": "Red River",
+  "alt": [
+   "Red River",
+   "Hong River",
+   "Song Hong",
+   "Yuan River",
+   "Yuan Jiang"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Red River is about 1,149 kilometers (714 miles) long.",
+  "redset": "Red River (Asia) (Terms for Further Study)"
+ },
+ {
+  "id": "asia-osaka",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "This city hosted the 2025 World Expo on Yumeshima, a man-made island.",
+   "Takoyaki, or octopus balls, were first made popular in this city, whose Dotonbori district glows with a giant billboard of a running man.",
+   "For the point, name this city, home to Universal Studios Japan, that is the third-most populous city in Japan."
+  ],
+  "a": "Osaka",
+  "alt": [
+   "Osaka",
+   "Ōsaka"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Osaka also hosted a World Expo in 1970, so it has hosted one twice.",
+  "redset": "Osaka (Terms for Further Study)"
+ },
+ {
+  "id": "asia-strait-of-hormuz",
+  "region": "asia",
+  "cat": "water",
+  "clues": [
+   "Iran's Qeshm Island, home to one of the world's longest salt caves, lies in this narrow waterway.",
+   "This narrow channel separates Iran to the north from Oman's Musandam Peninsula to the south, and it is the only sea passage out of the Persian Gulf.",
+   "For the point, name this strait linking the Persian Gulf to the Gulf of Oman, one of the world's most important routes for oil tankers."
+  ],
+  "a": "Strait of Hormuz",
+  "alt": [
+   "Strait of Hormuz",
+   "Hormuz",
+   "Straits of Hormuz",
+   "Hormuz Strait"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Hormuz Island in this strait has red soil that people use for art and even cooking.",
+  "redset": "Strait of Hormuz (Terms for Further Study)"
+ },
+ {
+  "id": "asia-khyber-pass",
+  "region": "asia",
+  "cat": "landmark",
+  "clues": [
+   "This route begins near Jamrud Fort, about 11 miles west of Peshawar, and climbs through the Spin Ghar mountains to the town of Landi Kotal.",
+   "As part of the ancient Silk Road, it was a vital trade route between Central Asia and the Indian subcontinent.",
+   "For the point, name this famous mountain pass along the border between Pakistan and Afghanistan."
+  ],
+  "a": "Khyber Pass",
+  "alt": [
+   "Khyber Pass",
+   "Khyber",
+   "Kyber Pass"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The main part of the Khyber Pass is about 40 kilometers (25 miles) long.",
+  "redset": "Khyber Pass (listed as 'Kyber Pass' in Terms for Further Study)"
+ },
+ {
+  "id": "asia-hong-kong",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "This place's Kowloon Walled City was once one of the most densely populated spots on Earth before it was torn down in 1993 and 1994 and replaced by a park.",
+   "Star Ferry boats cross its Victoria Harbour, and a giant bronze Buddha sits on its Lantau Island.",
+   "For the point, name this former British colony that was handed over to China in 1997 and is now a special administrative region."
+  ],
+  "a": "Hong Kong",
+  "alt": [
+   "Hong Kong",
+   "Hong Kong SAR",
+   "HKSAR",
+   "Hong Kong Special Administrative Region",
+   "Xianggang"
+  ],
+  "prompt": [
+   "Kowloon",
+   "China"
+  ],
+  "t": 3,
+  "x": "About 33,000 people once lived packed into Kowloon Walled City, an area of only about 6.5 acres.",
+  "redset": "Kowloon Walled City (Terms for Further Study)"
+ },
+ {
+  "id": "asia-kangchenjunga",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "This mountain's name has been explained as meaning \"the five treasures of the high snow.\"",
+   "A British team first climbed it in 1955 but stopped just short of the top to keep a promise, and it can be seen clearly from the tea-growing town of Darjeeling.",
+   "For the point, name this third-highest mountain in the world, on the border of Nepal and India's state of Sikkim."
+  ],
+  "a": "Kangchenjunga",
+  "alt": [
+   "Kangchenjunga",
+   "Kanchenjunga",
+   "Kanchanjanga",
+   "Khangchendzonga",
+   "Mount Kangchenjunga"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Local people believe the mountain's five treasures include salt, gold, turquoise, holy books, and grain.",
+  "redset": "Kangchenjunga (Terms for Further Study)"
+ },
+ {
+  "id": "asia-china",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Farmers digging a well in 1974 near this country's city of Xi'an discovered the Terracotta Army of clay soldiers.",
+   "Giant pandas, which eat almost nothing but bamboo, live mainly in this country's Sichuan province.",
+   "For the point, name this country, home to the Great Wall, with its capital at Beijing."
+  ],
+  "a": "China",
+  "alt": [
+   "China",
+   "People's Republic of China",
+   "PRC",
+   "Zhongguo"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "More than 1.4 billion people live in China, about 17 out of every 100 people on Earth.",
+  "redset": ""
+ },
+ {
+  "id": "asia-india",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "The Western Ghats mountains run along this country's west coast, and the Sundarbans mangrove forest it shares with Bangladesh is home to Bengal tigers.",
+   "The Taj Mahal, a white marble tomb, stands on the Yamuna River in this country's city of Agra.",
+   "For the point, name this most populous country in the world, with its capital at New Delhi."
+  ],
+  "a": "India",
+  "alt": [
+   "India",
+   "Republic of India",
+   "Bharat"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "India is the seventh-largest country in the world by area.",
+  "redset": ""
+ },
+ {
+  "id": "asia-japan",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "In 1964, this country opened the world's first high-speed rail line, a bullet-train route on its Shinkansen network.",
+   "Snow monkeys bathe in hot springs in this country's mountains, and its main islands include Honshu, Hokkaido, and Kyushu.",
+   "For the point, name this island country whose highest mountain is Mount Fuji and whose capital is Tokyo."
+  ],
+  "a": "Japan",
+  "alt": [
+   "Japan",
+   "Nippon",
+   "Nihon"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Some of Japan's snow monkeys have been seen rolling snowballs for fun.",
+  "redset": ""
+ },
+ {
+  "id": "asia-mumbai",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Ancient Hindu caves carved into rock sit on Elephanta Island in this city's harbor.",
+   "The Gateway of India arch overlooks the Arabian Sea in this city, whose Chhatrapati Shivaji Terminus railway station is a UNESCO World Heritage Site.",
+   "For the point, name this capital of Maharashtra state, home of the Bollywood film industry, which was once called Bombay."
+  ],
+  "a": "Mumbai",
+  "alt": [
+   "Mumbai",
+   "Bombay"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Gateway of India was completed in 1924.",
+  "redset": ""
+ },
+ {
+  "id": "asia-ganges",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "This river begins where the Bhagirathi and Alaknanda rivers meet at the town of Devprayag in the Himalayas.",
+   "Rare river dolphins, India's national aquatic animal, swim in it, and together with the Brahmaputra it forms the world's largest river delta.",
+   "For the point, name this river worshipped in Hinduism as the goddess Ganga, which flows past the holy city of Varanasi."
+  ],
+  "a": "Ganges River",
+  "alt": [
+   "Ganges",
+   "Ganges River",
+   "Ganga",
+   "Ganga River"
+  ],
+  "prompt": [
+   "Padma"
+  ],
+  "t": 3,
+  "x": "In Bangladesh, the Ganges is called the Padma.",
+  "redset": ""
+ },
+ {
+  "id": "asia-mount-everest",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "Climbers on this mountain's southeast route must cross the dangerous Khumbu Icefall just above Base Camp.",
+   "Tenzing Norgay and Edmund Hillary made the first confirmed climb to its top in 1953, and its Nepali name is Sagarmatha.",
+   "For the point, name this highest mountain on Earth, which sits on the border of Nepal and China."
+  ],
+  "a": "Mount Everest",
+  "alt": [
+   "Mount Everest",
+   "Everest",
+   "Mt. Everest",
+   "Sagarmatha",
+   "Chomolungma",
+   "Qomolangma"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "A 2020 survey by Nepal and China measured Everest at 8,848.86 meters (about 29,032 feet) tall.",
+  "redset": ""
+ },
+ {
+  "id": "asia-gobi",
+  "region": "asia",
+  "cat": "desert",
+  "clues": [
+   "In the 1920s, explorer Roy Chapman Andrews named this desert's Flaming Cliffs, where his team found the first fossils that scientists recognized as dinosaur eggs.",
+   "Rare wild Bactrian camels, which have two humps, live in this cold desert, where frost and even snow can form on the dunes.",
+   "For the point, name this large desert of southern Mongolia and northern China."
+  ],
+  "a": "Gobi Desert",
+  "alt": [
+   "Gobi",
+   "Gobi Desert"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Gobi is the sixth-largest desert in the world.",
+  "redset": ""
+ },
+ {
+  "id": "asia-mekong",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "This river, called the Lancang in China, begins on the Tibetan Plateau and later forms the border between Laos and Thailand for hundreds of miles.",
+   "Giant catfish nearly 10 feet long swim in it, and rice fields cover much of its huge delta in southern Vietnam.",
+   "For the point, name this great river of Southeast Asia that flows past the capital cities of Vientiane and Phnom Penh."
+  ],
+  "a": "Mekong River",
+  "alt": [
+   "Mekong",
+   "Mekong River",
+   "Lancang",
+   "Lancang River"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Mekong is the 12th-longest river in the world.",
+  "redset": ""
+ },
+ {
+  "id": "asia-indonesia",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This country's Borobudur, on the island of Java, is the largest Buddhist temple in the world.",
+   "Komodo dragons, the world's largest lizards, live on a few of its islands, and tourists flock to its island of Bali.",
+   "For the point, name this Southeast Asian country made of thousands of islands, whose largest city is Jakarta."
+  ],
+  "a": "Indonesia",
+  "alt": [
+   "Indonesia",
+   "Republic of Indonesia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Indonesia has more Muslims than any other country in the world.",
+  "redset": ""
+ },
+ {
+  "id": "asia-seoul",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "This city's Gyeongbokgung Palace was built in 1395 as the first royal palace of the Joseon dynasty.",
+   "The Banpo Bridge over this city's Han River holds the record as the world's longest fountain bridge, and this city hosted the 1988 Summer Olympics.",
+   "For the point, name this capital and largest city of South Korea."
+  ],
+  "a": "Seoul",
+  "alt": [
+   "Seoul",
+   "Seoul Special City"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Seoul's Lotte World Tower is South Korea's tallest building and the first in the country with more than 100 floors.",
+  "redset": ""
+ },
+ {
+  "id": "asia-dead-sea",
+  "region": "asia",
+  "cat": "lake",
+  "clues": [
+   "Ancient Jewish scrolls were found between 1946 and 1956 in the Qumran Caves near this lake's northern shore.",
+   "Fed mainly by the Jordan River, this lake's shores are the lowest land on Earth, more than 1,400 feet below sea level.",
+   "For the point, name this extremely salty lake bordering Jordan, Israel, and the West Bank, where swimmers float easily."
+  ],
+  "a": "Dead Sea",
+  "alt": [
+   "Dead Sea",
+   "Salt Sea",
+   "Yam HaMelah",
+   "Al-Bahr al-Mayyit"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Dead Sea is about 9.6 times as salty as the ocean.",
+  "redset": ""
+ },
+ {
+  "id": "asia-sri-lanka",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "An ancient king built a palace on top of this country's Sigiriya, or Lion Rock, which was entered through a gateway shaped like a giant lion.",
+   "Pilgrims climb its Adam's Peak to see a footprint-shaped rock near the summit, and its hills are famous for growing tea.",
+   "For the point, name this island country just south of India, formerly called Ceylon."
+  ],
+  "a": "Sri Lanka",
+  "alt": [
+   "Sri Lanka",
+   "Ceylon",
+   "Democratic Socialist Republic of Sri Lanka"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Sri Lanka's largest city is Colombo.",
+  "redset": ""
+ },
+ {
+  "id": "asia-singapore",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This country's Changi Airport contains the Rain Vortex, the world's tallest indoor waterfall.",
+   "Giant tree-like towers called Supertrees rise in its Gardens by the Bay, and its mascot, the Merlion, has a lion's head and a fish's body.",
+   "For the point, name this tiny island city-state off the southern tip of the Malay Peninsula."
+  ],
+  "a": "Singapore",
+  "alt": [
+   "Singapore",
+   "Republic of Singapore",
+   "Singapura"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The name Singapore comes from old Sanskrit words meaning \"lion city.\"",
+  "redset": ""
+ },
+ {
+  "id": "oceania-great-barrier-reef",
+  "region": "oceania",
+  "cat": "landmark",
+  "clues": [
+   "This natural wonder in the Coral Sea is made up of more than 2,900 separate reefs and about 900 islands.",
+   "It stretches more than 1,400 miles along the coast of Queensland, and clownfish, sea turtles, and dugongs live among its corals.",
+   "For the point, name this largest coral reef system on Earth, the biggest structure made by living things, found off Australia."
+  ],
+  "a": "Great Barrier Reef",
+  "alt": [
+   "Great Barrier Reef",
+   "The Great Barrier Reef"
+  ],
+  "prompt": [
+   "Coral reef"
+  ],
+  "t": 2,
+  "x": "The Great Barrier Reef can be seen from outer space.",
+  "redset": "Great Barrier Reef (world's largest construct made by a living entity)"
+ },
+ {
+  "id": "oceania-antarctica",
+  "region": "oceania",
+  "cat": "region",
+  "clues": [
+   "Lake Vostok lies hidden more than two miles beneath the ice of this place.",
+   "Emperor penguins, the only penguins that breed in winter, raise their chicks here, and more than half of all the fresh water on Earth is frozen here.",
+   "For the point, name this coldest and southernmost continent, home to the South Pole."
+  ],
+  "a": "Antarctica",
+  "alt": [
+   "Antarctica"
+  ],
+  "prompt": [
+   "South Pole"
+  ],
+  "t": 1,
+  "x": "Antarctica is also the driest and windiest continent.",
+  "redset": "Antarctica (Earth's southernmost continent)"
+ },
+ {
+  "id": "oceania-new-zealand",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "This country's Milford Sound is a fjord in Fiordland National Park, and its city of Rotorua is famous for geysers and bubbling mud pools.",
+   "The kiwi, a flightless bird, is the best-known national symbol of this country, whose first settlers were Polynesians who became the Maori.",
+   "For the point, name this country made up mainly of the North Island and the South Island, with its capital at Wellington."
+  ],
+  "a": "New Zealand",
+  "alt": [
+   "New Zealand",
+   "NZ",
+   "Aotearoa"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "New Zealand's Maori name is Aotearoa.",
+  "redset": "New Zealand (southernmost country of Oceania)"
+ },
+ {
+  "id": "oceania-micronesia",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "This country's Nan Madol is a ruined ancient city built on about 100 small artificial islands linked by canals off the island of Pohnpei.",
+   "On its island of Yap, huge stone disks with holes in the center, called rai stones, are known as stone money.",
+   "For the point, name this Pacific country of four states, Yap, Chuuk, Pohnpei, and Kosrae, with its capital at Palikir."
+  ],
+  "a": "Federated States of Micronesia",
+  "alt": [
+   "Federated States of Micronesia",
+   "Micronesia",
+   "FSM"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Federated States of Micronesia stretches almost 1,700 miles across the western Pacific Ocean.",
+  "redset": "Micronesia (Terms for Further Study)"
+ },
+ {
+  "id": "oceania-oahu",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "Big-wave surfers come to this island's North Shore in winter to ride famous spots like the Banzai Pipeline.",
+   "Diamond Head, an old volcanic cone, rises behind its Waikiki Beach, and visitors honor history at the USS Arizona Memorial in Pearl Harbor.",
+   "For the point, name this most populated Hawaiian island, home to the state capital, Honolulu."
+  ],
+  "a": "Oahu",
+  "alt": [
+   "Oahu",
+   "O'ahu",
+   "Oʻahu"
+  ],
+  "prompt": [
+   "Hawaii"
+  ],
+  "t": 3,
+  "x": "Oahu is often nicknamed \"The Gathering Place.\"",
+  "redset": "Oahu (Terms for Further Study)"
+ },
+ {
+  "id": "oceania-mcmurdo-station",
+  "region": "oceania",
+  "cat": "landmark",
+  "clues": [
+   "Robert Falcon Scott's Discovery Hut, built in 1902, stands just 300 meters from this place on Ross Island.",
+   "Mount Erebus, the southernmost active volcano on Earth, rises on the same island as this place, which can house up to 1,200 people.",
+   "For the point, name this American research station, the largest community in Antarctica."
+  ],
+  "a": "McMurdo Station",
+  "alt": [
+   "McMurdo Station",
+   "McMurdo",
+   "McMurdo Base"
+  ],
+  "prompt": [
+   "Antarctica"
+  ],
+  "t": 5,
+  "x": "During the dark Antarctic winter, fewer than 200 people stay at McMurdo Station.",
+  "redset": "McMurdo Station (Terms for Further Study)"
+ },
+ {
+  "id": "oceania-treaty-of-waitangi",
+  "region": "oceania",
+  "cat": "concept",
+  "clues": [
+   "This agreement was first signed on the grounds of James Busby's house, now called the Treaty House, in the Bay of Islands.",
+   "Captain William Hobson signed it for the British Crown along with Maori chiefs, and copies were later carried around the country for other chiefs to sign.",
+   "For the point, name this 1840 treaty, a founding document of New Zealand, whose first signing is celebrated every February 6."
+  ],
+  "a": "Treaty of Waitangi",
+  "alt": [
+   "Treaty of Waitangi",
+   "Waitangi",
+   "Te Tiriti o Waitangi",
+   "Waitangi Treaty"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Waitangi Day became a national public holiday in New Zealand in 1974.",
+  "redset": "Waitangi (Terms for Further Study)"
+ },
+ {
+  "id": "oceania-australia",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "Limestone towers called the Twelve Apostles rise off this country's Great Ocean Road, though only seven of the original nine still stand.",
+   "Uluru, a giant red sandstone rock sacred to the Anangu people, sits near the center of this country, and egg-laying platypuses swim in rivers along its eastern side.",
+   "For the point, name this home of kangaroos and koalas, a country with its capital at Canberra."
+  ],
+  "a": "Australia",
+  "alt": [
+   "Australia",
+   "Commonwealth of Australia"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "Australia is the flattest and driest continent where people live.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-sydney",
+  "region": "oceania",
+  "cat": "city",
+  "clues": [
+   "Surfers and lifeguards crowd this city's Bondi Beach, where the first surf bathing sheds were built in 1903.",
+   "This city's Harbour Bridge is nicknamed \"the Coathanger,\" and nearby stands its Opera House, whose roofs look like giant white shells.",
+   "For the point, name this Australian city, the capital of the state of New South Wales."
+  ],
+  "a": "Sydney",
+  "alt": [
+   "Sydney"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The roofs of the Sydney Opera House are covered with more than one million tiles.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-papua-new-guinea",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "About 840 languages are spoken in this country, making it the most linguistically diverse country on Earth.",
+   "A Raggiana bird-of-paradise appears on its flag next to the stars of the Southern Cross.",
+   "For the point, name this country that covers the eastern half of the island of New Guinea, with its capital at Port Moresby."
+  ],
+  "a": "Papua New Guinea",
+  "alt": [
+   "Papua New Guinea",
+   "PNG"
+  ],
+  "prompt": [
+   "New Guinea"
+  ],
+  "t": 2,
+  "x": "The bird-of-paradise also appears on Papua New Guinea's coat of arms.",
+  "redset": ""
+ }
+];
