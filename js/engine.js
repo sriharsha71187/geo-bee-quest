@@ -346,9 +346,27 @@ window.Engine = (function () {
     return a >= 30 ? c / a : 0;
   }
 
+  // Daily coach plan (js/coach.js, written by the coaching agent after it
+  // reviews the child's progress). All fields optional; absent = app default.
+  //   focusTopics: [topicId]   new material comes from these about half the time
+  //   tierFloor / tierCap: {topicId: 1..5}   clamp the difficulty for new facts
+  function coachPlan() { return (typeof window !== "undefined" && window.GBQ_COACH) || {}; }
+  function coachTier(tid, tier) {
+    const c = coachPlan();
+    const lo = (c.tierFloor || {})[tid], hi = (c.tierCap || {})[tid];
+    if (lo) tier = Math.max(tier, lo);
+    if (hi) tier = Math.min(tier, hi);
+    return Math.max(1, Math.min(5, tier));
+  }
+
   function pickNew(s, askedSet, tierOffset, topicList, opts) {
-    const topics = topicList || enabledTopics(s);
+    let topics = topicList || enabledTopics(s);
     if (!topics.length) return null;
+    const focus = coachPlan().focusTopics || [];
+    if (focus.length && Math.random() < 0.5) {
+      const f = topics.filter((t) => focus.includes(t.id));
+      if (f.length) topics = f.concat(topics.filter((t) => !focus.includes(t.id)));
+    }
     const freshOk = (opts && opts.fresh) || (() => true);
     const hot = !!(opts && opts.hot);
     // Round-robin over topics; within a topic take unseen facts up to the
@@ -356,8 +374,9 @@ window.Engine = (function () {
     // first for hot learners so an advanced kid isn't fed warm-ups.
     for (let k = 0; k < topics.length; k++) {
       const t = topics[(pickNew._cursor + k) % topics.length];
-      const maxTier = Math.min(5, (s.topics[t.id].tier || 1) + tierOffset);
-      if (tierOffset > 0 && maxTier <= s.topics[t.id].tier) continue;
+      const base = coachTier(t.id, s.topics[t.id].tier || 1);
+      const maxTier = Math.min(5, base + tierOffset);
+      if (tierOffset > 0 && maxTier <= base) continue;
       const pool = topicFacts(s, t.id)
         .filter((f) => {
           const r = s.facts[f.id];

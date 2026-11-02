@@ -10,7 +10,7 @@ global.window = {};
 const fs = require("fs");
 const path = require("path");
 const base = path.join(__dirname, "..", "js") + path.sep;
-for (const f of ["data.js", "scenes.js", "maps.js", "questions.js", "engine.js", "tossups.js", "buzzer.js"]) {
+for (const f of ["data.js", "coach.js", "scenes.js", "maps.js", "questions.js", "engine.js", "tossups.js", "buzzer.js"]) {
   eval(fs.readFileSync(base + f, "utf8"));
 }
 const D = window.GEO_DATA, Q = window.QBank, E = window.Engine;
@@ -204,6 +204,28 @@ for (const [label, test] of OFFICIAL) {
   if (B.judge(probe, "Tegucigalpa") !== "yes" || B.judge(probe, "Teguciglpa") !== "yes") errors.push("buzzer matcher: typo tolerance broken");
   if (B.judge({ a: "Oslo", alt: [] }, "Olso") === "yes") errors.push("buzzer matcher: too lenient on short answers");
   if (B.judge({ a: "Saint Paul", alt: [] }, "St. Paul") !== "yes") errors.push("buzzer matcher: St. -> Saint broken");
+}
+
+// ---------- daily coach plan (js/coach.js, written by the coaching agent) ----------
+{
+  const C = window.GBQ_COACH;
+  const topicIds = new Set(D.TOPICS.map((t) => t.id));
+  const REGIONS = new Set(["asia", "us", "europe", "africa", "latam", "canada", "oceania", "world"]);
+  if (!C || typeof C !== "object") errors.push("coach.js must define window.GBQ_COACH");
+  else {
+    for (const t of C.focusTopics || []) if (!topicIds.has(t)) errors.push(`coach: unknown focus topic ${t}`);
+    for (const k of ["tierFloor", "tierCap"]) for (const [t, v] of Object.entries(C[k] || {})) {
+      if (!topicIds.has(t)) errors.push(`coach.${k}: unknown topic ${t}`);
+      if (!(Number.isInteger(v) && v >= 1 && v <= 5)) errors.push(`coach.${k}.${t}: tier must be 1-5`);
+    }
+    for (const [t, lo] of Object.entries(C.tierFloor || {})) if ((C.tierCap || {})[t] && C.tierCap[t] < lo) errors.push(`coach: tierCap < tierFloor for ${t}`);
+    const b = C.buzz || {};
+    if (b.targetTier != null && !(b.targetTier >= 1 && b.targetTier <= 5)) errors.push("coach.buzz.targetTier must be 1-5");
+    for (const [r, w] of Object.entries(b.regions || {})) {
+      if (!REGIONS.has(r)) errors.push(`coach.buzz.regions: unknown region ${r}`);
+      if (!(w > 0 && w <= 3)) errors.push(`coach.buzz.regions.${r}: weight must be in (0, 3]`);
+    }
+  }
 }
 
 // ---------- fact-id stability (saved progress is keyed on these) ----------

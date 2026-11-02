@@ -59,14 +59,21 @@ window.Buzzer = (function () {
   // ---------- picking tossups ----------
   // Unseen first, then ones he missed, then ones he got late; never repeat
   // within a round. Mild ramp: easier tossups early in the round.
+  // The daily coach (js/coach.js) can set buzz.targetTier (1..5, the level
+  // the middle of a round aims at) and buzz.regions ({asia: 1.5, ...} weights
+  // above 1 favour a region he's weak in).
   function pick(s) {
     const seen = (s.buzz && s.buzz.seen) || {};
     const pool = window.GEO_TOSSUPS.filter((t) => !R.used.has(t.id));
     if (!pool.length) return null;
+    const cb = (window.GBQ_COACH && window.GBQ_COACH.buzz) || {};
+    const target = cb.targetTier || 3;
+    const regionW = cb.regions || {};
     const score = (t) => {
       const r = seen[t.id];
       let p = !r ? 0 : r.w > r.c ? 1 : r.bp != null && r.bp < 0.9 ? 3 : 2;
-      p += Math.abs(t.t - (R.i < 10 ? 2 : 3)) * 0.4;
+      p += Math.abs(t.t - (R.i < 10 ? Math.max(1, target - 1) : target)) * 0.4;
+      p -= ((regionW[t.region] || 1) - 1) * 0.8;
       return p + Math.random() * 0.8;
     };
     pool.sort((a, b) => score(a) - score(b));
