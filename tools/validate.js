@@ -213,6 +213,29 @@ for (const [label, test] of OFFICIAL) {
   for (const [at, out, pts] of want) if (B._finalPoints(fc(at), out) !== pts) errors.push(`final round scoring: buzz at ${at} ${out} should be ${pts}`);
 }
 
+// ---------- forgiving answer matching (QBank.match) ----------
+{
+  const M = [
+    ["delhi", ["new delhi"], "close"], ["amazon", ["amazon river"], "yes"], ["kivu", ["lake kivu"], "yes"],
+    ["everest", ["mount everest"], "yes"], ["ouagadougo", ["ouagadougou"], "yes"], ["canbera", ["canberra"], "yes"],
+    ["washington", ["washington dc"], "prompt"], ["mexico", ["mexico city"], "prompt"], ["victoria", ["lake victoria"], "prompt"],
+    ["carolina", ["north carolina"], "prompt"], ["guinea", ["guinea bissau"], "prompt"], ["north", ["north carolina"], "no"],
+    ["olso", ["oslo"], "no"], ["austria", ["australia"], "no"], ["iceland", ["ireland"], "no"], ["south korea", ["north korea"], "no"],
+  ];
+  for (const [given, acc, want] of M) {
+    const v = Q.match(given, acc).v;
+    if (v !== want) errors.push(`answer matching: '${given}' for ${acc[0]} gave ${v}, want ${want}`);
+  }
+  // no country, capital, big city, state or state capital may ever be
+  // accepted as the answer for a different one
+  const names = [...new Set([...D.COUNTRIES.flatMap((c) => [c.n, c.c, c.big]), ...D.STATES.flatMap((s) => [s.n, s.c, s.big])].filter(Boolean))];
+  for (const want of names) for (const given of names) {
+    if (Q.normalize(want) === Q.normalize(given)) continue;
+    const v = Q.match(given, [want]).v;
+    if (v === "yes" || v === "close") errors.push(`answer matching: '${given}' wrongly accepted for ${want}`);
+  }
+}
+
 // ---------- daily coach plan (js/coach.js, written by the coaching agent) ----------
 {
   const C = window.GBQ_COACH;

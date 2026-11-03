@@ -46,25 +46,13 @@ window.Buzzer = (function () {
     return Q.normalize(String(s || "").replace(/['’ʻ`]/g, "").replace(/\bst\.? /gi, "saint "))
       .replace(/^(a|an) /, "");
   }
-  function lev(a, b) {
-    if (Math.abs(a.length - b.length) > 2) return 9;
-    const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
-    for (let j = 1; j <= b.length; j++) d[0][j] = j;
-    for (let i = 1; i <= a.length; i++)
-      for (let j = 1; j <= b.length; j++)
-        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
-    return d[a.length][b.length];
-  }
-  // 'yes' | 'prompt' | 'no'. One typo allowed on answers of 6+ letters,
+  // 'yes' | 'close' | 'prompt' | 'no' — the app's shared forgiving matcher
+  // (QBank.match): typos, generic words and unambiguous short names are fine,
   // because a 7-year-old's spelling shouldn't cost a point he earned.
   function judge(t, given) {
     const g = norm(given);
     if (!g) return "no";
-    const ok = [t.a, ...(t.alt || [])].map(norm);
-    if (ok.includes(g)) return "yes";
-    if (ok.some((o) => o.length >= 6 && lev(o, g) <= 1)) return "yes";
-    if ((t.prompt || []).map(norm).includes(g)) return "prompt";
-    return "no";
+    return Q.match(g, [t.a, ...(t.alt || [])].map(norm), (t.prompt || []).map(norm)).v;
   }
 
   // ---------- picking tossups ----------
@@ -309,7 +297,8 @@ window.Buzzer = (function () {
       const input = $("#bz-in"); input.value = ""; input.focus();
       return;
     }
-    reveal(v === "yes" ? "right" : "wrong", value);
+    c.close = v === "close";
+    reveal(v === "yes" || v === "close" ? "right" : "wrong", value);
   }
   function reveal(outcome, given) {
     const c = R.cur; if (!c) return;
@@ -325,7 +314,7 @@ window.Buzzer = (function () {
     paintText(true);
     const early = frac != null && frac < 0.67;
     const msg = outcome === "right"
-      ? (early ? "🎉 Early buzz — that beats the giveaway!" : "✅ Correct!")
+      ? (early ? "🎉 Early buzz — that beats the giveaway!" : "✅ Correct!") + (c.close ? " We'll count it — the full name is below." : "")
       : outcome === "wrong" && c.timedOut && !given ? "⏰ Time's up! In the real bee you get just a few seconds after you buzz. Here's the answer:"
       : outcome === "wrong" ? `Not quite${given ? ` (you said “${esc(given)}”)` : ""}. Here's the answer:`
       : "Nobody buzzed. Here's the answer:";

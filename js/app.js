@@ -974,7 +974,7 @@
 
   // ---------- question ----------
   function renderQuestion(q) {
-    act.q = q; act.answered = false;
+    act.q = q; act.answered = false; act.prompted = false; act.close = false;
     const m = topicMeta(q.topic);
     let modeChip = "";
     if (q.flags) {
@@ -1118,7 +1118,7 @@
         mic.classList.remove("listening"); mic.textContent = "🎙️";
         const alts = Array.from(e.results[0]).map((r) => r.transcript);
         // pick the alternative that matches, else show the first
-        const hit = alts.find((t) => act.q.accept && act.q.accept.includes(Q.normalize(t)));
+        const hit = alts.find((t) => act.q.accept && Q.match(t, act.q.accept).v !== "no");
         input.value = hit || alts[0] || "";
         if (input.value) submitTyped(input.value);
       };
@@ -1144,9 +1144,20 @@
     if (act.answered) return;
     const q = act.q;
     let correct = false;
+    act.close = false;
     if (value != null) {
-      const norm = Q.normalize(value);
-      correct = norm.length > 0 && q.accept.some((a) => a === norm);
+      const m = Q.match(value, q.accept);
+      // a short name that is also another place: one "be more specific" try,
+      // as a bee moderator would prompt (no prompt when time ran out)
+      if (m.v === "prompt" && !act.prompted && String(value).trim()) {
+        act.prompted = true;
+        const inp = $("#typed-input");
+        if (inp) { inp.value = ""; inp.focus(); }
+        $("#feedback").innerHTML = `<div class="feedback"><div class="headline">🤔 Can you be more specific?</div><div class="muted">“${esc(value)}” could mean more than one place.</div></div>`;
+        return;
+      }
+      correct = m.v === "yes" || m.v === "close";
+      act.close = m.v === "close";
     }
     const input = $("#typed-input");
     if (input) { input.disabled = true; input.style.borderColor = correct ? "#66bb6a" : "#ef5350"; }
@@ -1186,7 +1197,9 @@
     const headline = good
       ? ["Awesome! ✅", "You got it! 🎉", "Brilliant! 🌟", "Nailed it! 💪"][Math.floor(Math.random() * 4)]
       : result === "skip" ? "Skipped ⏭️" : "Not quite ❌";
-    const answerLine = good ? "" : `<div style="margin-top:4px">The answer is <b>${esc(q.answerText)}</b>.</div>`;
+    const answerLine = good
+      ? act.close ? `<div style="margin-top:4px">We'll count it — the full name is <b>${esc(q.answerText)}</b>.</div>` : ""
+      : `<div style="margin-top:4px">The answer is <b>${esc(q.answerText)}</b>.</div>`;
     const factLine = q.fact && act.kind !== "placement" ? `<div class="fact">💡 ${esc(q.fact)}</div>` : "";
     const xpLine = xpGain ? `<span class="xp-gain">+${xpGain} XP</span>` : "";
     const eventChips = events.map((e) =>
@@ -1221,7 +1234,8 @@
       const msg = $("#retype-msg");
       let tries = 0;
       const check = () => {
-        if (q.accept.includes(Q.normalize(inp.value))) {
+        const rm = Q.match(inp.value, q.accept).v;
+        if (rm === "yes" || rm === "close") {
           inp.disabled = true;
           inp.style.borderColor = "var(--sage, #56642b)";
           msg.textContent = "✅ Locked in!";

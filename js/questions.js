@@ -29,6 +29,83 @@ window.QBank = (function () {
       .replace(/^the /, "")
       .replace(/(^| )st( |$)/g, "$1saint$2");
   }
+  // ---- forgiving answer matching (typed and spoken answers, everywhere) ----
+  // A 7-year-old's answer is judged on geography, not spelling or wording:
+  //   yes    - an accepted answer, give or take a typo (1 on 5+ letters, 2 on
+  //            10+) or a generic word ("Amazon" for "Amazon River")
+  //   close  - right but incomplete, and the short name points to nothing else
+  //            ("Delhi" for "New Delhi"); counted right, full name shown
+  //   prompt - incomplete and the short name is ALSO another place
+  //            ("Washington", "Mexico", "Carolina"): ask "be more specific",
+  //            as an IAC moderator would
+  //   no     - anything else
+  const GENERIC = new Set(["the", "of", "river", "lake", "mount", "mt", "mountain", "mountains", "city", "island", "islands"]);
+  // words that never identify a place on their own
+  const QUALIFIERS = new Set(["new", "san", "santa", "saint", "north", "south", "east", "west", "northern", "southern",
+    "eastern", "western", "upper", "lower", "great", "little", "port", "cape", "el", "la", "los", "las", "de", "del",
+    "gulf", "bay", "sea", "strait", "national", "park", "united", "republic", "kingdom", "state", "states"]);
+  const core = (s) => normalize(s).split(" ").filter((w) => w && !GENERIC.has(w));
+  function editDist(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      for (let j = 1; j <= b.length; j++)
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  const typoOk = (a, b) => a === b || (a.length >= 5 && editDist(a, b, 2) <= (a.length >= 10 ? 2 : 1));
+  // does word list `hay` contain `needle` as a run of consecutive words?
+  // (a typo is allowed in each word of 5+ letters, unless exact)
+  function hasRun(hay, needle, exact) {
+    for (let i = 0; i + needle.length <= hay.length; i++)
+      if (needle.every((w, k) => (exact ? hay[i + k] === w : typoOk(hay[i + k], w)))) return true;
+    return false;
+  }
+  // every place name the app knows ({full, core words, strong}), for the
+  // ambiguity test; strong = a country, state, or city name
+  let KNOWN = null;
+  function known() {
+    if (KNOWN) return KNOWN;
+    const D = window.GEO_DATA, names = new Map();
+    const add = (x, strong) => { if (x && typeof x === "string") { const k = normalize(x); names.set(k, names.get(k) || strong); } };
+    for (const c of D.COUNTRIES) { add(c.n, true); add(c.c, true); add(c.big, true); }
+    for (const s of D.STATES) { add(s.n, true); add(s.c, true); add(s.big, true); }
+    for (const t of D.TOPICS) for (const it of t.items || []) add(it.a, false);
+    for (const p of D.PYRAMIDS || []) add(p.a, false);
+    for (const t of window.GEO_TOSSUPS || []) add(t.a, false);
+    names.delete("");
+    return (KNOWN = [...names].map(([full, strong]) => ({ full, strong, core: core(full) })).filter((k) => k.core.length));
+  }
+  function match(given, accepts, prompts) {
+    const g = normalize(given);
+    if (!g) return { v: "no" };
+    const acc = (accepts || []).map(normalize).filter(Boolean);
+    if (acc.includes(g)) return { v: "yes" };
+    if ((prompts || []).map(normalize).includes(g)) return { v: "prompt" };
+    const gc = core(g);
+    if (!gc.length) return { v: "no" };
+    const gs = gc.join(" ");
+    const mine = new Set(acc);
+    // what he typed is itself another real place: never "a typo" of this one
+    // (Iceland/Ireland, Gambia/Zambia, North/South Korea)
+    const isOther = known().some((k) => !mine.has(k.full) && (k.full === g || k.full === gs));
+    // same once generic words are dropped — unless what was typed is itself
+    // a different country, state or city ("Mexico" for Mexico City)
+    if (acc.some((a) => core(a).join(" ") === gs))
+      return { v: known().some((k) => k.strong && !mine.has(k.full) && (k.full === g || k.full === gs)) ? "prompt" : "yes" };
+    const tooVague = gc.every((w) => QUALIFIERS.has(w)) || gs.replace(/ /g, "").length < 4;
+    if (isOther) return !tooVague && acc.some((a) => hasRun(core(a), gc, true)) ? { v: "prompt" } : { v: "no" };
+    if (acc.some((a) => typoOk(a, g) || typoOk(core(a).join(" "), gs))) return { v: "yes" };
+    // incomplete answer: a run of the words of an accepted answer
+    if (tooVague) return { v: "no" };
+    if (!acc.some((a) => hasRun(core(a), gc))) return { v: "no" };
+    const other = known().some((k) => !mine.has(k.full) && hasRun(k.core, gc));
+    return { v: other ? "prompt" : "close" };
+  }
+
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -471,5 +548,5 @@ window.QBank = (function () {
   // in v20 with their original wording, so their original ids, and the
   // child's progress on them, came back unchanged.
 
-  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, flagCode, hash, ALIASES };
+  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, match, flagCode, hash, ALIASES };
 })();
