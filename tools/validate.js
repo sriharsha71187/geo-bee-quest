@@ -204,6 +204,13 @@ for (const [label, test] of OFFICIAL) {
   if (B.judge(probe, "Tegucigalpa") !== "yes" || B.judge(probe, "Teguciglpa") !== "yes") errors.push("buzzer matcher: typo tolerance broken");
   if (B.judge({ a: "Oslo", alt: [] }, "Olso") === "yes") errors.push("buzzer matcher: too lenient on short answers");
   if (B.judge({ a: "Saint Paul", alt: [] }, "St. Paul") !== "yes") errors.push("buzzer matcher: St. -> Saint broken");
+  // Final Round scale: clue 1 = 6 (power), up to the giveaway = 5, giveaway = 4,
+  // after the reading = 3; wrong = -2 while reading, -1 after
+  const ft = { clues: ["a b c", "d e", "f g", "For the point h"] };
+  const fc = (buzzAt) => ({ buzzAt, words: ft.clues.join(" ").split(" "), z: B._zones(ft) });
+  const want = [[2, "right", 6], [3, "right", 6], [4, "right", 5], [7, "right", 5], [8, "right", 4], [11, "right", 3],
+    [5, "wrong", -2], [11, "wrong", -1], [null, "nobuzz", 0]];
+  for (const [at, out, pts] of want) if (B._finalPoints(fc(at), out) !== pts) errors.push(`final round scoring: buzz at ${at} ${out} should be ${pts}`);
 }
 
 // ---------- daily coach plan (js/coach.js, written by the coaching agent) ----------

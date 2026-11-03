@@ -3568,5 +3568,864 @@ window.GEO_TOSSUPS = [
   "t": 5,
   "x": "A pelican has been the island's mascot ever since a storm blew the first Petros there in the 1950s.",
   "redset": ""
+ },
+ {
+  "id": "asia-uzbekistan",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This country is one of only two in the world that are doubly landlocked, along with Liechtenstein.",
+   "Much of the shrinking Aral Sea, drained to water cotton fields, lies in its west.",
+   "The Silk Road cities of Samarkand and Bukhara, famous for their blue-tiled domes, are here.",
+   "For the point, name this Central Asian country whose capital is Tashkent."
+  ],
+  "a": "Uzbekistan",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Doubly landlocked means every country around it is landlocked too — you must cross two borders to reach the sea.",
+  "redset": ""
+ },
+ {
+  "id": "europe-caucasus",
+  "region": "europe",
+  "cat": "mountain",
+  "clues": [
+   "In a Greek myth, Prometheus was chained to a rock in these mountains for giving fire to humans.",
+   "Mount Elbrus, often called the highest mountain in Europe, rises in this range.",
+   "These mountains stretch from the Black Sea to the Caspian Sea.",
+   "For the point, name this mountain range running across Georgia, Armenia, Azerbaijan, and southern Russia."
+  ],
+  "a": "Caucasus Mountains",
+  "alt": [
+   "Caucasus",
+   "Caucasus Range"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Many geographers draw the line between Europe and Asia along the Caucasus.",
+  "redset": ""
+ },
+ {
+  "id": "asia-tigris",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "The ancient Assyrian capital of Nineveh stood on this river, across from the modern city of Mosul.",
+   "It begins in the mountains of eastern Turkey and flows southeast through Iraq.",
+   "Baghdad sits on this river, which joins its twin river to form the Shatt al-Arab.",
+   "For the point, name this river that, with the Euphrates, framed ancient Mesopotamia."
+  ],
+  "a": "Tigris River",
+  "alt": [
+   "Tigris"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Mesopotamia means 'land between the rivers' — the Tigris and the Euphrates.",
+  "redset": ""
+ },
+ {
+  "id": "asia-mongolia",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Many families in this country live in round felt tents called gers.",
+   "Its capital, Ulaanbaatar, is often called the coldest national capital in the world.",
+   "Genghis Khan built a huge empire from this land in the 1200s.",
+   "For the point, name this landlocked country between Russia and China, home to much of the Gobi Desert."
+  ],
+  "a": "Mongolia",
+  "alt": [
+   "Outer Mongolia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Mongolia has more horses than people.",
+  "redset": ""
+ },
+ {
+  "id": "asia-honshu",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "The world's first high-speed 'bullet train' line opened on this island in 1964.",
+   "Mount Fuji, the tallest mountain in its country, rises on this island.",
+   "The cities of Tokyo, Osaka, Kyoto, and Hiroshima are all on it.",
+   "For the point, name this largest island of Japan."
+  ],
+  "a": "Honshu",
+  "alt": [
+   "Honshū"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Japan's four main islands, north to south, are Hokkaido, Honshu, Shikoku, and Kyushu.",
+  "redset": ""
+ },
+ {
+  "id": "latam-paraguay",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "The giant Itaipú Dam, one of the world's biggest makers of hydroelectric power, sits on this country's border with Brazil.",
+   "Most people here speak both Spanish and the native language Guaraní.",
+   "The dry Gran Chaco covers its west, and its capital, Asunción, stands on a river with the same name as the country.",
+   "For the point, name this landlocked South American country between Argentina, Brazil, and Bolivia."
+  ],
+  "a": "Paraguay",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Paraguay and Bolivia are the only landlocked countries in South America.",
+  "redset": ""
+ },
+ {
+  "id": "us-north-carolina",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Mount Mitchell, the highest peak east of the Mississippi River, is in this state.",
+   "The Outer Banks line its coast, where wrecks earned the sea the nickname 'Graveyard of the Atlantic.'",
+   "The Wright brothers made the first powered airplane flights near Kitty Hawk in this state in 1903.",
+   "For the point, name this southern state whose capital is Raleigh."
+  ],
+  "a": "North Carolina",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "The state's license plates say 'First in Flight' because of the Wright brothers.",
+  "redset": ""
+ },
+ {
+  "id": "us-aleutian-islands",
+  "region": "us",
+  "cat": "island",
+  "clues": [
+   "In World War II, Japan captured two of these islands, Attu and Kiska.",
+   "This chain of volcanic islands separates the Bering Sea from the rest of the Pacific Ocean.",
+   "It stretches more than 1,000 miles west from the Alaska Peninsula toward Russia.",
+   "For the point, name this Alaskan island chain, home to the fishing port of Dutch Harbor."
+  ],
+  "a": "Aleutian Islands",
+  "alt": [
+   "Aleutians",
+   "Aleutian"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "The Aleutians reach so far west that they cross the 180° line of longitude.",
+  "redset": ""
+ },
+ {
+  "id": "africa-lake-malawi",
+  "region": "africa",
+  "cat": "lake",
+  "clues": [
+   "Hundreds of kinds of brightly colored fish called cichlids live in this lake and nowhere else.",
+   "In Tanzania and Mozambique it is known as Lake Nyasa.",
+   "It is the southernmost of the big lakes in Africa's Great Rift Valley.",
+   "For the point, name this lake that covers about a fifth of the country that shares its name."
+  ],
+  "a": "Lake Malawi",
+  "alt": [
+   "Malawi",
+   "Lake Nyasa",
+   "Nyasa"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Lake Malawi has more kinds of fish than any other lake on Earth.",
+  "redset": ""
+ },
+ {
+  "id": "asia-lebanon",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "The ruins of Baalbek in this country hold some of the largest stone blocks ever carved.",
+   "Ancient Phoenician sailors set out from its port cities of Tyre, Sidon, and Byblos.",
+   "A green cedar tree sits in the middle of its red-and-white flag.",
+   "For the point, name this small Mediterranean country north of Israel whose capital is Beirut."
+  ],
+  "a": "Lebanon",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Byblos is one of the oldest cities in the world where people have lived without stopping.",
+  "redset": ""
+ },
+ {
+  "id": "asia-java",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "The huge Buddhist temple of Borobudur, built about 1,200 years ago, stands on this island.",
+   "A kind of coffee and a computer language are both named after it.",
+   "More than half of its country's people live here, making it the most crowded island on Earth.",
+   "For the point, name this Indonesian island, home to the city of Jakarta."
+  ],
+  "a": "Java",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Java has more than 150 million people — about half as many as the whole United States.",
+  "redset": ""
+ },
+ {
+  "id": "canada-montreal",
+  "region": "canada",
+  "cat": "city",
+  "clues": [
+   "This city hosted the 1976 Summer Olympics and the 1967 World's Fair, Expo 67.",
+   "It sits on an island in the St. Lawrence River, beneath a hill called Mount Royal.",
+   "It is one of the largest French-speaking cities in the world.",
+   "For the point, name this largest city in the province of Quebec."
+  ],
+  "a": "Montreal",
+  "alt": [
+   "Montréal"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The city's name comes from Mount Royal, 'Mont Réal' in old French.",
+  "redset": ""
+ },
+ {
+  "id": "us-lake-michigan",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "Sand dunes hundreds of feet tall, like Sleeping Bear Dunes, line this lake's eastern shore.",
+   "Milwaukee and Green Bay, Wisconsin, sit on its western shore.",
+   "Chicago lies at its southwestern corner.",
+   "For the point, name the only Great Lake that lies entirely inside the United States."
+  ],
+  "a": "Lake Michigan",
+  "alt": [
+   "Michigan"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Lake Michigan and Lake Huron are joined so widely that scientists treat them as one lake.",
+  "redset": ""
+ },
+ {
+  "id": "europe-baltic-sea",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Amber, fossilized tree sap, often washes up on the beaches of this sea.",
+   "Its water is much less salty than the ocean's because so many rivers pour into it.",
+   "Stockholm, Helsinki, Tallinn, and Riga all sit on its shores.",
+   "For the point, name this sea of northern Europe that gives the Baltic states — Estonia, Latvia, and Lithuania — their group name."
+  ],
+  "a": "Baltic Sea",
+  "alt": [
+   "Baltic"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "In very cold winters, parts of the Baltic freeze solid.",
+  "redset": ""
+ },
+ {
+  "id": "europe-seine",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "Claude Monet painted his famous water lilies at his garden in Giverny, near this river.",
+   "It empties into the English Channel at the port of Le Havre.",
+   "Notre-Dame Cathedral stands on an island in the middle of this river.",
+   "For the point, name this river that flows through Paris."
+  ],
+  "a": "Seine River",
+  "alt": [
+   "Seine"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "More than 35 bridges cross the Seine inside Paris.",
+  "redset": ""
+ },
+ {
+  "id": "africa-south-sudan",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "The Sudd, one of the largest wetlands in the world, covers part of this country.",
+   "The White Nile flows north through it, past its capital, Juba.",
+   "It became independent in 2011, which makes it the world's newest country.",
+   "For the point, name this country that split from its northern neighbor, Sudan."
+  ],
+  "a": "South Sudan",
+  "alt": [],
+  "prompt": [
+   "Sudan"
+  ],
+  "t": 4,
+  "x": "Each year one of the biggest animal migrations on Earth, of antelope, crosses South Sudan.",
+  "redset": ""
+ },
+ {
+  "id": "africa-cairo",
+  "region": "africa",
+  "cat": "city",
+  "clues": [
+   "Its Khan el-Khalili bazaar has been a busy market for over 600 years.",
+   "It is the largest city in the Arab world.",
+   "The Great Pyramids of Giza rise at the edge of its huge urban area.",
+   "For the point, name this capital of Egypt, on the Nile River."
+  ],
+  "a": "Cairo",
+  "alt": [
+   "Al-Qahira"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Cairo's name means 'the victorious' in Arabic.",
+  "redset": ""
+ },
+ {
+  "id": "asia-tibet",
+  "region": "asia",
+  "cat": "region",
+  "clues": [
+   "The Potala Palace, once the winter home of the Dalai Lama, towers over this region's capital, Lhasa.",
+   "It is called 'the Roof of the World' because its plateau averages more than 14,000 feet high.",
+   "The Yangtze, Mekong, and Indus rivers all begin here.",
+   "For the point, name this autonomous region of western China, north of the Himalayas."
+  ],
+  "a": "Tibet",
+  "alt": [
+   "Tibet Autonomous Region",
+   "Xizang",
+   "Tibetan Plateau"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Mount Everest sits on the border between Tibet and Nepal.",
+  "redset": ""
+ },
+ {
+  "id": "africa-djibouti",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "Lake Assal, the lowest point in Africa, lies in this country.",
+   "The United States, France, China, and Japan all keep military bases here.",
+   "It sits on the Bab-el-Mandeb strait, at the mouth of the Red Sea, across from Yemen.",
+   "For the point, name this small Horn of Africa country whose capital has the same name as the country."
+  ],
+  "a": "Djibouti",
+  "alt": [],
+  "prompt": [],
+  "t": 5,
+  "x": "Lake Assal is about ten times saltier than the ocean.",
+  "redset": ""
+ },
+ {
+  "id": "africa-orange-river",
+  "region": "africa",
+  "cat": "river",
+  "clues": [
+   "The Augrabies Falls thunder through a granite gorge on this river.",
+   "It begins in the mountains of Lesotho and is the longest river in South Africa.",
+   "Its lower course forms the border between South Africa and Namibia.",
+   "For the point, name this river named after the Dutch royal House of Orange, not the fruit."
+  ],
+  "a": "Orange River",
+  "alt": [
+   "Orange",
+   "Gariep",
+   "Gariep River"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Diamonds washed down the Orange River for millions of years, so some are found near its mouth.",
+  "redset": ""
+ },
+ {
+  "id": "canada-prince-edward-island",
+  "region": "canada",
+  "cat": "province",
+  "clues": [
+   "The eight-mile Confederation Bridge links this island to New Brunswick.",
+   "Its red soil is famous for growing potatoes.",
+   "The book Anne of Green Gables is set on this island.",
+   "For the point, name Canada's smallest province, whose capital is Charlottetown."
+  ],
+  "a": "Prince Edward Island",
+  "alt": [
+   "PEI",
+   "P.E.I."
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Leaders met in Charlottetown in 1864 to plan the country of Canada.",
+  "redset": ""
+ },
+ {
+  "id": "asia-sinai",
+  "region": "asia",
+  "cat": "region",
+  "clues": [
+   "Saint Catherine's Monastery, one of the oldest working monasteries in the world, sits at the foot of a mountain here.",
+   "Many believe Moses received the Ten Commandments on a mountain on this land.",
+   "This triangle of land lies between the Gulf of Suez and the Gulf of Aqaba.",
+   "For the point, name this peninsula, the part of Egypt that is in Asia."
+  ],
+  "a": "Sinai Peninsula",
+  "alt": [
+   "Sinai"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Suez Canal runs along the Sinai's western edge.",
+  "redset": ""
+ },
+ {
+  "id": "asia-south-china-sea",
+  "region": "asia",
+  "cat": "water",
+  "clues": [
+   "Several countries claim the tiny Spratly and Paracel Islands in this sea.",
+   "Hong Kong and Manila both face this sea.",
+   "It stretches from Taiwan down toward Singapore, between Vietnam and the Philippines.",
+   "For the point, name this arm of the Pacific Ocean named after the large country on its northern shore."
+  ],
+  "a": "South China Sea",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "About a third of all the world's shipping passes through it.",
+  "redset": ""
+ },
+ {
+  "id": "europe-gibraltar",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Ancient Greeks called the two great rocks on either side of this waterway the Pillars of Hercules.",
+   "At its narrowest it is only about 9 miles wide.",
+   "It separates Spain from Morocco.",
+   "For the point, name this strait that links the Atlantic Ocean to the Mediterranean Sea."
+  ],
+  "a": "Strait of Gibraltar",
+  "alt": [
+   "Gibraltar"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "On a clear day you can see Africa from Europe across the strait.",
+  "redset": ""
+ },
+ {
+  "id": "asia-lake-baikal",
+  "region": "asia",
+  "cat": "lake",
+  "clues": [
+   "Nerpa seals, among the only seals that live only in fresh water, swim in this lake.",
+   "It holds about a fifth of the world's unfrozen fresh water.",
+   "It is the deepest lake on Earth, more than a mile deep.",
+   "For the point, name this lake in Siberia, Russia."
+  ],
+  "a": "Lake Baikal",
+  "alt": [
+   "Baikal"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Baikal is also the oldest lake in the world — about 25 million years old.",
+  "redset": ""
+ },
+ {
+  "id": "us-philadelphia",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "The Liberty Bell, with its famous crack, is on display in this city.",
+   "Its name means 'city of brotherly love.'",
+   "The Declaration of Independence was signed in its Independence Hall in 1776.",
+   "For the point, name this largest city in Pennsylvania."
+  ],
+  "a": "Philadelphia",
+  "alt": [
+   "Philly"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Philadelphia was the U.S. capital in the 1790s, before Washington, D.C.",
+  "redset": ""
+ },
+ {
+  "id": "europe-crimea",
+  "region": "europe",
+  "cat": "region",
+  "clues": [
+   "Yalta, a resort here, hosted a famous 1945 meeting of Roosevelt, Churchill, and Stalin.",
+   "A long bridge over the Kerch Strait links it to Russia.",
+   "It juts into the Black Sea from southern Ukraine.",
+   "For the point, name this peninsula that Russia seized from Ukraine in 2014."
+  ],
+  "a": "Crimea",
+  "alt": [
+   "Crimean Peninsula"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Most countries still count Crimea as part of Ukraine.",
+  "redset": ""
+ },
+ {
+  "id": "world-greenland",
+  "region": "world",
+  "cat": "island",
+  "clues": [
+   "Its capital is Nuuk, and most of its people are Inuit.",
+   "An ice sheet up to about two miles thick covers about four-fifths of it.",
+   "It governs itself but is part of the Kingdom of Denmark.",
+   "For the point, name this largest island in the world, which Erik the Red named to attract settlers."
+  ],
+  "a": "Greenland",
+  "alt": [
+   "Kalaallit Nunaat"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "If all of Greenland's ice melted, the oceans would rise about 24 feet.",
+  "redset": ""
+ },
+ {
+  "id": "asia-dubai",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Palm Jumeirah, a man-made island shaped like a palm tree, lies off this city's coast.",
+   "It has an indoor ski slope inside a shopping mall, even though its summers are scorching.",
+   "The Burj Khalifa, the tallest building in the world, rises here.",
+   "For the point, name this largest city of the United Arab Emirates."
+  ],
+  "a": "Dubai",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "The Burj Khalifa is more than half a mile tall.",
+  "redset": ""
+ },
+ {
+  "id": "africa-kalahari",
+  "region": "africa",
+  "cat": "desert",
+  "clues": [
+   "Meerkats, small mongooses that stand on their back legs to keep watch, live in this sandy region.",
+   "The San people have hunted and gathered here for thousands of years.",
+   "It covers most of Botswana and reaches into Namibia and South Africa.",
+   "For the point, name this large semi-desert of southern Africa."
+  ],
+  "a": "Kalahari Desert",
+  "alt": [
+   "Kalahari"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The Kalahari gets more rain than a true desert, so grass and trees grow there.",
+  "redset": ""
+ },
+ {
+  "id": "asia-bali",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "Farmers on this island grow rice on stair-step terraces watered by an ancient system called subak.",
+   "Unlike most of its country, most people here are Hindu.",
+   "It lies just east of Java.",
+   "For the point, name this Indonesian island nicknamed the 'Island of the Gods.'"
+  ],
+  "a": "Bali",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "Bali has thousands of Hindu temples.",
+  "redset": ""
+ },
+ {
+  "id": "asia-sumatra",
+  "region": "asia",
+  "cat": "island",
+  "clues": [
+   "Lake Toba, the largest volcanic lake in the world, fills an ancient supervolcano on this island.",
+   "The equator crosses it, and the Strait of Malacca separates it from Malaysia.",
+   "Tigers and orangutans that live only here share its name.",
+   "For the point, name this large island in western Indonesia, the sixth-largest island in the world."
+  ],
+  "a": "Sumatra",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Sumatra is the only place where tigers, rhinos, elephants, and orangutans all live in the same forests.",
+  "redset": ""
+ },
+ {
+  "id": "europe-canary-islands",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "Mount Teide, on the island of Tenerife, is the highest peak in Spain.",
+   "These islands lie in the Atlantic off the coast of Morocco and Western Sahara.",
+   "They belong to Spain, even though they are much closer to Africa.",
+   "For the point, name these islands that share their name with a small yellow songbird, though they were probably named after dogs."
+  ],
+  "a": "Canary Islands",
+  "alt": [
+   "Canaries",
+   "Canary"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The name likely comes from the Latin word for dog, canis.",
+  "redset": ""
+ },
+ {
+  "id": "europe-adriatic",
+  "region": "europe",
+  "cat": "water",
+  "clues": [
+   "Venice was built on more than a hundred small islands in a lagoon at the top of this sea.",
+   "Croatia's coast along this sea is dotted with over a thousand islands.",
+   "The walled city of Dubrovnik sits on its eastern shore.",
+   "For the point, name this arm of the Mediterranean Sea between Italy and the Balkan Peninsula."
+  ],
+  "a": "Adriatic Sea",
+  "alt": [
+   "Adriatic"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The sea is named after the ancient port town of Adria, in Italy.",
+  "redset": ""
+ },
+ {
+  "id": "africa-cape-town",
+  "region": "africa",
+  "cat": "city",
+  "clues": [
+   "Robben Island, where Nelson Mandela was imprisoned for 18 years, lies offshore from this city.",
+   "African penguins waddle on Boulders Beach in its suburbs.",
+   "Flat-topped Table Mountain rises behind it.",
+   "For the point, name this South African city near the Cape of Good Hope, where the country's parliament meets."
+  ],
+  "a": "Cape Town",
+  "alt": [
+   "Kaapstad"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "South Africa has three capitals: Pretoria, Cape Town, and Bloemfontein.",
+  "redset": ""
+ },
+ {
+  "id": "asia-krakatoa",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "Its 1883 eruption was so loud that people heard it nearly 3,000 miles away.",
+   "Ash from that eruption turned sunsets around the world bright red for months.",
+   "A new volcano called its 'Child' has grown out of the sea where it stood.",
+   "For the point, name this volcano in the strait between Java and Sumatra."
+  ],
+  "a": "Krakatoa",
+  "alt": [
+   "Krakatau"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "The 1883 blast may be the loudest sound in recorded history.",
+  "redset": ""
+ },
+ {
+  "id": "europe-mont-blanc",
+  "region": "europe",
+  "cat": "mountain",
+  "clues": [
+   "A 7-mile tunnel under this mountain links Chamonix to Courmayeur.",
+   "The first Winter Olympics, in 1924, were held at Chamonix, at its foot.",
+   "It is the highest mountain in the Alps.",
+   "For the point, name this snowy peak on the border of France and Italy, whose name means 'white mountain.'"
+  ],
+  "a": "Mont Blanc",
+  "alt": [
+   "Monte Bianco",
+   "Mount Blanc"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Its height changes a little every year as the snow on top grows and shrinks.",
+  "redset": ""
+ },
+ {
+  "id": "asia-godavari",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "Every twelve years, the giant Kumbh Mela festival is held on its banks at Nashik.",
+   "It rises in the Western Ghats and flows east across the Deccan Plateau.",
+   "It is often called the 'Dakshina Ganga,' or Ganges of the South.",
+   "For the point, name this second-longest river in India, which empties into the Bay of Bengal."
+  ],
+  "a": "Godavari River",
+  "alt": [
+   "Godavari"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "The Godavari flows through Maharashtra, Telangana, and Andhra Pradesh.",
+  "redset": ""
+ },
+ {
+  "id": "us-susquehanna",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "The Three Mile Island nuclear plant sits on an island in this river.",
+   "Harrisburg, the capital of Pennsylvania, stands on its banks.",
+   "It is the longest river on the East Coast of the United States.",
+   "For the point, name this river that flows into the top of Chesapeake Bay."
+  ],
+  "a": "Susquehanna River",
+  "alt": [
+   "Susquehanna"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "It is one of the oldest rivers in the world — older than the mountains it cuts through.",
+  "redset": ""
+ },
+ {
+  "id": "canada-banff",
+  "region": "canada",
+  "cat": "landmark",
+  "clues": [
+   "Turquoise Lake Louise and Moraine Lake get their color from 'rock flour' ground up by glaciers.",
+   "It was Canada's first national park, created in 1885.",
+   "It lies in the Rocky Mountains of Alberta, west of Calgary.",
+   "For the point, name this national park whose resort town shares its name."
+  ],
+  "a": "Banff National Park",
+  "alt": [
+   "Banff"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Banff began with a hot spring found by railway workers.",
+  "redset": ""
+ },
+ {
+  "id": "us-savannah",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "This city was laid out in 1733 around a grid of shady public squares.",
+   "Girl Scouts founder Juliette Gordon Low was born here.",
+   "It is the oldest city in Georgia, near the mouth of a river with the same name.",
+   "For the point, name this Georgia port city whose name is also a word for a tropical grassland."
+  ],
+  "a": "Savannah",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Savannah's port is one of the busiest container ports in the United States.",
+  "redset": ""
+ },
+ {
+  "id": "asia-andaman-sea",
+  "region": "asia",
+  "cat": "water",
+  "clues": [
+   "Phuket and the limestone islands of Phang Nga Bay rise from this sea.",
+   "The Irrawaddy River empties into it.",
+   "It washes the coasts of Myanmar and Thailand, west of the Malay Peninsula.",
+   "For the point, name this arm of the Indian Ocean named after the island chain on its western edge."
+  ],
+  "a": "Andaman Sea",
+  "alt": [
+   "Burma Sea"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "The Andaman Sea is famous for its coral reefs and clear water.",
+  "redset": ""
+ },
+ {
+  "id": "us-mauna-kea",
+  "region": "us",
+  "cat": "mountain",
+  "clues": [
+   "Some of the world's biggest telescopes sit on its summit, above most of the clouds.",
+   "Measured from its base on the ocean floor, it is taller than Mount Everest.",
+   "Snow often caps it in winter, even though it is in the tropics.",
+   "For the point, name this dormant volcano on Hawaii's Big Island, the highest point in Hawaii."
+  ],
+  "a": "Mauna Kea",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Its name means 'white mountain' in Hawaiian, after its snow.",
+  "redset": ""
+ },
+ {
+  "id": "africa-namib",
+  "region": "africa",
+  "cat": "desert",
+  "clues": [
+   "Some of the tallest sand dunes on Earth rise at Sossusvlei in this desert.",
+   "Fog rolling in from the cold ocean gives beetles here the water they need.",
+   "It is often called the oldest desert in the world.",
+   "For the point, name this coastal desert that gives Namibia its name."
+  ],
+  "a": "Namib Desert",
+  "alt": [
+   "Namib"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Some Namib beetles stand on their heads in the fog so drops roll down into their mouths.",
+  "redset": ""
+ },
+ {
+  "id": "us-chesapeake",
+  "region": "us",
+  "cat": "water",
+  "clues": [
+   "Blue crabs from this bay are a famous Maryland food.",
+   "Annapolis, home of the U.S. Naval Academy, sits near its shore.",
+   "It is the largest estuary in the United States, where fresh river water mixes with salty ocean water.",
+   "For the point, name this bay split between Maryland and Virginia."
+  ],
+  "a": "Chesapeake Bay",
+  "alt": [
+   "Chesapeake"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "More than 150 rivers and streams flow into the Chesapeake.",
+  "redset": ""
+ },
+ {
+  "id": "us-great-salt-lake",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "Its water is so salty that brine shrimp and brine flies are almost the only animals that live in it.",
+   "It is left over from Lake Bonneville, a huge Ice Age lake.",
+   "Utah's capital sits just southeast of it.",
+   "For the point, name this largest saltwater lake in the Western Hemisphere, in Utah."
+  ],
+  "a": "Great Salt Lake",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "People float easily in it because the salty water is so dense.",
+  "redset": ""
  }
 ];

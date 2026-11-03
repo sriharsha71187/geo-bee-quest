@@ -13,6 +13,15 @@
  * opens a short answer window (typed or spoken). A wrong buzz ends that tossup,
  * as it locks a player out in the real bee.
  *
+ * Final Round mode is the playoff format: points depend on how early he
+ * buzzes, on IAC's published 2026 playoff scale (6 before the first power
+ * mark, 5 before the second, 4 on the rest of the question, 3 after it ends;
+ * -2 for a wrong buzz mid-question, -1 after). IAC posts no separate
+ * elementary finals sheet, so this mirrors the playoff rules that the (+)/(*)
+ * marks in its EMS finals packets point to. Here the first clue is the (+)
+ * zone and everything before the giveaway sentence is the (*) zone.
+ * Race to 50 points, at most 20 tossups.
+ *
  * It owns its own timers. App calls Buzzer.stop() from abortActivity().
  */
 window.Buzzer = (function () {
@@ -20,6 +29,8 @@ window.Buzzer = (function () {
   const ROUND_MAX = 30, TARGET = 5;
   const WPM = 150;                      // moderator reading pace
   const AFTER_READ_MS = 5000;           // time to buzz after the last word
+  const FINAL_GOAL = 50, FINAL_MAX = 20;
+  const isFinal = () => !!R && R.mode === "final";
   let ctx = null, R = null, timers = [];
 
   const $ = (sel) => ctx.el.querySelector(sel);
@@ -74,16 +85,20 @@ window.Buzzer = (function () {
     const pool = window.GEO_TOSSUPS.filter((t) => !R.used.has(t.id));
     if (!pool.length) return null;
     const cb = (window.GBQ_COACH && window.GBQ_COACH.buzz) || {};
-    const target = cb.targetTier || 3;
+    // the Final Round reads a level above his usual buzzer target, favouring
+    // the longer four-clue tossups that have a real (+) and (*) zone
+    const target = isFinal() ? Math.min(5, Math.max(3, (cb.targetTier || 3) + 1)) : cb.targetTier || 3;
     const regionW = cb.regions || {};
     const score = (t) => {
       const r = seen[t.id];
       let p = !r ? 0 : r.w > r.c ? 1 : r.bp != null && r.bp < 0.9 ? 3 : 2;
-      p += Math.abs(t.t - (R.i < 10 ? Math.max(1, target - 1) : target)) * 0.4;
+      // regional rounds start a notch easier; a final stays at finals level
+      p += Math.abs(t.t - (R.i < 10 && !isFinal() ? Math.max(1, target - 1) : target)) * 0.4;
       p -= ((regionW[t.region] || 1) - 1) * 0.8;
       // over this category's IAC share for the round so far -> push it back
       const share = ((R.cats[t.cat] || 0) + 1) / (R.i + 1);
       p += Math.max(0, share - (CAT_MIX[t.cat] || 0.03)) * 4;
+      if (isFinal() && t.clues.length < 4) p += 0.5;
       return p + Math.random() * 0.8;
     };
     pool.sort((a, b) => score(a) - score(b));
@@ -91,14 +106,37 @@ window.Buzzer = (function () {
   }
 
   // ---------- round ----------
-  function start(c) {
+  function start(c, mode) {
     stop();
     ctx = c;
-    R = { i: 0, correct: 0, wrong: 0, used: new Set(), cats: {}, log: [], startedAt: Date.now() };
+    R = { mode: mode === "final" ? "final" : "regional", i: 0, correct: 0, wrong: 0, points: 0, powers: 0,
+      used: new Set(), cats: {}, log: [], startedAt: Date.now() };
     document.addEventListener("keydown", onKey);
     intro();
   }
   function intro() {
+    if (isFinal()) {
+      ctx.el.innerHTML = `
+      <div class="card buzz-card">
+        <div class="mascot">🏆</div>
+        <h1>Final Round</h1>
+        <p>Finals are scored differently: the <b>earlier</b> you buzz, the more points you get.</p>
+        <ul class="buzz-rules">
+          <li>Buzz during the <b>first clue</b>: <b>6 points</b> — a power buzz!</li>
+          <li>Buzz before the <b>"For the point"</b> giveaway: <b>5 points</b>.</li>
+          <li>Buzz during the giveaway: <b>4 points</b>. After the reading ends: <b>3 points</b>.</li>
+          <li>A wrong buzz costs <b>2 points</b> while the question is still being read (<b>1 point</b> after). So be sure!</li>
+          <li>First to <b>${FINAL_GOAL} points</b> wins. These questions are harder — finals level.</li>
+        </ul>
+        <div class="row" style="gap:10px;justify-content:center">
+          <button class="big green" id="bz-go">Start the final ▶</button>
+          <button class="ghost" id="bz-exit">Back</button>
+        </div>
+      </div>`;
+      $("#bz-go").onclick = next;
+      $("#bz-exit").onclick = exit;
+      return;
+    }
     ctx.el.innerHTML = `
       <div class="card buzz-card">
         <div class="mascot">🛎️</div>
@@ -120,20 +158,20 @@ window.Buzzer = (function () {
   }
   function next() {
     clearTimers(); hush();
-    if (R.correct >= TARGET || R.i >= ROUND_MAX) return finish();
+    if (isFinal() ? R.points >= FINAL_GOAL || R.i >= FINAL_MAX : R.correct >= TARGET || R.i >= ROUND_MAX) return finish();
     const t = pick(ctx.getState());
     if (!t) return finish();
     R.used.add(t.id);
     R.cats[t.cat] = (R.cats[t.cat] || 0) + 1;
     R.i++;
-    R.cur = { t, words: t.clues.join(" ").split(/\s+/), shown: 0, phase: "reading", buzzAt: null, prompted: false };
+    R.cur = { t, words: t.clues.join(" ").split(/\s+/), z: zones(t), shown: 0, phase: "reading", buzzAt: null, prompted: false };
     renderTossup();
     read();
   }
   function renderTossup() {
     ctx.el.innerHTML = `
       <div class="card buzz-card">
-        <div class="quiz-top"><span>Question ${R.i}</span><span>✅ ${R.correct} / ${TARGET}</span>
+        <div class="quiz-top"><span>Question ${R.i}${isFinal() ? ` of ${FINAL_MAX}` : ""}</span><span id="bz-score">${isFinal() ? `🏆 ${R.points} / ${FINAL_GOAL}` : `✅ ${R.correct} / ${TARGET}`}</span>
           <button class="ghost small" id="bz-quit">Quit</button></div>
         <p class="buzz-text" id="bz-text" aria-live="off"></p>
         <div id="bz-act">
@@ -145,14 +183,44 @@ window.Buzzer = (function () {
     $("#bz-buzz").onclick = buzz;
     $("#bz-quit").onclick = () => { if (confirm("Quit this round?")) finish(); };
   }
+  // Word counts where the (+) and (*) zones end: the first clue, and
+  // everything before the giveaway sentence.
+  function zones(t) {
+    const ends = []; let n = 0;
+    for (const cl of t.clues) { n += cl.split(/\s+/).length; ends.push(n); }
+    return { plus: ends[0], star: ends[ends.length - 2] };
+  }
+  // Final Round points for one tossup (see the header for the scale).
+  function finalPoints(c, outcome) {
+    if (outcome === "nobuzz") return 0;
+    const after = c.buzzAt >= c.words.length;
+    if (outcome === "wrong") return after ? -1 : -2;
+    if (after) return 3;
+    return c.buzzAt <= c.z.plus ? 6 : c.buzzAt <= c.z.star ? 5 : 4;
+  }
+  // Escaped words [from, to); once a Final Round tossup is over, the (+) and
+  // (*) marks are shown where they fall, as in a real finals packet.
+  function wordsHtml(from, to) {
+    const c = R.cur, out = [];
+    for (let i = from; i < to; i++) {
+      out.push(esc(c.words[i]));
+      if (isFinal() && c.phase === "done") {
+        if (i === c.z.plus - 1) out.push('<span class="pw-mark" title="6-point zone ends">(+)</span>');
+        else if (i === c.z.star - 1) out.push('<span class="pw-mark" title="5-point zone ends">(*)</span>');
+      }
+    }
+    return out.join(" ");
+  }
   function paintText(all) {
-    const c = R.cur, w = c.words;
-    if (all && c.buzzAt != null && c.buzzAt < w.length) {
+    const c = R.cur, n = c.words.length;
+    if (all && c.buzzAt != null && c.buzzAt < n) {
       // full text with a marker where he buzzed, the unread part dimmed
-      $("#bz-text").innerHTML = esc(w.slice(0, c.buzzAt).join(" ")) + ' <span class="buzz-mark" title="you buzzed here">🛎</span> ' +
-        `<span class="buzz-rest">${esc(w.slice(c.buzzAt).join(" "))}</span>`;
+      $("#bz-text").innerHTML = wordsHtml(0, c.buzzAt) + ' <span class="buzz-mark" title="you buzzed here">🛎</span> ' +
+        `<span class="buzz-rest">${wordsHtml(c.buzzAt, n)}</span>`;
+    } else if (all) {
+      $("#bz-text").innerHTML = wordsHtml(0, n);
     } else {
-      $("#bz-text").textContent = w.slice(0, all ? w.length : c.shown).join(" ");
+      $("#bz-text").textContent = c.words.slice(0, c.shown).join(" ");
     }
   }
   function read() {
@@ -248,6 +316,10 @@ window.Buzzer = (function () {
     c.phase = "done"; clearTimers(); hush();
     const frac = c.buzzAt != null ? c.buzzAt / c.words.length : null;
     if (outcome === "right") R.correct++; else if (outcome === "wrong") R.wrong++;
+    const pts = isFinal() ? finalPoints(c, outcome) : null;
+    if (pts != null) { R.points += pts; if (pts === 6) R.powers++; }
+    const sc = $("#bz-score");
+    if (sc) sc.textContent = isFinal() ? `🏆 ${R.points} / ${FINAL_GOAL}` : `✅ ${R.correct} / ${TARGET}`;
     R.log.push({ id: c.t.id, outcome, bp: frac });
     ctx.record(c.t.id, outcome, frac);
     paintText(true);
@@ -258,11 +330,16 @@ window.Buzzer = (function () {
       : outcome === "wrong" ? `Not quite${given ? ` (you said “${esc(given)}”)` : ""}. Here's the answer:`
       : "Nobody buzzed. Here's the answer:";
     $("#bz-act").innerHTML = "";
+    const ptsLine = pts == null ? ""
+      : pts === 6 ? "<p><b>+6 points</b> — power buzz in the first clue! 🔥</p>"
+      : pts > 0 ? `<p><b>+${pts} points</b>${pts === 5 ? " — before the giveaway, nice!" : pts === 4 ? " — buzz before the giveaway next time for 5." : " — after the reading ends is only 3. Trust yourself and buzz sooner!"}</p>`
+      : pts < 0 ? `<p><b>${pts} points</b>${pts === -2 ? " — a wrong buzz mid-question costs 2. Only buzz when you're sure." : "."}</p>`
+      : "";
     $("#bz-feedback").innerHTML = `
-      <p>${msg}</p>
+      <p>${msg}</p>${ptsLine}
       <p class="summary-line">${esc(c.t.a)}</p>
       ${c.t.x ? `<p class="muted">💡 ${esc(c.t.x)}</p>` : ""}
-      <button class="big green" id="bz-next">${R.correct >= TARGET ? "Finish round 🏁" : "Next ▶"}</button>`;
+      <button class="big green" id="bz-next">${(isFinal() ? R.points >= FINAL_GOAL : R.correct >= TARGET) ? "Finish round 🏁" : "Next ▶"}</button>`;
     $("#bz-next").onclick = next;
     $("#bz-next").focus();
     if (outcome === "right") ctx.sound(true); else ctx.sound(false);
@@ -273,18 +350,29 @@ window.Buzzer = (function () {
     const answered = R.log.length;
     const bps = R.log.filter((l) => l.outcome === "right" && l.bp != null).map((l) => l.bp);
     const avgBuzz = bps.length ? Math.round((100 * bps.reduce((a, b) => a + b, 0)) / bps.length) : null;
-    const summary = { kind: "buzzer", at: Date.now(), n: answered, correct: R.correct, wrong: R.wrong,
-      reached5: R.correct >= TARGET, avgBuzzPct: avgBuzz, ms: Date.now() - R.startedAt };
+    const fin = isFinal(), mode = R.mode;
+    const summary = fin
+      ? { kind: "final", at: Date.now(), n: answered, correct: R.correct, wrong: R.wrong, points: R.points,
+          powers: R.powers, reachedGoal: R.points >= FINAL_GOAL, avgBuzzPct: avgBuzz, ms: Date.now() - R.startedAt }
+      : { kind: "buzzer", at: Date.now(), n: answered, correct: R.correct, wrong: R.wrong,
+          reached5: R.correct >= TARGET, avgBuzzPct: avgBuzz, ms: Date.now() - R.startedAt };
     if (answered) ctx.finish(summary);
+    const head = fin
+      ? `<div class="mascot">🏆</div>
+        <h1>${R.points >= FINAL_GOAL ? `You reached ${FINAL_GOAL}!` : "Final over"}</h1>
+        <p class="summary-line">${R.points} points · ${R.correct} right out of ${answered}</p>
+        <p>Power buzzes (6 points): <b>${R.powers}</b>. ${R.powers ? "Those win finals!" : "Try buzzing in the first clue when you're sure — that's 6 points."}</p>
+        ${R.wrong ? `<p class="muted">Wrong buzzes: ${R.wrong}. Each one cost points, so buzz early only when you're sure.</p>` : ""}`
+      : `<div class="mascot">🛎️</div>
+        <h1>${R.correct >= TARGET ? "You reached 5!" : "Round over"}</h1>
+        <p class="summary-line">${R.correct} right out of ${answered} question${answered === 1 ? "" : "s"}</p>
+        ${R.correct >= TARGET ? `<p>You needed <b>${answered}</b> questions to get 5. In the real bee, faster means more bonus points.</p>` : ""}`;
     const missed = R.log.filter((l) => l.outcome !== "right").map((l) => window.GEO_TOSSUPS.find((t) => t.id === l.id));
     ctx.el.innerHTML = `
       <div class="card buzz-card">
-        <div class="mascot">🛎️</div>
-        <h1>${R.correct >= TARGET ? "You reached 5!" : "Round over"}</h1>
-        <p class="summary-line">${R.correct} right out of ${answered} question${answered === 1 ? "" : "s"}</p>
-        ${R.correct >= TARGET ? `<p>You needed <b>${answered}</b> questions to get 5. In the real bee, faster means more bonus points.</p>` : ""}
+        ${head}
         ${avgBuzz != null ? `<p class="muted">On your right answers you buzzed, on average, ${avgBuzz}% of the way through the question. Lower is better: buzzing before the giveaway wins close rounds.</p>` : ""}
-        ${R.wrong ? `<p class="muted">Wrong buzzes: ${R.wrong}. In the real bee a wrong buzz locks you out of that question, so buzz when you're sure.</p>` : ""}
+        ${R.wrong && !fin ? `<p class="muted">Wrong buzzes: ${R.wrong}. In the real bee a wrong buzz locks you out of that question, so buzz when you're sure.</p>` : ""}
         ${missed.length ? `<div class="debrief"><h3>Learn these</h3>${missed.map((t) => `
           <div class="debrief-row"><div class="debrief-a">${esc(t.a)}</div><div class="debrief-q">${esc(t.clues.join(" "))}</div></div>`).join("")}</div>` : ""}
         <div class="row" style="gap:10px;justify-content:center;margin-top:12px">
@@ -293,7 +381,7 @@ window.Buzzer = (function () {
         </div>
       </div>`;
     R = null;
-    $("#bz-again").onclick = () => start(ctx);
+    $("#bz-again").onclick = () => start(ctx, mode);
     $("#bz-exit").onclick = exit;
   }
   function exit() { stop(); ctx.exit(); }
@@ -304,5 +392,5 @@ window.Buzzer = (function () {
     }
   }
 
-  return { start, stop, judge, _norm: norm };
+  return { start, stop, judge, _norm: norm, _zones: zones, _finalPoints: finalPoints };
 })();

@@ -78,11 +78,13 @@
   }
   // Regional buzzer round (js/buzzer.js). It owns its screen and timers; the
   // app hands it the child's state, saving, sound and the way home.
-  function startBuzzer() {
+  // mode: "regional" (race to 5 right) or "final" (playoff points for early buzzes)
+  function startBuzzer(mode) {
     if (!window.Buzzer || !window.GEO_TOSSUPS) return;
     abortActivity();
     show("#screen-quiz");
-    act = { kind: "buzzer", plan: { kind: "buzzer" } };
+    const kind = mode === "final" ? "final" : "buzzer";
+    act = { kind, plan: { kind } };
     window.Buzzer.start({
       el: $("#screen-quiz"),
       getState: () => S,
@@ -92,7 +94,7 @@
       finish: (m) => { if (S) { E.logMock(S, m); S.xp += m.correct * 10; save(); } },
       sound: (ok) => (ok ? sndGood() : sndBad()),
       exit: () => { act = null; renderHome(); },
-    });
+    }, mode);
   }
 
   function topicMeta(id) {
@@ -360,7 +362,10 @@
       </div>
       <button class="big green" id="btn-play">▶️ &nbsp;Play Adventure</button>
       <button class="big ghost" id="btn-learn">📚 &nbsp;Learn — explore the world</button>
-      <button class="big amber" id="btn-buzzer">🛎️ &nbsp;Buzzer Round — practice for the real bee</button>
+      <div class="row">
+        <button class="big amber" id="btn-buzzer">🛎️ Buzzer Round</button>
+        <button class="big violet" id="btn-final">🏆 Final Round</button>
+      </div>
       <div class="row">
         <button class="big violet" id="btn-bee-written">📝 Written Bee</button>
         <button class="big amber" id="btn-bee-oral">🎤 Oral Bee</button>
@@ -375,7 +380,8 @@
     $("#btn-play").onclick = () => startPractice();
     $("#btn-learn").onclick = renderLearnTopics;
     $("#btn-bee-written").onclick = writtenBeePicker;
-    $("#btn-buzzer").onclick = startBuzzer;
+    $("#btn-buzzer").onclick = () => startBuzzer("regional");
+    $("#btn-final").onclick = () => startBuzzer("final");
     $("#btn-bee-oral").onclick = () => startBee("oral");
     $("#btn-progress").onclick = renderProgress;
     $("#btn-settings").onclick = renderSettings;
@@ -806,13 +812,14 @@
       <div class="profile-list">
         <button class="green profile-btn" data-kind="nsf">🏫 NSF Mock — 25 questions<br><span class="note" style="color:inherit">+1 per correct, no penalty · 30-minute timer. Always guess!</span></button>
         <button class="green profile-btn" data-kind="buzzer">🛎️ Regional Buzzer Round — like the real Dec 5 bee<br><span class="note" style="color:inherit">Clue paragraphs read aloud · buzz early · race to 5 right</span></button>
+        <button class="violet profile-btn" data-kind="final">🏆 Final Round — finals-style scoring<br><span class="note" style="color:inherit">Harder tossups · 6 points for a power buzz in the first clue · −2 for a wrong early buzz · race to 50</span></button>
         <button class="violet profile-btn" data-kind="iac">🌎 IAC Qualifier Mock (ORQE) — 50 questions<br><span class="note" style="color:inherit">+2 per correct, no penalty · 20-minute timer. Answer every one!</span></button>
       </div>
       <p class="muted" style="margin-top:10px">tap outside to cancel</p></div>`;
     el.onclick = (e) => {
       const b = e.target.closest(".profile-btn");
       el.remove();
-      if (b && b.dataset.kind === "buzzer") startBuzzer();
+      if (b && (b.dataset.kind === "buzzer" || b.dataset.kind === "final")) startBuzzer(b.dataset.kind === "final" ? "final" : "regional");
       else if (b) startBee(b.dataset.kind);
     };
     document.body.appendChild(el);
@@ -1366,10 +1373,12 @@
     const recent = S.log.slice(-7).map((e) =>
       `<div class="counts">${esc(e.d)}: ${esc(e.c)}/${esc(e.a)} correct</div>`).join("") || `<div class="counts">No sessions yet.</div>`;
     // every mock attempt, newest first (s.mocks), so a parent sees a trend
-    const KIND = { buzzer: "🛎️ Buzzer round", iac: "🌎 IAC qualifier mock", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
+    const KIND = { buzzer: "🛎️ Buzzer round", final: "🏆 Final round", iac: "🌎 IAC qualifier mock", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
     const mockRow = (m) => {
       const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
-      const res = m.kind === "buzzer"
+      const res = m.kind === "final"
+        ? `${esc(m.points)} pts in ${esc(m.n)} · ${esc(m.correct)} right · ${esc(m.powers)} power buzz${m.powers === 1 ? "" : "es"}${m.wrong ? ` · ${esc(m.wrong)} wrong` : ""}`
+        : m.kind === "buzzer"
         ? `${esc(m.correct)} right in ${esc(m.n)}${m.reached5 ? " (reached 5)" : ""}${m.avgBuzzPct != null ? ` · buzzed at ${esc(m.avgBuzzPct)}% on average` : ""}`
         : m.max ? `${esc(m.score)} / ${esc(m.max)}` : `${esc(m.correct)} right of ${esc(m.n)}`;
       return `<tr><td>${esc(when)}</td><td>${esc(KIND[m.kind] || m.kind)}</td><td>${res}</td></tr>`;

@@ -384,6 +384,9 @@ const US_PHYSICAL = [
   { q: "What is the largest island in Alaska, home to giant brown bears of the same name?", a: "Kodiak Island", d: ["Baranof Island", "Prince of Wales Island", "Unalaska Island"], t: 4, alt: ["kodiak", "kodiak island"], x: "Among U.S. islands, only Hawaii's Big Island is larger than Kodiak." },
   { q: "Racers have set land-speed records on which shining white salt flats in western Utah?", a: "The Bonneville Salt Flats", d: ["Death Valley", "The Mojave Desert", "The Painted Desert"], t: 4, alt: ["bonneville", "bonneville salt flats"], x: "The flats are the dried-up floor of a huge Ice Age lake." },
   { q: "Which lake forms much of the border between New York and Vermont?", a: "Lake Champlain", d: ["Lake Ontario", "Lake George", "Lake Erie"], t: 4, alt: ["champlain", "lake champlain"], x: "It is named after Samuel de Champlain, the French explorer who founded Quebec City." },
+  { q: "Which dormant volcano on Hawaii's Big Island is the highest point in Hawaii, with giant telescopes on its summit?", a: "Mauna Kea", d: ["Mauna Loa", "Kilauea", "Haleakalā"], t: 4, alt: ["mauna kea"], x: "Measured from its base on the ocean floor, Mauna Kea is taller than Mount Everest." },
+  { q: "Which long chain of volcanic islands stretches west from Alaska, separating the Bering Sea from the Pacific?", a: "The Aleutian Islands", d: ["The Hawaiian Islands", "The Kuril Islands", "The Channel Islands"], t: 5, alt: ["aleutian islands", "aleutians"], x: "The chain reaches so far west that it crosses the 180° line of longitude." },
+  { q: "Which river, the longest on the East Coast, flows past Harrisburg, Pennsylvania, into Chesapeake Bay?", a: "The Susquehanna", d: ["The Hudson", "The Potomac", "The Delaware"], t: 5, alt: ["susquehanna", "susquehanna river"], x: "The Three Mile Island power plant sits on an island in the Susquehanna." },
 ];
 
 const US_LANDMARKS = [
@@ -502,6 +505,9 @@ const WORLD_PHYSICAL = [
   { q: "Which river forms much of the border between North Korea and China?", a: "The Yalu", d: ["The Amur", "The Mekong", "The Yellow River"], t: 5, alt: ["yalu", "yalu river", "amnok"], x: "Koreans call it the Amnok River." },
   { q: "Russia, China, Mongolia, and Kazakhstan all reach into which mountain range, whose name is often said to mean 'golden mountains'?", a: "The Altai Mountains", d: ["The Ural Mountains", "The Pamir Mountains", "The Zagros Mountains"], t: 5, alt: ["altai", "altay", "altai mountains"], x: "Some families in the Altai hunt with trained golden eagles." },
   { q: "What is the largest lake that lies entirely inside Canada?", a: "Great Bear Lake", d: ["Great Slave Lake", "Lake Winnipeg", "Lake Superior"], t: 4, alt: ["great bear lake", "great bear"], x: "The Arctic Circle runs right through Great Bear Lake." },
+  { q: "Which river, the longest in South Africa, forms the border between South Africa and Namibia?", a: "The Orange River", d: ["The Limpopo", "The Zambezi", "The Okavango"], t: 4, alt: ["orange", "orange river", "gariep"], x: "It is named after the Dutch royal House of Orange, not the fruit." },
+  { q: "Which arm of the Indian Ocean washes the coasts of Myanmar and Thailand, around the island of Phuket?", a: "The Andaman Sea", d: ["The South China Sea", "The Arabian Sea", "The Java Sea"], t: 5, alt: ["andaman sea", "andaman"], x: "It is named after India's Andaman Islands, on its western edge." },
+  { q: "Which Indonesian volcano, between Java and Sumatra, erupted in 1883 with one of the loudest sounds in history?", a: "Krakatoa", d: ["Mount Fuji", "Mount Pinatubo", "Mount Etna"], t: 5, alt: ["krakatoa", "krakatau"], x: "People heard the blast nearly 3,000 miles away." },
 ];
 
 const WORLD_LANDMARKS = [
@@ -536,6 +542,9 @@ const WORLD_LANDMARKS = [
   { q: "Which city in Saudi Arabia is the holiest city of Islam, visited by millions on the Hajj?", a: "Mecca", d: ["Medina", "Jerusalem", "Riyadh"], t: 3, alt: ["mecca", "makkah"], x: "The Kaaba, a cube-shaped building draped in black cloth, stands at the center of its Great Mosque." },
   { q: "Which capital city faces Kinshasa across the Congo River?", a: "Brazzaville", d: ["Kampala", "Luanda", "Libreville"], t: 4, alt: ["brazzaville"], x: "Brazzaville is the capital of the Republic of the Congo." },
   { q: "Which Central Asian capital, once called Frunze, sits at the foot of the Tian Shan mountains?", a: "Bishkek", d: ["Tashkent", "Ashgabat", "Dushanbe"], t: 5, alt: ["bishkek"], x: "Bishkek is the capital of Kyrgyzstan." },
+  { q: "Which city, the largest in Quebec, sits on an island in the St. Lawrence River beneath Mount Royal?", a: "Montreal", d: ["Quebec City", "Ottawa", "Toronto"], t: 3, alt: ["montreal", "montréal"], x: "Montreal hosted the 1976 Summer Olympics." },
+  { q: "Which Georgia port city was laid out in 1733 around a grid of shady public squares?", a: "Savannah", d: ["Atlanta", "Charleston", "Augusta"], t: 4, alt: ["savannah"], x: "Girl Scouts founder Juliette Gordon Low was born in Savannah." },
+  { q: "Which national park, Canada's first, lies in the Rocky Mountains of Alberta and is home to Lake Louise?", a: "Banff National Park", d: ["Jasper National Park", "Yellowstone National Park", "Glacier National Park"], t: 4, alt: ["banff", "banff national park"], x: "Lake Louise gets its turquoise color from 'rock flour' ground up by glaciers." },
 ];
 
 const INDIA = [
@@ -899,6 +908,9 @@ const WORLD_REGIONS = [
   { q: "Which is Canada's only officially bilingual province, where English and French are both official?", a: "New Brunswick", d: ["Quebec", "Ontario", "Nova Scotia"], t: 4, alt: ["new brunswick"], x: "New Brunswick sits on the Bay of Fundy, home of the world's highest tides." },
   { q: "Which Brazilian state, named 'General Mines' for its gold, is the country's top coffee grower?", a: "Minas Gerais", d: ["São Paulo", "Bahia", "Amazonas"], t: 5, alt: ["minas gerais"], x: "Its capital is Belo Horizonte." },
   { q: "Which people, often called the largest ethnic group without a country of their own, live where Turkey, Iraq, Iran, and Syria meet?", a: "The Kurds", d: ["The Berbers", "The Basques", "The Tibetans"], t: 5, alt: ["kurds", "kurdish", "kurdish people"], x: "There are about 30 million Kurds." },
+  { q: "Which Indonesian island, just east of Java, is mostly Hindu and nicknamed the 'Island of the Gods'?", a: "Bali", d: ["Sumatra", "Borneo", "Sri Lanka"], t: 3, alt: ["bali"], x: "Bali's farmers grow rice on stair-step terraces." },
+  { q: "Which peninsula in the Black Sea did Russia seize from Ukraine in 2014?", a: "Crimea", d: ["Kamchatka", "Sinai", "Jutland"], t: 4, alt: ["crimea", "crimean peninsula"], x: "Most countries still count Crimea as part of Ukraine." },
+  { q: "Which is Canada's smallest province, the setting of the book Anne of Green Gables?", a: "Prince Edward Island", d: ["Nova Scotia", "New Brunswick", "Newfoundland and Labrador"], t: 4, alt: ["prince edward island", "pei"], x: "The eight-mile Confederation Bridge links it to New Brunswick." },
 ];
 
 const ANIMALS = [
@@ -1205,6 +1217,7 @@ const TOPICS = [
         intro: "A few American places pop up in bee after bee: an Alaskan island of giant bears, a salt-white racetrack in Utah, and a lake between New York and Vermont.",
         read: [
           "Kodiak Island is the largest island in Alaska, home to giant brown bears found only on it and its neighboring islands. In western Utah, the Bonneville Salt Flats are the dried-up floor of a huge Ice Age lake, so flat and hard that racers set land-speed records there. And Lake Champlain, named after the French explorer who founded Quebec City, forms much of the border between New York and Vermont.",
+          "Three more American favorites. Mauna Kea, a dormant volcano on Hawaii's Big Island, is the highest point in Hawaii; measured from the ocean floor, it is taller than Mount Everest, and giant telescopes crown its summit. The Aleutian Islands stretch more than 1,000 miles west from Alaska, separating the Bering Sea from the Pacific. And the Susquehanna, the longest river on the East Coast, flows past Harrisburg, Pennsylvania, into the top of Chesapeake Bay.",
         ] },
     ] },
   { id: "uslandmarks", name: "US Landmarks", emoji: "🌉", kind: "items", items: US_LANDMARKS, scene: "wonders",
@@ -1306,6 +1319,7 @@ const TOPICS = [
           "Africa's Great Lakes include more than giant Victoria. Lake Kivu, on the border of Rwanda and the Democratic Republic of the Congo, hides huge amounts of gas deep under its water, and Rwanda pipes some of it up to make electricity. Farther south, the Limpopo River forms South Africa's northern border with Botswana and Zimbabwe. Off the east coast, the Mozambique Channel separates the giant island of Madagascar from the mainland.",
           "Asia has bee favorites too. The Zagros Mountains are the longest range in Iran, running all the way to the Strait of Hormuz. The Irrawaddy flows the length of Myanmar, past Mandalay, to a wide delta. The Yalu forms much of the border between North Korea and China. And Russia, China, Mongolia, and Kazakhstan all reach into the Altai Mountains — the 'golden mountains' — where some families hunt with trained golden eagles.",
           "In Canada's far north, the Arctic Circle runs right through Great Bear Lake, the largest lake that lies entirely inside Canada. It is even bigger than its neighbor, Great Slave Lake.",
+          "Three more for the finals. The Orange River, South Africa's longest, begins in the mountains of Lesotho and forms the border with Namibia — it is named after the Dutch royal House of Orange, not the fruit. The Andaman Sea washes the coasts of Myanmar and Thailand, around the island of Phuket. And Krakatoa, a volcano between Java and Sumatra, erupted in 1883 so loudly that people heard it nearly 3,000 miles away.",
         ] },
     ] },
   { id: "regions", name: "Regions of the World", emoji: "🌄", kind: "items", items: WORLD_REGIONS, scene: "hills",
@@ -1329,6 +1343,7 @@ const TOPICS = [
           "Some islands keep their own flags and stories. The Isle of Man, in the Irish Sea, has a flag with three running legs and cats with no tails. The Faroe Islands — 18 rocky islands between Iceland and Norway — belong to Denmark, and they have more sheep than people. In the Mediterranean, Sardinia belongs to Italy and is dotted with ancient stone towers called nuraghi, while Mykonos is the Greek island of white windmills.",
           "Farther away, Macau on China's southern coast was ruled by Portugal for over 400 years, until 1999. Tasmania, across Bass Strait, is the smallest state of Australia. Sakhalin, just north of Japan, is Russia's largest island. At the very bottom of South America, Tierra del Fuego — the 'Land of Fire' — is split between Argentina and Chile. And in the Caribbean, the Cayman Islands, south of Cuba, are famous for Stingray City.",
           "Bees also love regions inside big countries. In Canada, the Klondike Gold Rush began in the Yukon, whose capital is Whitehorse, and New Brunswick is the only province where English and French are both official. In Brazil, Minas Gerais — 'General Mines' — was a land of gold and diamonds and now grows more coffee than any other state. And about 30 million Kurds live in the mountains where Turkey, Iraq, Iran, and Syria meet — often called the largest ethnic group without a country of their own.",
+          "Three more favorites. Bali, just east of Java, is the Indonesian island where most people are Hindu — it is nicknamed the 'Island of the Gods.' Crimea is a peninsula in the Black Sea that Russia seized from Ukraine in 2014. And Prince Edward Island, Canada's smallest province, is famous for red soil, potatoes, and the story of Anne of Green Gables.",
         ] },
     ] },
   { id: "landmarks", name: "World Landmarks", emoji: "🗿", kind: "items", items: WORLD_LANDMARKS, scene: "wonders",
@@ -1357,11 +1372,12 @@ const TOPICS = [
           "In the Australian city of Sydney, the famous Opera House spreads its white sail-shaped roofs over the harbor — the symbol of Australia's biggest city (though little Canberra keeps the capital's crown). Across the Pacific in Peru, Machu Picchu — the mountain-top city of the Incas — perches 7,970 feet up in the Andes, a place 'lost' to outsiders for centuries.",
           "In Brazil, the giant statue of Christ the Redeemer stands on a mountain 2,300 feet above the city of Rio de Janeiro. Mexico keeps Chichén Itzá, the stepped pyramid built by the Maya — twice a year, sunlight makes a shadow-snake slither down its steps. And far out in the Pacific, on Easter Island — part of Chile — nearly 1,000 giant stone statues called moai, with huge heads, keep silent watch.",
         ] },
-      { n: "Cities the Bee Loves", scene: "city", from: 27,
-        intro: "Some cities show up in bee after bee. Learn these four and their famous clues.",
+      { n: "Cities & Parks the Bee Loves", scene: "city", from: 27,
+        intro: "Some cities and parks show up in bee after bee. Learn them with their famous clues.",
         read: [
           "Edinburgh, the capital of Scotland, has a castle on an old volcanic rock and hosts the Fringe, the world's biggest arts festival, every August. Mecca, in western Saudi Arabia, is the holiest city of Islam, and millions of Muslims travel there for the Hajj.",
           "Brazzaville and Kinshasa face each other across the Congo River — the closest pair of capital cities on Earth, apart from Rome and Vatican City. And Bishkek, the capital of Kyrgyzstan, sits at the foot of the Tian Shan mountains; in Soviet times it was called Frunze.",
+          "Two cities and a park for the finals. Montreal, Quebec's largest city, sits on an island in the St. Lawrence River beneath Mount Royal, and it is one of the largest French-speaking cities in the world. Savannah, Georgia's oldest city, was laid out in 1733 around shady public squares. And Banff, in Alberta's Rocky Mountains, was Canada's first national park; its Lake Louise glows turquoise from 'rock flour' ground up by glaciers.",
         ] },
     ] },
   { id: "animals", name: "Animals & Habitats", emoji: "🐾", kind: "items", items: ANIMALS, scene: "savanna",
