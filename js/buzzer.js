@@ -39,7 +39,7 @@ window.Buzzer = (function () {
   function later(fn, ms) { const id = setTimeout(fn, ms); timers.push(id); return id; }
   function every(fn, ms) { const id = setInterval(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach((id) => { clearTimeout(id); clearInterval(id); }); timers = []; }
-  function hush() { try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
+  function hush() { window.Voice.hush(); }
   function stop() { clearTimers(); hush(); window.Voice.stop(); document.removeEventListener("keydown", onKey); R = null; }
 
   // ---------- answer checking ----------
@@ -216,18 +216,15 @@ window.Buzzer = (function () {
     const c = R.cur, msPerWord = 60000 / WPM;
     if (ctx.speechOn() && window.speechSynthesis) {
       try {
-        hush();
-        const u = new SpeechSynthesisUtterance(c.t.clues.join(" "));
-        u.rate = 0.95;
         c.voice = true;
-        u.onend = u.onerror = () => { c.voice = false; if (c.textDone) lastChance(c); };
-        u.onboundary = (e) => {
-          if (c.phase !== "reading" || e.name !== "word") return;
-          const before = c.t.clues.join(" ").slice(0, e.charIndex + 1).split(/\s+/).length;
-          c.shown = Math.max(c.shown, before); paintText(false);
-        };
-        speechSynthesis.speak(u);
-      } catch (e) {}
+        window.Voice.speak(c.t.clues.join(" "), {
+          onEnd: () => { c.voice = false; if (c.textDone) lastChance(c); },
+          onWord: (n) => {
+            if (c.phase !== "reading") return;
+            c.shown = Math.min(c.words.length, Math.max(c.shown, n)); paintText(false);
+          },
+        });
+      } catch (e) { c.voice = false; }
     }
     // The visible reveal runs on its own clock so it works without speech,
     // and never runs ahead of a slow voice by more than it would on its own.

@@ -640,6 +640,7 @@ body { overflow-x: hidden; }
 }
 .buzz-rest { color: var(--ink-soft); opacity: 0.75; }
 .buzz-mark { font-size: 1.1rem; }
+#set-voice { flex: 1; min-width: 0; font: inherit; padding: 8px; border-radius: 10px; border: 1px solid var(--outline-soft); background: var(--tile); color: var(--ink); }
 .pw-mark { color: var(--terra); font-weight: 700; font-size: 0.85em; }
 .buzz-btn {
   width: min(70vw, 240px); height: min(70vw, 240px); border-radius: 50%;

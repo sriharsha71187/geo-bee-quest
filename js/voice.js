@@ -10,6 +10,14 @@
  *   onFinal(alts)    the recognizer's guesses, best first
  *   onSilence()      the mic closed having heard nothing
  *   onError(message) a message to show him (mic blocked, offline, ...)
+ *
+ * Read-aloud lives here too. The browser's default voice is often the flattest
+ * one on the device, so Voice.speak() picks the best English voice installed
+ * (a parent can choose another in Settings, kept per device because every
+ * device has different voices) and reads one sentence at a time: that gives
+ * natural pauses, and Chrome cuts off long utterances otherwise.
+ *
+ * Voice.speak(text, { onWord(wordsSoFar), onEnd })   Voice.hush()
  */
 window.Voice = (function () {
   const QUIET_MS = 1200;   // he has stopped talking: ask for the final result
@@ -76,5 +84,79 @@ window.Voice = (function () {
     return true;
   }
 
-  return { listen, stop, supported: () => !!SR() };
+  // ---------- read-aloud ----------
+  const PREF_KEY = "gbq-voice";
+  const RATE = 0.95;
+  // novelty and old robotic voices: never picked, never offered
+  const JOKE = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|fred|good news|hysterical|jester|junior|kathy|organ|pipe organ|ralph|superstar|trinoids|whisper|wobble|zarvox|grandma|grandpa|rocko|shelley|sandy|eddy|flo|reed)\b/i;
+  function voiceScore(v) {
+    const name = v.name || "", lang = (v.lang || "").replace("_", "-").toLowerCase();
+    if (!lang.startsWith("en") || JOKE.test(name)) return -1;
+    let n = lang === "en-us" ? 20 : lang === "en-in" ? 15 : lang === "en-gb" ? 12 : 5;
+    if (/natural|neural/i.test(name)) n += 100;             // Edge's neural voices
+    else if (/premium/i.test(name)) n += 90;                // Apple downloads
+    else if (/enhanced/i.test(name)) n += 80;
+    else if (/^google/i.test(name)) n += 70;                // Chrome's cloud voices
+    else if (/siri/i.test(name)) n += 65;
+    else if (/^(ava|allison|susan|zoe|evan|tom|nicky|noelle|samantha|aaron|nathan)\b/i.test(name)) n += 55;
+    else if (/network/i.test(name)) n += 40;                // Android's cloud voices
+    else if (/^microsoft/i.test(name)) n += 20;
+    return n;
+  }
+  function rankVoices(list) {
+    return (list || []).map((v) => ({ v, n: voiceScore(v) })).filter((x) => x.n >= 0)
+      .sort((a, b) => b.n - a.n).map((x) => x.v);
+  }
+  function allVoices() { try { return window.speechSynthesis ? speechSynthesis.getVoices() : []; } catch (e) { return []; } }
+  function getPref() { try { return localStorage.getItem(PREF_KEY) || ""; } catch (e) { return ""; } }
+  function setPref(name) { try { if (name) localStorage.setItem(PREF_KEY, name); else localStorage.removeItem(PREF_KEY); } catch (e) {} }
+  function bestVoice() {
+    const ranked = rankVoices(allVoices()), pref = getPref();
+    return ranked.find((v) => v.name === pref) || ranked[0] || null;
+  }
+  // what a voice should read: no emoji (some read "flag: Japan" aloud), and
+  // the abbreviations it stumbles on
+  function spokenText(text) {
+    return String(text || "")
+      .replace(/\p{Regional_Indicator}|\p{Extended_Pictographic}|\uFE0F|\u200D/gu, "")
+      .replace(/\bSt\.(?= [A-Z])/g, "Saint").replace(/\bMt\.(?= [A-Z])/g, "Mount").replace(/\bFt\.(?= [A-Z])/g, "Fort")
+      .replace(/\s+/g, " ").replace(/ ([.,!?])/g, "$1").trim();
+  }
+  // sentences, without breaking after an abbreviation like U.S. or D.C.
+  function sentences(text) {
+    const parts = text.match(/.+?(?:[.!?]+["'’”)]*(?=\s+["'“(]?[A-Z]|\s*$)|$)/g) || [];
+    const out = [];
+    for (const p of parts.map((x) => x.trim()).filter(Boolean)) {
+      if (out.length && /\b(?:[A-Z]\.)+$/.test(out[out.length - 1])) out[out.length - 1] += " " + p;
+      else out.push(p);
+    }
+    return out;
+  }
+  function hush() { try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} }
+  let sayId = 0;
+  function speak(text, cb) {
+    cb = cb || {};
+    hush();
+    const id = ++sayId, chunks = sentences(spokenText(text));
+    if (!window.speechSynthesis || !chunks.length) { if (cb.onEnd) cb.onEnd(); return; }
+    const voice = bestVoice();
+    let wordsBefore = 0;
+    chunks.forEach((chunk, i) => {
+      const u = new SpeechSynthesisUtterance(chunk), base = wordsBefore;
+      if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "en-US";
+      u.rate = RATE;
+      u.onboundary = (e) => {
+        if (id !== sayId || e.name !== "word" || !cb.onWord) return;
+        cb.onWord(base + chunk.slice(0, e.charIndex + 1).split(/\s+/).length);
+      };
+      if (i === chunks.length - 1) u.onend = u.onerror = () => { if (id === sayId && cb.onEnd) cb.onEnd(); };
+      speechSynthesis.speak(u);
+      wordsBefore += chunk.split(/\s+/).length;
+    });
+  }
+  // voices load late in some browsers: asking now starts the load
+  allVoices();
+
+  return { listen, stop, supported: () => !!SR(), speak, hush, rankVoices, voices: () => rankVoices(allVoices()),
+    bestVoice, getPref, setPref, _spokenText: spokenText, _sentences: sentences };
 })();

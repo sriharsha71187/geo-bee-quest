@@ -130,13 +130,7 @@
     forceSpeak(text);
   }
   function forceSpeak(text) {
-    if (!window.speechSynthesis) return;
-    try {
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.rate = 0.95;
-      speechSynthesis.speak(u);
-    } catch (e) {}
+    try { window.Voice.speak(text); } catch (e) {}
   }
 
   function confetti(n) {
@@ -1112,7 +1106,7 @@
     const live = () => act && act.q === q && !act.answered;
     const icon = (on) => { mic.classList.toggle("listening", on); mic.textContent = on ? "👂" : "🎙️"; };
     const say = (msg) => { $("#feedback").innerHTML = `<div class="feedback"><div class="muted">${esc(msg)}</div></div>`; };
-    if (window.speechSynthesis) speechSynthesis.cancel();
+    window.Voice.hush();
     const started = window.Voice.listen({
       onState: (on) => { if (live()) icon(on); },
       onInterim: (t) => { if (live()) input.value = t; },
@@ -1496,6 +1490,30 @@
   }
 
   // ---------- settings ----------
+  // Read-aloud voice chooser. Kept per device (Voice.setPref): every device
+  // has different voices.
+  const VOICE_SAMPLE = "Hi! Let's explore the world. The Nile flows through Egypt, past the great city of Cairo.";
+  function voiceField() {
+    const list = window.Voice.voices();
+    if (!list.length) return "";
+    const pref = window.Voice.getPref(), best = list[0];
+    const opts = list.slice(0, 12).map((v) =>
+      `<option value="${esc(v.name)}" ${v.name === pref ? "selected" : ""}>${esc(v.name)}</option>`).join("");
+    return `<div class="field"><label for="set-voice">🗣️ Reading voice</label>
+      <div class="typed-row">
+        <select id="set-voice"><option value="">Best on this device (${esc(best.name)})</option>${opts}</select>
+        <button class="ghost small" id="btn-voice-try">▶ Try</button>
+      </div>
+      <p class="note">Sounds robotic? Add a better voice, then pick it here. iPhone, iPad and Mac: Accessibility → Spoken Content → Voices → English, and download an Enhanced or Premium voice. Windows: open this site in Edge for its Natural voices.</p></div>`;
+  }
+  function wireVoiceField() {
+    const sel = $("#set-voice");
+    if (!sel) return;
+    const pick = () => { window.Voice.setPref(sel.value); forceSpeak(VOICE_SAMPLE); };
+    sel.onchange = pick;
+    $("#btn-voice-try").onclick = pick;
+  }
+
   function renderSettings() {
     const st = window.Sync.getStatus();
     const topics = window.GEO_DATA.TOPICS;
@@ -1532,6 +1550,7 @@
         </div>
         <div class="toggle-row"><span class="t-label">🔊 Sounds</span><label class="switch"><input type="checkbox" id="tg-sound" ${S.settings.sound ? "checked" : ""}/><span></span></label></div>
         <div class="toggle-row"><span class="t-label">🗣️ Read questions aloud</span><label class="switch"><input type="checkbox" id="tg-speech" ${S.settings.speech ? "checked" : ""}/><span></span></label></div>
+        ${voiceField()}
         <div class="toggle-row"><span class="t-label">⌨️ Spelling mode (type answers you know well)</span><label class="switch"><input type="checkbox" id="tg-typed" ${S.settings.typed ? "checked" : ""}/><span></span></label></div>
         <div class="toggle-row"><span class="t-label">🚀 Advanced mode (senior-bee level)</span><label class="switch"><input type="checkbox" id="tg-advanced" ${S.settings.advanced ? "checked" : ""}/><span></span></label></div>
         <p class="note">Advanced mode unlocks the next competition levels: straits, ocean currents, peninsulas & capes, plus two whole topics — 🌾 Products & Trade and ⛵ Explorers & Journeys.</p>
@@ -1579,6 +1598,7 @@
     const touchSettings = () => { S.settingsUpdated = Date.now(); S.metaUpdated = Date.now(); save(); };
     $("#tg-sound").onchange = (e) => { S.settings.sound = e.target.checked; touchSettings(); };
     $("#tg-speech").onchange = (e) => { S.settings.speech = e.target.checked; touchSettings(); };
+    wireVoiceField();
     $("#tg-typed").onchange = (e) => { S.settings.typed = e.target.checked; touchSettings(); };
     $("#tg-advanced").onchange = (e) => {
       S.settings.advanced = e.target.checked;

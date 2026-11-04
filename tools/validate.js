@@ -251,6 +251,22 @@ for (const [label, test] of OFFICIAL) {
   }
 }
 
+// ---------- read-aloud (js/voice.js) ----------
+{
+  const V = window.Voice;
+  const ranked = V.rankVoices([{ name: "Bubbles", lang: "en-US" }, { name: "Fred", lang: "en-US" }, { name: "Samantha", lang: "en-US" },
+    { name: "Thomas", lang: "fr-FR" }, { name: "Microsoft Aria Online (Natural)", lang: "en-US" }, { name: "Google US English", lang: "en-US" }]).map((v) => v.name);
+  if (ranked.join() !== "Microsoft Aria Online (Natural),Google US English,Samantha") errors.push("voice ranking wrong: " + ranked.join());
+  if (V._spokenText("Tokyo is in Japan 🇯🇵.") !== "Tokyo is in Japan.") errors.push("read-aloud: flag emoji not removed");
+  if (V._spokenText("St. Lucia and Mt. Fuji") !== "Saint Lucia and Mount Fuji") errors.push("read-aloud: abbreviations not expanded");
+  const sn = V._sentences("It is in the U.S. Capitol. Washington, D.C. is nearby. For the point, name it.");
+  if (sn.length !== 3) errors.push("read-aloud: sentence split wrong: " + JSON.stringify(sn));
+  for (const t of (window.GEO_TOSSUPS || [])) {
+    const all = t.clues.join(" ");
+    if (V._sentences(V._spokenText(all)).join(" ").split(/\s+/).length !== all.split(/\s+/).length) errors.push(`read-aloud loses words: ${t.id}`);
+  }
+}
+
 // ---------- daily coach plan (js/coach.js, written by the coaching agent) ----------
 {
   const C = window.GBQ_COACH;
