@@ -10,7 +10,7 @@ global.window = {};
 const fs = require("fs");
 const path = require("path");
 const base = path.join(__dirname, "..", "js") + path.sep;
-for (const f of ["data.js", "coach.js", "scenes.js", "maps.js", "questions.js", "engine.js", "tossups.js", "buzzer.js"]) {
+for (const f of ["data.js", "coach.js", "scenes.js", "maps.js", "questions.js", "engine.js", "tossups.js", "voice.js", "buzzer.js"]) {
   eval(fs.readFileSync(base + f, "utf8"));
 }
 const D = window.GEO_DATA, Q = window.QBank, E = window.Engine;
@@ -226,6 +226,19 @@ for (const [label, test] of OFFICIAL) {
     const v = Q.match(given, acc).v;
     if (v !== want) errors.push(`answer matching: '${given}' for ${acc[0]} gave ${v}, want ${want}`);
   }
+  // spoken answers: fillers and mis-hearings are his to keep, a real other
+  // place is a real answer, and gibberish gets another try
+  const S = [
+    [["it's Paris"], ["paris"], "yes"], [["um the answer is Paris"], ["paris"], "yes"], [["I think it's Delhi"], ["new delhi"], "close"],
+    [["hungry"], ["hungary"], "yes"], [["sane"], ["seine river", "seine"], "yes"], [["grease"], ["greece"], "yes"],
+    [["chilly"], ["chile"], "yes"], [["soul"], ["seoul"], "yes"], [["roam"], ["rome"], "yes"], [["whales"], ["wales"], "yes"],
+    [["Iran"], ["iraq"], "no"], [["Paris"], ["peru"], "no"], [["Iceland"], ["ireland"], "no"], [["Washington"], ["washington dc"], "prompt"],
+    [["blue banana"], ["paris"], "unclear"], [["what", "Rome"], ["rome"], "yes"],
+  ];
+  for (const [alts, acc, want] of S) {
+    const v = Q.matchSpoken(alts, acc).v;
+    if (v !== want) errors.push(`spoken matching: '${alts[0]}' for ${acc[0]} gave ${v}, want ${want}`);
+  }
   // no country, capital, big city, state or state capital may ever be
   // accepted as the answer for a different one
   const names = [...new Set([...D.COUNTRIES.flatMap((c) => [c.n, c.c, c.big]), ...D.STATES.flatMap((s) => [s.n, s.c, s.big])].filter(Boolean))];
@@ -233,6 +246,8 @@ for (const [label, test] of OFFICIAL) {
     if (Q.normalize(want) === Q.normalize(given)) continue;
     const v = Q.match(given, [want]).v;
     if (v === "yes" || v === "close") errors.push(`answer matching: '${given}' wrongly accepted for ${want}`);
+    const sv = Q.matchSpoken([given], [want]).v;
+    if (sv === "yes" || sv === "close") errors.push(`spoken matching: '${given}' wrongly accepted for ${want}`);
   }
 }
 

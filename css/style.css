@@ -354,11 +354,11 @@ textarea { background: var(--tile-low); color: var(--ink); border: 2px solid tra
 .coach-line { font-size: 0.98rem; margin: 4px 0; }
 .coach-line b { color: var(--terra); }
 .quest-bar { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-weight: 700; font-size: 0.88rem; color: var(--ink-soft); }
-#btn-mic.listening { animation: pulse 1s infinite; background: var(--error-soft); color: var(--error); }
+#btn-mic.listening, #bz-mic.listening { animation: pulse 1s infinite; background: var(--error-soft); color: var(--error); }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mascot.bounce, .celebrate-box .c-emoji, .pulse-ring, #btn-mic.listening, .screen.active { animation: none; }
+  .mascot.bounce, .celebrate-box .c-emoji, .pulse-ring, #btn-mic.listening, #bz-mic.listening, .screen.active { animation: none; }
 }
 @media (max-width: 380px) {
   .prompt { font-size: 1.15rem; }

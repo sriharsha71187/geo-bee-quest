@@ -29,6 +29,7 @@ window.Buzzer = (function () {
   const ROUND_MAX = 30, TARGET = 5;
   const WPM = 150;                      // moderator reading pace
   const AFTER_READ_MS = 5000;           // time to buzz after the last word
+  const SPEECH_GRACE_MS = 3000;         // recognizer catch-up once he has spoken
   const FINAL_GOAL = 50, FINAL_MAX = 20;
   const isFinal = () => !!R && R.mode === "final";
   let ctx = null, R = null, timers = [];
@@ -39,7 +40,7 @@ window.Buzzer = (function () {
   function every(fn, ms) { const id = setInterval(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach((id) => { clearTimeout(id); clearInterval(id); }); timers = []; }
   function hush() { try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
-  function stop() { clearTimers(); hush(); document.removeEventListener("keydown", onKey); R = null; }
+  function stop() { clearTimers(); hush(); window.Voice.stop(); document.removeEventListener("keydown", onKey); R = null; }
 
   // ---------- answer checking ----------
   function norm(s) {
@@ -260,6 +261,7 @@ window.Buzzer = (function () {
         <button class="icon-btn" id="bz-mic" title="Say it" aria-label="Say your answer">🎙</button>
         <button class="green" id="bz-ok">Answer</button>
       </div>
+      <p class="muted" id="bz-voice" aria-live="polite"></p>
       <p class="muted"><span id="bz-left">${left}</span> seconds…</p>`;
     const input = $("#bz-in"); input.focus();
     $("#bz-ok").onclick = () => submit(input.value);
@@ -270,31 +272,58 @@ window.Buzzer = (function () {
     if (ctx.speechOn()) listen(input);
     every(() => {
       left--; const el = $("#bz-left"); if (el) el.textContent = Math.max(0, left);
-      if (left <= 0 && R && R.cur === c && c.phase === "answering") { c.timedOut = true; submit(input.value); }
+      if (left > 0 || !R || R.cur !== c || c.phase !== "answering") return;
+      // he got his answer out in time: wait for the recognizer to catch up
+      if (c.speaking && !c.grace) {
+        c.grace = true;
+        later(() => { if (R && R.cur === c && c.phase === "answering") { c.timedOut = true; submit(input.value); } }, SPEECH_GRACE_MS);
+      } else if (!c.grace) { c.timedOut = true; submit(input.value); }
     }, 1000);
   }
-  function listen(input) {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) return;
-    try {
-      const rec = new SR(); rec.lang = "en-US"; rec.maxAlternatives = 4; rec.interimResults = false;
-      rec.onresult = (e) => {
-        const alts = Array.from(e.results[0]).map((r) => r.transcript);
-        const hit = alts.find((a) => judge(R.cur.t, a) !== "no");
-        input.value = hit || alts[0] || "";
-        if (input.value) submit(input.value);
-      };
-      rec.start();
-    } catch (e) {}
-  }
-  function submit(value) {
+  // keepMsg: leave the status line alone (it says what was just heard)
+  function listen(input, keepMsg) {
     const c = R && R.cur;
     if (!c || c.phase !== "answering") return;
-    const v = judge(c.t, value);
+    const live = () => R && R.cur === c && c.phase === "answering";
+    const say = (msg) => { const el = $("#bz-voice"); if (el) el.textContent = msg; };
+    const mic = (on) => { const b = $("#bz-mic"); if (b) { b.classList.toggle("listening", on); b.textContent = on ? "👂" : "🎙"; } };
+    hush();
+    const started = window.Voice.listen({
+      onState: (on) => { if (!live()) return; mic(on); if (on && !keepMsg) say("👂 Listening… say your answer."); },
+      onSpeech: () => { if (live()) c.speaking = true; },
+      onInterim: (t) => { if (live()) input.value = t; },
+      onFinal: (alts) => {
+        if (!live()) return;
+        c.speaking = false;
+        const m = Q.matchSpoken(alts, [c.t.a, ...(c.t.alt || [])].map(norm), (c.t.prompt || []).map(norm));
+        input.value = m.text;
+        if (m.v !== "unclear") return submit(m.text, m.v);
+        // a mis-hearing shouldn't cost him the question: show it, ask once more
+        if (c.reheard) return say(`I heard “${m.text}”. Fix it and tap Answer.`);
+        c.reheard = true;
+        say(`I heard “${m.text}”. Say it again, or fix it and tap Answer.`);
+        listen(input, true);
+      },
+      onSilence: () => {
+        if (!live()) return;
+        if (c.relistens >= 2) return say("I didn't hear anything. Tap 🎙 to try again, or type it.");
+        c.relistens = (c.relistens || 0) + 1;
+        listen(input);
+      },
+      onError: (msg) => { if (live()) { mic(false); say(msg); } },
+    });
+    if (!started) say("Voice answers don't work in this browser. Please type your answer.");
+  }
+  // verdict: already judged (a spoken answer); otherwise the typed text is judged
+  function submit(value, verdict) {
+    const c = R && R.cur;
+    if (!c || c.phase !== "answering") return;
+    const v = verdict || judge(c.t, value);
     if (v === "prompt" && !c.prompted) {
       c.prompted = true;
       $("#bz-feedback").innerHTML = `<b>Can you be more specific?</b>`;
       const input = $("#bz-in"); input.value = ""; input.focus();
+      if (ctx.speechOn() && !c.timedOut) listen(input);
       return;
     }
     c.close = v === "close";
@@ -302,7 +331,7 @@ window.Buzzer = (function () {
   }
   function reveal(outcome, given) {
     const c = R.cur; if (!c) return;
-    c.phase = "done"; clearTimers(); hush();
+    c.phase = "done"; clearTimers(); hush(); window.Voice.stop();
     const frac = c.buzzAt != null ? c.buzzAt / c.words.length : null;
     if (outcome === "right") R.correct++; else if (outcome === "wrong") R.wrong++;
     const pts = isFinal() ? finalPoints(c, outcome) : null;

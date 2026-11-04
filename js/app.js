@@ -73,6 +73,7 @@
   // fire later into a different screen or a different child's profile.
   function abortActivity() {
     stopBeeTimer(); stopOralTimer();
+    window.Voice.stop();
     if (window.Buzzer) window.Buzzer.stop();
     act = null;
   }
@@ -974,7 +975,8 @@
 
   // ---------- question ----------
   function renderQuestion(q) {
-    act.q = q; act.answered = false; act.prompted = false; act.close = false;
+    window.Voice.stop();
+    act.q = q; act.answered = false; act.prompted = false; act.close = false; act.reheard = false;
     const m = topicMeta(q.topic);
     let modeChip = "";
     if (q.flags) {
@@ -1103,30 +1105,32 @@
   let oralTimerId = null;
   function stopOralTimer() { if (oralTimerId) { clearInterval(oralTimerId); oralTimerId = null; } }
 
-  // Voice answers via the browser's built-in speech recognition (no AI service).
+  // Voice answers (js/voice.js). Read-aloud stops first, or the mic hears it.
   function listen(input, mic) {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR || act.answered) return;
-    try {
-      const rec = new SR();
-      rec.lang = "en-US";
-      rec.interimResults = false;
-      rec.maxAlternatives = 3;
-      mic.classList.add("listening");
-      mic.textContent = "👂";
-      rec.onresult = (e) => {
-        mic.classList.remove("listening"); mic.textContent = "🎙️";
-        const alts = Array.from(e.results[0]).map((r) => r.transcript);
-        // pick the alternative that matches, else show the first
-        const hit = alts.find((t) => act.q.accept && Q.match(t, act.q.accept).v !== "no");
-        input.value = hit || alts[0] || "";
-        if (input.value) submitTyped(input.value);
-      };
-      rec.onerror = rec.onend = () => { mic.classList.remove("listening"); mic.textContent = "🎙️"; };
-      rec.start();
-    } catch (e) {
-      mic.classList.remove("listening"); mic.textContent = "🎙️";
-    }
+    if (!act || act.answered) return;
+    const q = act.q;
+    const live = () => act && act.q === q && !act.answered;
+    const icon = (on) => { mic.classList.toggle("listening", on); mic.textContent = on ? "👂" : "🎙️"; };
+    const say = (msg) => { $("#feedback").innerHTML = `<div class="feedback"><div class="muted">${esc(msg)}</div></div>`; };
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    const started = window.Voice.listen({
+      onState: (on) => { if (live()) icon(on); },
+      onInterim: (t) => { if (live()) input.value = t; },
+      onFinal: (alts) => {
+        if (!live()) return;
+        const m = Q.matchSpoken(alts, q.accept || []);
+        input.value = m.text;
+        if (m.v !== "unclear") return submitTyped(m.text, m.v);
+        // a mis-hearing shouldn't cost him the question: show it, ask once more
+        if (act.reheard) return say(`I heard “${m.text}”. Fix it and tap the check button.`);
+        act.reheard = true;
+        say(`I heard “${m.text}”. Say it again, or fix it.`);
+        listen(input, mic);
+      },
+      onSilence: () => { if (live()) say("I didn't hear anything. Tap 🎙️ to try again, or type it."); },
+      onError: (msg) => { if (live()) { icon(false); say(msg); } },
+    });
+    if (!started) say("Voice answers don't work in this browser. Please type your answer.");
   }
 
   function submitMcq(i) {
@@ -1140,20 +1144,23 @@
     });
     resolveAnswer(correct ? "correct" : "wrong");
   }
-  function submitTyped(value) {
+  // verdict: already judged (a spoken answer); otherwise the typed text is judged
+  function submitTyped(value, verdict) {
     if (act.answered) return;
     const q = act.q;
     let correct = false;
     act.close = false;
     if (value != null) {
-      const m = Q.match(value, q.accept);
+      const m = verdict ? { v: verdict } : Q.match(value, q.accept);
       // a short name that is also another place: one "be more specific" try,
       // as a bee moderator would prompt (no prompt when time ran out)
       if (m.v === "prompt" && !act.prompted && String(value).trim()) {
         act.prompted = true;
         const inp = $("#typed-input");
         if (inp) { inp.value = ""; inp.focus(); }
+        const mic = $("#btn-mic");
         $("#feedback").innerHTML = `<div class="feedback"><div class="headline">🤔 Can you be more specific?</div><div class="muted">“${esc(value)}” could mean more than one place.</div></div>`;
+        if (verdict && inp && mic) listen(inp, mic);
         return;
       }
       correct = m.v === "yes" || m.v === "close";
@@ -1166,6 +1173,7 @@
 
   function resolveAnswer(result) {
     act.answered = true;
+    window.Voice.stop();
     stopOralTimer();
     const q = act.q;
     const rankBefore = E.rank(S).name;

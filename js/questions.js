@@ -106,6 +106,54 @@ window.QBank = (function () {
     return { v: other ? "prompt" : "close" };
   }
 
+  // ---- spoken answers ----
+  // "It's Paris", "um, Paris": what a child really says around the answer
+  const FILLER = /^(?:um+|uh+|er+|hmm+|ah+|oh+|well|so|okay|ok|yes|maybe|like|i think|i guess|i know|the answer is|answer is|my answer is|it s|its|it is|is it|is that|that s|thats|that is|what is|whats|what s|is|a|an)\s+/;
+  function cleanSpoken(t) {
+    let s = String(t || "").toLowerCase().replace(/[’']/g, "").replace(/[.,!?]/g, " ").replace(/\s+/g, " ").trim();
+    for (let prev = ""; prev !== s; ) { prev = s; s = s.replace(FILLER, ""); }
+    return s.replace(/\s+(?:please|i think|right|maybe)$/, "");
+  }
+  // A rough sound-alike key, because speech recognition spells what it hears:
+  // Hungary comes back "hungry", Seine "sane", Greece "grease".
+  function soundKey(s) {
+    return normalize(s).replace(/ /g, "")
+      .replace(/^kn/, "n").replace(/^wr/, "r").replace(/^wh/, "w")
+      .replace(/ph/g, "f").replace(/tch/g, "ch").replace(/sch/g, "sh").replace(/ck/g, "k").replace(/dg/g, "j")
+      .replace(/c(?=[eiy])/g, "s").replace(/c(?!h)/g, "k").replace(/q/g, "k").replace(/x/g, "ks").replace(/z/g, "s")
+      .replace(/([^aeiouy])e$/, "$1").replace(/([^aeiouyscgw])h/g, "$1")
+      .replace(/[aeiouy]+/g, "a")
+      .replace(/([b-df-hj-np-tv-z])\1+/g, "$1");
+  }
+  function soundsLike(a, b) {
+    const x = soundKey(a), y = soundKey(b);
+    return x === y || (x.length >= 4 && y.length >= 4 && editDist(x, y, 1) <= 1);
+  }
+  const isPlace = (t) => { const n = normalize(t); return known().some((k) => k.full === n); };
+  // alts: the recognizer's guesses, best first. Adds one verdict to match():
+  //   unclear - nothing fits and it isn't a place: most likely a mis-hearing,
+  //             so show him what was heard and let him say it again
+  // A real place he named is a real answer, so it is never bent into a right
+  // one by sounding similar (Iran is not a mis-hearing of Iraq).
+  function matchSpoken(alts, accepts, prompts) {
+    const heard = [...new Set((alts || []).map(cleanSpoken).filter(Boolean))];
+    const acc = (accepts || []).map(normalize).filter(Boolean);
+    const rank = { yes: 3, close: 2, prompt: 1 };
+    let best = null;
+    for (const t of heard) {
+      const v = match(t, acc, prompts).v;
+      if (v !== "no" && (!best || rank[v] > rank[best.v])) best = { v, text: t };
+    }
+    if (best && best.v !== "prompt") return best;
+    const fuzzy = heard.filter((t) => !isPlace(t)).find((t) =>
+      acc.some((a) => soundsLike(a, t) || soundsLike(core(a).join(" "), t)));
+    if (fuzzy) return { v: "yes", text: fuzzy };
+    if (best) return best;
+    const place = heard.find(isPlace);
+    if (place) return { v: "no", text: place };
+    return { v: "unclear", text: heard[0] || "" };
+  }
+
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -548,5 +596,5 @@ window.QBank = (function () {
   // in v20 with their original wording, so their original ids, and the
   // child's progress on them, came back unchanged.
 
-  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, match, flagCode, hash, ALIASES };
+  return { facts, byId, byTopic, buildQuestion, buildPyramid, nextForm, normalize, match, matchSpoken, flagCode, hash, ALIASES };
 })();
