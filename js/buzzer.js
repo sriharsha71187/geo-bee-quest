@@ -39,6 +39,38 @@ window.Buzzer = (function () {
   function later(fn, ms) { const id = setTimeout(fn, ms); timers.push(id); return id; }
   function every(fn, ms) { const id = setInterval(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach((id) => { clearTimeout(id); clearInterval(id); }); timers = []; }
+  // Speaker and mic, visible on every screen of the round so he can see the
+  // question will be read out and that he answers out loud.
+  const canHear = () => !!(window.Voice && window.Voice.supported());
+  const canSpeak = () => !!window.speechSynthesis;
+  function soundBtn() {
+    if (!canSpeak()) return "";
+    const on = ctx.speechOn();
+    return `<button class="icon-btn small" id="bz-sound" style="flex:0 0 auto" aria-pressed="${on}" title="${on ? "Reading aloud: tap to mute" : "Muted: tap to read aloud"}" aria-label="${on ? "Mute the reader" : "Read questions aloud"}">${on ? "🔊 Sound on" : "🔇 Sound off"}</button>`;
+  }
+  function voiceLine() {
+    const read = !canSpeak() ? "🔇 This browser can't read aloud." : ctx.speechOn() ? "🔊 I read each question out loud." : "🔇 Read-aloud is off: tap Sound off to turn it on.";
+    const hear = canHear() ? "🎙 After you buzz, just say your answer." : "⌨️ This browser can't hear answers, so type them (Safari or Chrome can).";
+    return `<p class="muted voice-line" id="bz-voiceline">${read}<br>${hear}</p>`;
+  }
+  function refreshVoiceUi() {
+    const b = $("#bz-sound"); if (b) b.outerHTML = soundBtn();
+    const l = $("#bz-voiceline"); if (l) l.outerHTML = voiceLine();
+    wireSound();
+  }
+  function wireSound() {
+    const b = $("#bz-sound"); if (!b) return;
+    b.onclick = () => {
+      const on = !ctx.speechOn();
+      ctx.setSpeech(on);
+      const c = R && R.cur;
+      if (c && c.phase === "reading") {
+        if (on) voiceFrom(c, c.shown);
+        else { c.voice = false; hush(); if (c.textDone) lastChance(c); }
+      } else if (!on) hush();
+      refreshVoiceUi();
+    };
+  }
   function hush() { window.Voice.hush(); }
   function stop() { clearTimers(); hush(); window.Voice.stop(); document.removeEventListener("keydown", onKey); R = null; }
 
@@ -117,13 +149,16 @@ window.Buzzer = (function () {
           <li>A wrong buzz costs <b>2 points</b> while the question is still being read (<b>1 point</b> after). So be sure!</li>
           <li>First to <b>${FINAL_GOAL} points</b> wins. These questions are harder — finals level.</li>
         </ul>
+        ${voiceLine()}
         <div class="row" style="gap:10px;justify-content:center">
+          ${soundBtn()}
           <button class="big green" id="bz-go">Start the final ▶</button>
           <button class="ghost" id="bz-exit">Back</button>
         </div>
       </div>`;
       $("#bz-go").onclick = next;
       $("#bz-exit").onclick = exit;
+      wireSound();
       return;
     }
     ctx.el.innerHTML = `
@@ -137,13 +172,16 @@ window.Buzzer = (function () {
           <li>Then you have <b>${ctx.answerSecs} seconds</b> to say or type the answer.</li>
           <li>Get <b>5 right</b> and your round is done. Fewer questions = faster = better!</li>
         </ul>
+        ${voiceLine()}
         <div class="row" style="gap:10px;justify-content:center">
+          ${soundBtn()}
           <button class="big green" id="bz-go">Start round ▶</button>
           <button class="ghost" id="bz-exit">Back</button>
         </div>
       </div>`;
     $("#bz-go").onclick = next;
     $("#bz-exit").onclick = exit;
+    wireSound();
   }
   function next() {
     clearTimers(); hush();
@@ -161,15 +199,17 @@ window.Buzzer = (function () {
     ctx.el.innerHTML = `
       <div class="card buzz-card">
         <div class="quiz-top"><span>Question ${R.i}${isFinal() ? ` of ${FINAL_MAX}` : ""}</span><span id="bz-score">${isFinal() ? `🏆 ${R.points} / ${FINAL_GOAL}` : `✅ ${R.correct} / ${TARGET}`}</span>
-          <button class="ghost small" id="bz-quit">Quit</button></div>
+          <span class="row" style="gap:6px">${soundBtn()}<button class="ghost small" id="bz-quit">Quit</button></span></div>
         <p class="buzz-text" id="bz-text" aria-live="off"></p>
         <div id="bz-act">
           <button class="buzz-btn" id="bz-buzz" aria-label="Buzz">BUZZ</button>
           <p class="muted" id="bz-hint">Buzz as soon as you know it!</p>
+          ${voiceLine()}
         </div>
         <div id="bz-feedback" class="feedback" aria-live="polite"></div>
       </div>`;
     $("#bz-buzz").onclick = buzz;
+    wireSound();
     $("#bz-quit").onclick = () => { if (confirm("Quit this round?")) finish(); };
   }
   // Word counts where the (+) and (*) zones end: the first clue, and
@@ -214,18 +254,7 @@ window.Buzzer = (function () {
   }
   function read() {
     const c = R.cur, msPerWord = 60000 / WPM;
-    if (ctx.speechOn() && window.speechSynthesis) {
-      try {
-        c.voice = true;
-        window.Voice.speak(c.t.clues.join(" "), {
-          onEnd: () => { c.voice = false; if (c.textDone) lastChance(c); },
-          onWord: (n) => {
-            if (c.phase !== "reading") return;
-            c.shown = Math.min(c.words.length, Math.max(c.shown, n)); paintText(false);
-          },
-        });
-      } catch (e) { c.voice = false; }
-    }
+    if (ctx.speechOn() && canSpeak()) voiceFrom(c, 0);
     // The visible reveal runs on its own clock so it works without speech,
     // and never runs ahead of a slow voice by more than it would on its own.
     const tick = every(() => {
@@ -237,6 +266,22 @@ window.Buzzer = (function () {
         if (!c.voice) lastChance(c);   // else the voice's onend starts it
       }
     }, msPerWord);
+  }
+  // Read the question aloud from word `from` (0, or wherever the text has
+  // got to when he turns the sound on mid-question).
+  function voiceFrom(c, from) {
+    if (from >= c.words.length) return;
+    try {
+      c.voice = true;
+      const mine = (c.voiceId = (c.voiceId || 0) + 1);
+      window.Voice.speak(c.words.slice(from).join(" "), {
+        onEnd: () => { if (c.voiceId !== mine) return; c.voice = false; if (c.textDone) lastChance(c); },
+        onWord: (n) => {
+          if (c.phase !== "reading" || c.voiceId !== mine) return;
+          c.shown = Math.min(c.words.length, Math.max(c.shown, from + n)); paintText(false);
+        },
+      });
+    } catch (e) { c.voice = false; }
   }
   // After the last word, a few seconds to buzz, as in the real bee.
   function lastChance(c) {
@@ -255,18 +300,17 @@ window.Buzzer = (function () {
     $("#bz-act").innerHTML = `
       <div class="typed-row">
         <input id="bz-in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Your answer…" />
-        <button class="icon-btn" id="bz-mic" title="Say it" aria-label="Say your answer">🎙</button>
+        ${canHear() ? `<button class="icon-btn" id="bz-mic" title="Say it" aria-label="Say your answer">🎙</button>` : ""}
         <button class="green" id="bz-ok">Answer</button>
       </div>
-      <p class="muted" id="bz-voice" aria-live="polite"></p>
+      <p class="muted" id="bz-voice" aria-live="polite">${canHear() ? "" : "⌨️ Type your answer: this browser can't hear it."}</p>
       <p class="muted"><span id="bz-left">${left}</span> seconds…</p>`;
     const input = $("#bz-in"); input.focus();
     $("#bz-ok").onclick = () => submit(input.value);
     input.onkeydown = (e) => { if (e.key === "Enter") { e.preventDefault(); submit(input.value); } };
-    $("#bz-mic").onclick = () => listen(input);
-    // a spoken answer is the real format, so open the mic straight away when
-    // speech recognition is available and Speech is on
-    if (ctx.speechOn()) listen(input);
+    // a spoken answer is the real format, so the mic opens straight away
+    // wherever the browser can hear him (Read-aloud on or off)
+    if (canHear()) { $("#bz-mic").onclick = () => listen(input); listen(input); }
     every(() => {
       left--; const el = $("#bz-left"); if (el) el.textContent = Math.max(0, left);
       if (left > 0 || !R || R.cur !== c || c.phase !== "answering") return;
@@ -320,7 +364,7 @@ window.Buzzer = (function () {
       c.prompted = true;
       $("#bz-feedback").innerHTML = `<b>Can you be more specific?</b>`;
       const input = $("#bz-in"); input.value = ""; input.focus();
-      if (ctx.speechOn() && !c.timedOut) listen(input);
+      if (canHear() && !c.timedOut) listen(input);
       return;
     }
     c.close = v === "close";
@@ -354,8 +398,11 @@ window.Buzzer = (function () {
       <p>${msg}</p>${ptsLine}
       <p class="summary-line">${esc(c.t.a)}</p>
       ${c.t.x ? `<p class="muted">💡 ${esc(c.t.x)}</p>` : ""}
+      ${canSpeak() ? `<button class="ghost" id="bz-again-say">🔁 Hear the question again</button>` : ""}
       <button class="big green" id="bz-next">${(isFinal() ? R.points >= FINAL_GOAL : R.correct >= TARGET) ? "Finish round 🏁" : "Next ▶"}</button>`;
     $("#bz-next").onclick = next;
+    const againSay = $("#bz-again-say");
+    if (againSay) againSay.onclick = () => window.Voice.speak(c.t.clues.join(" ") + " Answer: " + c.t.a + ".");
     $("#bz-next").focus();
     if (outcome === "right") ctx.sound(true); else ctx.sound(false);
   }

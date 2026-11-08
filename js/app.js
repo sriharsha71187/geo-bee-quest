@@ -90,6 +90,7 @@
       el: $("#screen-quiz"),
       getState: () => S,
       speechOn: () => !!(S && S.settings.speech),
+      setSpeech: (on) => { if (S) { S.settings.speech = !!on; S.settingsUpdated = Date.now(); S.metaUpdated = Date.now(); save(); } },
       answerSecs: (S && S.settings.buzzSecs) || 5,
       record: (id, outcome, bp) => { if (S) { E.buzzRecord(S, id, outcome, bp); save(); } },
       finish: (m) => { if (S) { E.logMock(S, m); S.xp += m.correct * 10; save(); } },
@@ -1006,6 +1007,7 @@
           <button class="green" id="btn-typed-go">Go</button>
         </div>
         ${act.kind === "oral" ? `<div class="note" id="oral-timer" style="font-weight:800">⏳ 30s — just like the real bee!</div>` : ""}
+        ${act.kind === "oral" && !hasMic ? `<p class="muted">⌨️ This browser can't hear answers, so type them. Safari or Chrome can.</p>` : ""}
         <button class="ghost small" id="btn-dontknow" style="margin-top:10px">I don't know 🤷</button>`;
     } else {
       const flagOpts = q.options.some((o) => o.media);
