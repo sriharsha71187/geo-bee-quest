@@ -508,6 +508,7 @@ const WORLD_PHYSICAL = [
   { q: "Which river, the longest in South Africa, forms the border between South Africa and Namibia?", a: "The Orange River", d: ["The Limpopo", "The Zambezi", "The Okavango"], t: 4, alt: ["orange", "orange river", "gariep"], x: "It is named after the Dutch royal House of Orange, not the fruit." },
   { q: "Which arm of the Indian Ocean washes the coasts of Myanmar and Thailand, around the island of Phuket?", a: "The Andaman Sea", d: ["The South China Sea", "The Arabian Sea", "The Java Sea"], t: 5, alt: ["andaman sea", "andaman"], x: "It is named after India's Andaman Islands, on its western edge." },
   { q: "Which Indonesian volcano, between Java and Sumatra, erupted in 1883 with one of the loudest sounds in history?", a: "Krakatoa", d: ["Mount Fuji", "Mount Pinatubo", "Mount Etna"], t: 5, alt: ["krakatoa", "krakatau"], x: "People heard the blast nearly 3,000 miles away." },
+  { q: "Which river starts in the Swiss Alps, flows past Cologne in Germany, and reaches the North Sea in the Netherlands?", a: "The Rhine", d: ["The Danube", "The Seine", "The Thames"], t: 4, alt: ["rhine", "rhine river", "the rhine river", "rhein"], x: "Big barges make it one of the busiest rivers in the world." },
 ];
 
 const WORLD_LANDMARKS = [
@@ -633,7 +634,7 @@ const CONCEPTS = [
   { q: "Counting all its far-flung islands, which European country spans twelve time zones — more than any other nation?", a: "France", d: ["Russia", "United Kingdom", "United States"], t: 5, adv: 1, alt: ["france"], x: "Russia crosses eleven time zones — but France's islands, from the Pacific to the Caribbean, push it to twelve." },
   { q: "Which US state has the most people?", a: "California", d: ["Texas", "New York", "Florida"], t: 3, x: "About 1 in 8 Americans lives in California." },
   { q: "Which country has the most people in the world?", a: "India", d: ["China","United States","Indonesia"], t: 2, x: "India passed China in 2023 and now has more than 1.4 billion people." },
-  { id: "csk5jf", q: "Which of these cities has the most people in its metropolitan area?", a: "Tokyo", d: ["New York City", "London", "Cairo"], t: 4, alt: ["tokyo"], x: "The Tokyo area has more than 30 million people — more than all of Australia." },
+  { id: "csk5jf", q: "Tokyo, New York City, London, or Cairo: which city area has the most people?", a: "Tokyo", d: ["New York City", "London", "Cairo"], t: 4, alt: ["tokyo"], x: "The Tokyo area has more than 30 million people — more than all of Australia." },
   { q: "When it is summer in the United States, what season is it in Australia?", a: "Winter", d: ["Summer", "Spring", "Autumn"], t: 3, x: "Seasons are opposite in the Northern and Southern Hemispheres." },
   { q: "Which country has the longest coastline in the world?", a: "Canada", d: ["Russia", "Australia", "United States"], t: 5, x: "Canada's coast, with all its islands, stretches over 150,000 miles." },
   { q: "Carbon dioxide, a greenhouse gas that traps heat in the atmosphere, is the main cause of which — global warming or El Niño?", a: "Global warming", d: ["El Niño"], t: 2, vs: 1, alt: ["global warming"], x: "Greenhouse gases work like a blanket, holding the Sun's heat close to Earth." },
@@ -1320,6 +1321,7 @@ const TOPICS = [
           "Asia has bee favorites too. The Zagros Mountains are the longest range in Iran, running all the way to the Strait of Hormuz. The Irrawaddy flows the length of Myanmar, past Mandalay, to a wide delta. The Yalu forms much of the border between North Korea and China. And Russia, China, Mongolia, and Kazakhstan all reach into the Altai Mountains — the 'golden mountains' — where some families hunt with trained golden eagles.",
           "In Canada's far north, the Arctic Circle runs right through Great Bear Lake, the largest lake that lies entirely inside Canada. It is even bigger than its neighbor, Great Slave Lake.",
           "Three more for the finals. The Orange River, South Africa's longest, begins in the mountains of Lesotho and forms the border with Namibia — it is named after the Dutch royal House of Orange, not the fruit. The Andaman Sea washes the coasts of Myanmar and Thailand, around the island of Phuket. And Krakatoa, a volcano between Java and Sumatra, erupted in 1883 so loudly that people heard it nearly 3,000 miles away.",
+          "Europe has a river every bee champion knows: the Rhine. It starts high in the Swiss Alps, flows through Lake Constance, and forms part of the border between Switzerland and Germany. Then it rolls north past castles and the city of Cologne, through the Netherlands, and out into the North Sea. An old legend tells of Lorelei, a maiden who sang on a cliff above the river and made sailors crash.",
         ] },
     ] },
   { id: "regions", name: "Regions of the World", emoji: "🌄", kind: "items", items: WORLD_REGIONS, scene: "hills",

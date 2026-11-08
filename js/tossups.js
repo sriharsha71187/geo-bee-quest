@@ -4427,5 +4427,88 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "People float easily in it because the salty water is so dense.",
   "redset": ""
+ },
+ {
+  "id": "oceania-fiji",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "This country is made of more than 300 islands, but most of its people live on the biggest one, Viti Levu.",
+   "Its rugby sevens team won the country's very first Olympic medal, a gold, at the 2016 Games in Rio.",
+   "For the point, name this South Pacific island country in Melanesia whose capital is Suva."
+  ],
+  "a": "Fiji",
+  "alt": [
+   "Fiji",
+   "Republic of Fiji",
+   "Fiji Islands"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Only about 110 of its islands have people living on them all year.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-uluru",
+  "region": "oceania",
+  "cat": "landmark",
+  "clues": [
+   "Since 2019, visitors are no longer allowed to climb this landmark, because the Anangu people hold it sacred.",
+   "This giant block of sandstone rises about 1,100 feet over flat desert in the Northern Territory and glows fiery red at sunset.",
+   "For the point, name this huge red rock near the middle of Australia, once called Ayers Rock."
+  ],
+  "a": "Uluru",
+  "alt": [
+   "Uluru",
+   "Ayers Rock",
+   "Uluru Ayers Rock"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "At about 1,142 feet tall, it is taller than the Eiffel Tower.",
+  "redset": ""
+ },
+ {
+  "id": "africa-lake-victoria",
+  "region": "africa",
+  "cat": "lake",
+  "clues": [
+   "Its water is shared by three countries: Tanzania has the biggest part, then Uganda, then Kenya.",
+   "The Nile River begins its long trip north where water spills out of this lake near the town of Jinja in Uganda.",
+   "For the point, name this largest lake in Africa, named for a British queen."
+  ],
+  "a": "Lake Victoria",
+  "alt": [
+   "Lake Victoria",
+   "Victoria",
+   "Victoria Nyanza",
+   "Nyanza"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The British explorer John Hanning Speke named it after Queen Victoria in 1858.",
+  "redset": ""
+ },
+ {
+  "id": "europe-rhine",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "An old legend says a maiden named Lorelei sat on a tall cliff above this river, singing so sweetly that sailors crashed their boats.",
+   "This river starts in the Swiss Alps, flows through Lake Constance, and forms part of the border between Switzerland and Germany.",
+   "For the point, name this river that flows past Cologne in Germany and reaches the North Sea in the Netherlands."
+  ],
+  "a": "Rhine River",
+  "alt": [
+   "Rhine",
+   "Rhine River",
+   "the Rhine",
+   "Rhein",
+   "Rijn"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Big barges carry so much cargo on it that it is one of the busiest rivers in the world.",
+  "redset": ""
  }
 ];

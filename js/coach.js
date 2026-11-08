@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-02",
-  focusTopics: ["capitals", "worldphys", "worldmap", "relate"],
-  tierFloor: {},
-  tierCap: {},
-  buzz: { targetTier: 2, regions: { asia: 1.3, us: 1.2, europe: 1.2 } },
-  note: "Start plan: IAC weights Asia, US and Europe heaviest; world capitals and rivers/mountains are his thinnest topics (11% and 17% known).",
+  updated: "2026-11-08",
+  focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
+  tierFloor: { states: 4, usmap: 3 },
+  tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, regions: 3, explorers: 2 },
+  buzz: { targetTier: 2, regions: { oceania: 1.5, europe: 1.4, africa: 1.3, asia: 1.3, canada: 1.2 } },
+  note: "27 days to Dec 5: good week (5 days, ~85%), but the 11/7 Final went -3 (13 wrong) - remind him a wrong buzz costs points, buzz only when sure. Steering to Oceania/Europe and common capitals.",
 };
