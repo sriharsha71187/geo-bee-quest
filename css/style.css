@@ -653,3 +653,60 @@ body { overflow-x: hidden; }
 .mock-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.95rem; }
 .mock-table th, .mock-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--outline-soft); color: var(--ink); }
 .mock-table th { color: var(--ink-soft); font-weight: 600; }
+
+/* ---------- the Globe ---------- */
+.globe-banner { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; margin: 0 0 16px;
+  padding: 14px 18px; border-radius: var(--r); border: 0; cursor: pointer; color: #fff;
+  background: linear-gradient(135deg, #2f7fae, #5aa5c8 60%, #a8c46a); box-shadow: var(--shadow); font: inherit; }
+.globe-banner:hover { box-shadow: var(--shadow-lift); }
+.globe-banner .gb-emoji { font-size: 2.4rem; line-height: 1; }
+.globe-banner small { opacity: 0.92; font-weight: 600; }
+.globe-tabs { display: inline-flex; background: var(--tile-high); border-radius: var(--r-full); padding: 3px; gap: 2px; }
+.globe-tabs button { white-space: nowrap; border: 0; background: transparent; padding: 6px 14px; border-radius: var(--r-full); font: inherit; font-weight: 700; cursor: pointer; color: var(--ink-soft); }
+.globe-tabs button.on { background: var(--terra); color: #fff; }
+.globe-card { text-align: center; }
+.globe-wrap { position: relative; max-width: 560px; margin: 6px auto 0; touch-action: none; user-select: none; -webkit-user-select: none; }
+.globe-svg { display: block; width: 100%; cursor: grab; }
+.globe-svg:active { cursor: grabbing; }
+.globe-sea { stroke: #3f8fb6; stroke-width: 1; }
+.globe-grid { fill: none; stroke: #fff; stroke-opacity: 0.35; stroke-width: 0.5; }
+.globe-land path { stroke: #fffdf7; stroke-width: 0.6; stroke-linejoin: round; }
+.globe-land path.g-plain, .globe-dots .g-plain { fill: #efe9e4; opacity: 0.7; }
+.globe-land path.g-land, .globe-dots .g-land { fill: #e8d9b5; }
+.globe-land path.g-unseen, .globe-dots .g-unseen { fill: #e5ddd6; }
+.globe-land path.g-learning, .globe-dots .g-learning { fill: #f5c518; }
+.globe-land path.g-known, .globe-dots .g-known { fill: #a8c46a; }
+.globe-land path.g-mastered, .globe-dots .g-mastered { fill: #56642b; }
+.globe-land path.g-tap { cursor: pointer; }
+.globe-land path.g-tap:hover { opacity: 0.8; }
+.globe-land path.g-sel, .globe-dots .g-sel { fill: var(--terra-bright); stroke: var(--terra-deep); stroke-width: 1.4; }
+.globe-land path.g-good, .globe-dots .g-good { fill: #4caf50; stroke: #1b5e20; stroke-width: 1.4; }
+.globe-land path.g-bad, .globe-dots .g-bad { fill: #e57373; stroke: var(--error); stroke-width: 1.2; }
+.globe-dots circle { stroke: #fff; stroke-width: 1.2; cursor: pointer; }
+.globe-lab { text-anchor: middle; pointer-events: none; font-family: var(--font-body); font-weight: 700;
+  paint-order: stroke; stroke: rgb(255 255 255 / 0.75); stroke-width: 3px; }
+.globe-lab.cont { fill: #4a3a33; letter-spacing: 0.04em; }
+.globe-lab.ocean { fill: #1f5f80; font-style: italic; stroke: rgb(191 227 242 / 0.8); }
+.globe-tip { position: absolute; pointer-events: none; background: var(--ink); color: #fff; font-weight: 700; font-size: 0.85rem;
+  padding: 3px 8px; border-radius: 8px; white-space: nowrap; }
+.globe-body { display: block; }
+@media (min-width: 1000px) {
+  .globe-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+  .globe-body #globe-info .globe-info-card { flex-direction: column; margin-top: 6px; }
+  .globe-body #globe-info { text-align: left; }
+}
+.globe-tools { display: flex; gap: 8px; justify-content: center; margin: 8px 0 4px; }
+.globe-hint { margin: 8px 0 0; }
+.globe-info-card { display: flex; gap: 16px; align-items: flex-start; text-align: left; margin-top: 10px; padding: 14px 16px;
+  background: var(--tile-low); border-radius: var(--r); }
+.globe-info-card h2 { margin: 0 0 4px; }
+.globe-info-card p { margin: 0 0 6px; }
+.gi-flag { flex: 0 0 auto; width: 96px; }
+.gi-flag img, .gi-flag svg { width: 96px; height: auto; border-radius: 6px; }
+.find-ask { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.find-name { font-size: 1.5rem; }
+@media (max-width: 520px) {
+  .globe-info-card { flex-direction: column; }
+  .find-name { font-size: 1.25rem; }
+  .globe-tabs button { padding: 6px 10px; }
+}

@@ -42,6 +42,7 @@
         <button data-nav="written">📝 Written Bee</button>
         <button data-nav="oral">🎤 Oral Bee</button>
         <button data-nav="stickers">🎒 Stickers (${(S.stickers || []).length})</button>
+        <button data-nav="globe">🌍 Globe</button>
         <button data-nav="atlas">🗺️ My Atlas</button>
         <button data-nav="progress" class="${active === "progress" ? "active" : ""}">📊 Progress</button>
         <button data-nav="settings" class="${active === "settings" ? "active" : ""}">⚙️ Settings</button>
@@ -61,7 +62,7 @@
     const routes = {
       home: renderHome, learn: renderLearnTopics, written: writtenBeePicker,
       oral: () => startBee("oral"), stickers: stickersOverlay,
-      atlas: renderAtlas, progress: renderProgress, settings: renderSettings,
+      atlas: renderAtlas, globe: () => renderGlobe(), progress: renderProgress, settings: renderSettings,
     };
     sb.querySelectorAll("[data-nav]").forEach((b) => (b.onclick = navTo(routes[b.dataset.nav])));
     sb.querySelector(".sb-play").onclick = navTo(() => startPractice());
@@ -449,7 +450,7 @@
         <h2 style="margin-top:10px">🇺🇸 United States</h2>
         <div class="atlas-map" id="atlas-us">${mapHTML({ kind: "us" })}</div>
         <p class="summary-line" id="atlas-us-line"></p>
-        <h2>🌍 The World</h2>
+        <h2>🌍 The World <button class="icon-btn small" id="btn-atlas-globe" style="margin-left:8px">Spin it on the globe</button></h2>
         <div class="atlas-map" id="atlas-world">${mapHTML({ kind: "world" })}</div>
         <p class="summary-line" id="atlas-world-line"></p>
       </div>`;
@@ -458,6 +459,217 @@
     $("#atlas-us-line").textContent = `${us[2] + us[3]} of ${us.reduce((a, b) => a + b, 0)} states known · ${us[3]} mastered`;
     $("#atlas-world-line").textContent = `${wd[2] + wd[3]} of ${wd.reduce((a, b) => a + b, 0)} countries known · ${wd[3]} mastered`;
     $("#btn-back").onclick = renderHome;
+    $("#btn-atlas-globe").onclick = () => renderGlobe({ back: renderAtlas });
+  }
+
+  // ---------- the Globe: spin it, tap a country, play Find it ----------
+  // A country fact that has a place on the globe (map, capital and flag pages).
+  function globeName(f) {
+    if (!f || !f.src || !f.src.n || !/^(wm|cc|fl):/.test(f.id)) return null;
+    return window.Globe && window.GEO_GLOBE && f.id.slice(3) === f.src.n ? f.src.n : null;
+  }
+  const COUNTRY = {};
+  function countryOf(n) {
+    if (!Object.keys(COUNTRY).length) window.GEO_DATA.COUNTRIES.forEach((c) => (COUNTRY[c.n] = c));
+    return COUNTRY[n] || null;
+  }
+  function globeLevel(n) { return atlasLevel(["wm:" + n, "cc:" + n].filter((id) => Q.byId[id])); }
+  let globeView = null;
+  function renderGlobe(o) {
+    o = o || {};
+    const back = o.back || renderHome;
+    const mode = o.mode || "explore";
+    show("#screen-learn");
+    $("#screen-learn").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-back">← Back</button>
+        <span class="stat">🌍 Globe</span>
+        <span class="globe-tabs" role="tablist">
+          <button class="${mode === "explore" ? "on" : ""}" id="gt-explore" role="tab" aria-selected="${mode === "explore"}">Explore</button>
+          <button class="${mode === "find" ? "on" : ""}" id="gt-find" role="tab" aria-selected="${mode === "find"}">Find it!</button>
+        </span>
+      </div>
+      <div class="card globe-card">
+        <div id="globe-top"></div>
+        <div class="globe-body">
+          <div>
+            <div id="globe"></div>
+            <div class="globe-tools">
+              <button class="icon-btn small" id="g-zoom-in" aria-label="Zoom in">➕</button>
+              <button class="icon-btn small" id="g-zoom-out" aria-label="Zoom out">➖</button>
+              <button class="icon-btn small" id="g-reset">Whole Earth</button>
+            </div>
+          </div>
+          <div id="globe-info" aria-live="polite"></div>
+        </div>
+      </div>`;
+    $("#btn-back").onclick = back;
+    $("#gt-explore").onclick = () => renderGlobe({ ...o, mode: "explore", focus: null });
+    $("#gt-find").onclick = () => renderGlobe({ ...o, mode: "find", focus: null });
+    if (mode === "find") return globeFind(o);
+    globeExplore(o);
+  }
+  function globeTools(g) {
+    $("#g-zoom-in").onclick = () => g.zoomBy(1.6);
+    $("#g-zoom-out").onclick = () => g.zoomBy(1 / 1.6);
+    $("#g-reset").onclick = () => g.reset();
+  }
+  // on a narrow screen the card sits under the globe: bring it into view
+  function infoIntoView() {
+    const el = $("#globe-info");
+    if (!el || window.innerWidth >= 1000) return;
+    const r = el.getBoundingClientRect();
+    if (r.top > window.innerHeight - 120) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  const GLOBE_CLASS = ["g-unseen", "g-learning", "g-known", "g-mastered"];
+  function globeExplore(o) {
+    $("#globe-top").innerHTML = `
+      <p class="muted" style="margin:0 0 6px">Drag to spin. Tap any country to meet it.</p>
+      <div class="atlas-legend">
+        <span><i class="atl-chip atl-unseen"></i> not met yet</span>
+        <span><i class="atl-chip atl-learning"></i> learning</span>
+        <span><i class="atl-chip atl-known"></i> known</span>
+        <span><i class="atl-chip atl-mastered"></i> mastered</span>
+      </div>`;
+    const g = (globeView = window.Globe.create($("#globe"), {
+      hover: true,
+      fillClass: (n) => (countryOf(n) ? GLOBE_CLASS[globeLevel(n)] : ""),
+      onTap: (n) => globeCard(g, n, true),
+    }));
+    globeTools(g);
+    $("#globe-info").innerHTML = `<p class="muted globe-hint">👆 Tap a country to see its name, capital and flag.</p>`;
+    if (o.focus && countryOf(o.focus)) { g.flyTo(o.focus, 1200); globeCard(g, o.focus, false); }
+  }
+  function globeCard(g, n, tapped) {
+    const c = countryOf(n);
+    if (!c) return;
+    g.select(null); g.select(n, "sel");
+    if (Q.byId["wm:" + n]) { E.noteSeen(S, "wm:" + n); save(); }
+    const page = learnBook("worldmap").pages.findIndex((pg) => pg.fact && pg.fact.id === "wm:" + n);
+    const said = `${c.n}. Its capital is ${c.c}.` + (c.x ? " " + c.x : "");
+    $("#globe-info").innerHTML = `
+      <div class="globe-info-card">
+        <div class="gi-flag">${mediaHTML({ type: "flag", code: Q.flagCode(c.f), emoji: c.f }, false)}</div>
+        <div class="gi-body">
+          <h2>${esc(c.n)}</h2>
+          <p><b>Capital:</b> ${esc(c.c)}${c.big && c.big !== c.c ? ` &nbsp;·&nbsp; <b>Biggest city:</b> ${esc(c.big)}` : ""}</p>
+          <p><b>Continent:</b> ${esc(c.k)}</p>
+          ${c.x ? `<p class="muted">💡 ${esc(c.x)}</p>` : ""}
+          <div class="row" style="gap:8px">
+            <button class="icon-btn small" id="gi-say">🔊 Read it</button>
+            ${page >= 0 ? `<button class="icon-btn small" id="gi-page">📖 Field Book page</button>` : ""}
+          </div>
+        </div>
+      </div>`;
+    $("#gi-say").onclick = () => forceSpeak(said);
+    const pg = $("#gi-page");
+    if (pg) pg.onclick = () => { atlasReturn = false; renderLearnDeck("worldmap", page); };
+    if (tapped) speak(said);
+    infoIntoView();
+  }
+
+  // Find it: name a country, he taps it. First try counts as right; a miss
+  // gets one more try, then the globe turns to show where it is. Answers
+  // count toward the world-map facts like any other question.
+  const FIND_LEN = 10;
+  function findPool() {
+    const tier = (S.topics.worldmap && S.topics.worldmap.tier) || 1;
+    return window.GEO_DATA.COUNTRIES.filter((c) => Q.byId["wm:" + c.n] && Q.byId["wm:" + c.n].tier <= tier + 1);
+  }
+  function findPick(used) {
+    const now = Date.now();
+    const pool = findPool().filter((c) => !used.has(c.n));
+    if (!pool.length) return null;
+    const w = pool.map((c) => {
+      const r = S.facts["wm:" + c.n];
+      if (!r || r.b === 0) return 2;          // not met yet
+      if (r.b <= 2) return 3;                 // shaky
+      if (r.due && r.due <= now) return 3;    // due for review
+      return r.b >= 4 ? 0.3 : 1;
+    });
+    let x = Math.random() * w.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < pool.length; i++) { x -= w[i]; if (x <= 0) return pool[i]; }
+    return pool[pool.length - 1];
+  }
+  function globeFind() {
+    const run = { i: 0, right: 0, used: new Set(), cur: null, tries: 0, done: false };
+    const g = (globeView = window.Globe.create($("#globe"), {
+      fillClass: (n) => (countryOf(n) ? "g-land" : ""),
+      onTap: (n) => tap(n),
+    }));
+    globeTools(g);
+    function ask() {
+      const c = findPick(run.used);
+      if (!c || run.i >= FIND_LEN) return end();
+      run.used.add(c.n); run.cur = c; run.tries = 0; run.done = false; run.i++;
+      g.select(null); g.reset();
+      $("#globe-top").innerHTML = `
+        <div class="find-ask"><span class="stat">${run.i} / ${FIND_LEN}</span>
+          <span class="find-name">Find <b>${esc(c.n)}</b>!</span>
+          <button class="icon-btn small" id="find-say" aria-label="Say it again">🔊</button>
+          <span class="stat">✅ ${run.right}</span></div>`;
+      $("#find-say").onclick = () => forceSpeak("Find " + c.n);
+      $("#globe-info").innerHTML = `<p class="muted globe-hint">Spin the globe and tap ${esc(c.n)}. ${c.k === "Oceania" ? "Tiny island countries are dots." : ""}</p>`;
+      speak("Find " + c.n + "!");
+    }
+    function tap(n) {
+      const c = run.cur;
+      if (!c || run.done) return;
+      if (n === c.n) {
+        run.done = true;
+        g.select(n, "good");
+        if (run.tries === 0) run.right++;
+        record(run.tries === 0);
+        $("#globe-info").innerHTML = `<div class="feedback good"><b>${run.tries === 0 ? "🎉 Yes! That's" : "✅ There it is:"} ${esc(c.n)}!</b> Its capital is ${esc(c.c)}.
+          <div class="row" style="margin-top:8px"><button class="big green" id="find-next">${run.i >= FIND_LEN ? "See my score 🏁" : "Next ▶"}</button></div></div>`;
+        $("#find-next").onclick = ask;
+        infoIntoView();
+        if (run.tries === 0) sndGood();
+        speak(run.tries === 0 ? "Yes! " + c.n : c.n);
+        return;
+      }
+      run.tries++;
+      g.select(n, "bad");
+      sndBad();
+      if (run.tries === 1) {
+        $("#globe-info").innerHTML = `<div class="feedback"><b>That's ${esc(n)}.</b> Try again! Hint: ${esc(c.n)} is in <b>${esc(c.k)}</b>.</div>`;
+        speak("That's " + n + ". Try again! It's in " + c.k + ".");
+        return;
+      }
+      run.done = true;
+      record(false);
+      g.select(c.n, "good");
+      g.flyTo(c.n, 1100);
+      $("#globe-info").innerHTML = `<div class="feedback"><b>Here's ${esc(c.n)}</b>, in ${esc(c.k)}. Its capital is ${esc(c.c)}.
+        <div class="row" style="margin-top:8px"><button class="big green" id="find-next">${run.i >= FIND_LEN ? "See my score 🏁" : "Next ▶"}</button></div></div>`;
+      $("#find-next").onclick = ask;
+      infoIntoView();
+      speak("Here's " + c.n + ".");
+    }
+    function record(correct) {
+      const id = "wm:" + run.cur.n, f = Q.byId[id];
+      if (!f) return;
+      const events = E.record(S, null, { factId: id, form: "which", kind: "mapclick", tier: f.tier, flags: {}, answerText: run.cur.n }, correct);
+      if (correct) S.xp += 10 * f.tier;
+      save();
+      if (events.some((e) => e.type === "levelup" || e.type === "badge" || e.type === "quest")) { confetti(26); sndLevel(); }
+    }
+    function end() {
+      g.select(null); g.reset();
+      if (run.right >= 7) confetti(24);
+      $("#globe-top").innerHTML = "";
+      $("#globe-info").innerHTML = `<div class="globe-info-card" style="display:block;text-align:center">
+        <h2>${run.right} of ${run.i} on the first try!</h2>
+        <p class="muted">${run.right >= 8 ? "You really know your way around the world." : "Every country you find makes the next one easier."}</p>
+        <div class="row" style="gap:10px;justify-content:center">
+          <button class="big green" id="find-again">Play again ▶</button>
+          <button class="big ghost" id="find-explore">Explore 🌍</button>
+        </div></div>`;
+      $("#find-again").onclick = () => renderGlobe({ mode: "find", back: $("#btn-back").onclick });
+      $("#find-explore").onclick = () => renderGlobe({ mode: "explore", back: $("#btn-back").onclick });
+      speak(run.right + " of " + run.i + " on the first try!");
+    }
+    ask();
   }
 
   function stickersOverlay() {
@@ -589,6 +801,10 @@
         <span class="stat">📚 Field Book</span>
       </div>
       <div class="card">
+        <button class="globe-banner" id="btn-globe">
+          <span class="gb-emoji">🌍</span>
+          <span><b>Spin the Globe</b><br><small>Tap any country to learn it, or play Find it!</small></span>
+        </button>
         <h2>Pick a chapter</h2>
         <p class="muted" style="margin-bottom:12px">Read the Field Book at your own pace — no scores, no timers. Quiz yourself whenever you're ready!</p>
         <div class="learn-grid">
@@ -604,6 +820,7 @@
         </div>
       </div>`;
     $("#btn-back").onclick = renderHome;
+    $("#btn-globe").onclick = () => renderGlobe({ back: renderLearnTopics });
     document.querySelectorAll(".learn-tile").forEach((b) => {
       b.onclick = () => renderLearnCover(b.dataset.id);
     });
@@ -766,7 +983,10 @@
       <div class="card book-page ${turn}">
         <div class="bp-ribbon">${m.emoji} ${esc(page.sec ? page.sec.n : m.name)}</div>
         ${body}
-        <button class="icon-btn small" id="btn-say" aria-label="read aloud">🔊 Read to me</button>
+        <div class="row" style="gap:8px;justify-content:center">
+          <button class="icon-btn small" id="btn-say" aria-label="read aloud">🔊 Read to me</button>
+          ${globeName(f) ? `<button class="icon-btn small" id="btn-on-globe">🌍 Show on globe</button>` : ""}
+        </div>
         <div class="bp-footer">— Page ${idx + 1} of ${pages.length} —</div>
       </div>
       <div class="row learn-nav">
@@ -774,6 +994,8 @@
         <button class="big green" id="btn-next-card">${idx === pages.length - 1 ? "Finish chapter 🎉" : "Turn the page ▶"}</button>
       </div>`;
     decorateMap($("#screen-learn"));
+    const onGlobe = $("#btn-on-globe");
+    if (onGlobe) onGlobe.onclick = () => renderGlobe({ focus: globeName(f), back: () => renderLearnDeck(topicId, idx) });
     $("#btn-back").onclick = () => learnBack(topicId);
     $("#btn-say").onclick = () => forceSpeak(sayText);
     $("#btn-prev").onclick = () => renderLearnDeck(topicId, idx - 1, "back");
