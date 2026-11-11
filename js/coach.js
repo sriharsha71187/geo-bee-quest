@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-08",
-  focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
+  updated: "2026-11-10",
+  focusTopics: ["capitals", "worldphys", "landmarks", "uslandmarks", "relate"],
   tierFloor: { states: 4, usmap: 3 },
-  tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, regions: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { oceania: 1.5, europe: 1.4, africa: 1.3, asia: 1.3, canada: 1.2 } },
-  note: "27 days to Dec 5: good week (5 days, ~85%), but the 11/7 Final went -3 (13 wrong) - remind him a wrong buzz costs points, buzz only when sure. Steering to Oceania/Europe and common capitals.",
+  tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, regions: 3, relate: 3, explorers: 2 },
+  buzz: { targetTier: 2, regions: { oceania: 1.6, canada: 1.5, africa: 1.3, europe: 1.3, asia: 1.1 } },
+  note: "25 days to Dec 5: only 4 Field Book answers on 11/9-11/10 and 422 reviews waiting - please do 15 min of Review daily. Good news: the 11/10 Final rose to 37 pts (8 wrong, was 13). One buzzer round he buzzed at 15% and went 1 for 3 - wait for a clue he knows. Adding Oceania/Canada tossups (his weakest buzzer regions).",
 };

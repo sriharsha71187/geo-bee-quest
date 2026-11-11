@@ -509,6 +509,8 @@ const WORLD_PHYSICAL = [
   { q: "Which arm of the Indian Ocean washes the coasts of Myanmar and Thailand, around the island of Phuket?", a: "The Andaman Sea", d: ["The South China Sea", "The Arabian Sea", "The Java Sea"], t: 5, alt: ["andaman sea", "andaman"], x: "It is named after India's Andaman Islands, on its western edge." },
   { q: "Which Indonesian volcano, between Java and Sumatra, erupted in 1883 with one of the loudest sounds in history?", a: "Krakatoa", d: ["Mount Fuji", "Mount Pinatubo", "Mount Etna"], t: 5, alt: ["krakatoa", "krakatau"], x: "People heard the blast nearly 3,000 miles away." },
   { q: "Which river starts in the Swiss Alps, flows past Cologne in Germany, and reaches the North Sea in the Netherlands?", a: "The Rhine", d: ["The Danube", "The Seine", "The Thames"], t: 4, alt: ["rhine", "rhine river", "the rhine river", "rhein"], x: "Big barges make it one of the busiest rivers in the world." },
+  { q: "Which huge bay in northern Canada, named after an English explorer, freezes each winter so polar bears can hunt seals on its ice?", a: "Hudson Bay", d: ["Baffin Bay", "Bay of Fundy", "Chesapeake Bay"], t: 3, alt: ["hudson bay", "hudson's bay", "hudson"], x: "Each fall, polar bears gather near Churchill, Manitoba, waiting for the bay to freeze." },
+  { q: "Which river flows out of Lake Ontario past Montreal and Quebec City toward the Atlantic Ocean?", a: "The St. Lawrence River", d: ["The Mississippi River", "The Hudson River", "The Yukon River"], t: 3, alt: ["st. lawrence", "st lawrence", "saint lawrence", "st. lawrence river", "st lawrence river", "saint lawrence river"], x: "The world's southernmost beluga whales live where it widens toward the sea." },
 ];
 
 const WORLD_LANDMARKS = [
@@ -912,6 +914,7 @@ const WORLD_REGIONS = [
   { q: "Which Indonesian island, just east of Java, is mostly Hindu and nicknamed the 'Island of the Gods'?", a: "Bali", d: ["Sumatra", "Borneo", "Sri Lanka"], t: 3, alt: ["bali"], x: "Bali's farmers grow rice on stair-step terraces." },
   { q: "Which peninsula in the Black Sea did Russia seize from Ukraine in 2014?", a: "Crimea", d: ["Kamchatka", "Sinai", "Jutland"], t: 4, alt: ["crimea", "crimean peninsula"], x: "Most countries still count Crimea as part of Ukraine." },
   { q: "Which is Canada's smallest province, the setting of the book Anne of Green Gables?", a: "Prince Edward Island", d: ["Nova Scotia", "New Brunswick", "Newfoundland and Labrador"], t: 4, alt: ["prince edward island", "pei"], x: "The eight-mile Confederation Bridge links it to New Brunswick." },
+  { q: "Which island, home to the capital Papeete, is the largest island of French Polynesia?", a: "Tahiti", d: ["Fiji", "Bora Bora", "Hawaii"], t: 3, alt: ["tahiti"], x: "The painter Paul Gauguin lived there in the 1890s." },
 ];
 
 const ANIMALS = [
@@ -1322,6 +1325,7 @@ const TOPICS = [
           "In Canada's far north, the Arctic Circle runs right through Great Bear Lake, the largest lake that lies entirely inside Canada. It is even bigger than its neighbor, Great Slave Lake.",
           "Three more for the finals. The Orange River, South Africa's longest, begins in the mountains of Lesotho and forms the border with Namibia — it is named after the Dutch royal House of Orange, not the fruit. The Andaman Sea washes the coasts of Myanmar and Thailand, around the island of Phuket. And Krakatoa, a volcano between Java and Sumatra, erupted in 1883 so loudly that people heard it nearly 3,000 miles away.",
           "Europe has a river every bee champion knows: the Rhine. It starts high in the Swiss Alps, flows through Lake Constance, and forms part of the border between Switzerland and Germany. Then it rolls north past castles and the city of Cologne, through the Netherlands, and out into the North Sea. An old legend tells of Lorelei, a maiden who sang on a cliff above the river and made sailors crash.",
+          "Canada has two water favorites. Hudson Bay is a giant inland sea in the north, named after the English explorer Henry Hudson, who sailed into it in 1610. Every fall, polar bears gather near the town of Churchill, Manitoba, waiting for the bay to freeze so they can walk out and hunt seals. Farther south, the St. Lawrence River flows out of Lake Ontario, past Montreal and Quebec City, toward the Atlantic Ocean. The French explorer Jacques Cartier sailed up it in 1535, and white beluga whales still swim where it widens toward the sea.",
         ] },
     ] },
   { id: "regions", name: "Regions of the World", emoji: "🌄", kind: "items", items: WORLD_REGIONS, scene: "hills",
@@ -1346,6 +1350,7 @@ const TOPICS = [
           "Farther away, Macau on China's southern coast was ruled by Portugal for over 400 years, until 1999. Tasmania, across Bass Strait, is the smallest state of Australia. Sakhalin, just north of Japan, is Russia's largest island. At the very bottom of South America, Tierra del Fuego — the 'Land of Fire' — is split between Argentina and Chile. And in the Caribbean, the Cayman Islands, south of Cuba, are famous for Stingray City.",
           "Bees also love regions inside big countries. In Canada, the Klondike Gold Rush began in the Yukon, whose capital is Whitehorse, and New Brunswick is the only province where English and French are both official. In Brazil, Minas Gerais — 'General Mines' — was a land of gold and diamonds and now grows more coffee than any other state. And about 30 million Kurds live in the mountains where Turkey, Iraq, Iran, and Syria meet — often called the largest ethnic group without a country of their own.",
           "Three more favorites. Bali, just east of Java, is the Indonesian island where most people are Hindu — it is nicknamed the 'Island of the Gods.' Crimea is a peninsula in the Black Sea that Russia seized from Ukraine in 2014. And Prince Edward Island, Canada's smallest province, is famous for red soil, potatoes, and the story of Anne of Green Gables.",
+          "Way out in the South Pacific, Tahiti is the largest island of French Polynesia, and its town of Papeete is the capital. Tahiti is made of two old volcanoes, so many of its beaches have black sand. The French painter Paul Gauguin lived there in the 1890s and painted its bright colors and people.",
         ] },
     ] },
   { id: "landmarks", name: "World Landmarks", emoji: "🗿", kind: "items", items: WORLD_LANDMARKS, scene: "wonders",

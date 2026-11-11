@@ -4510,5 +4510,86 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "Big barges carry so much cargo on it that it is one of the busiest rivers in the world.",
   "redset": ""
+ },
+ {
+  "id": "canada-hudson-bay",
+  "region": "canada",
+  "cat": "water",
+  "clues": [
+   "Each fall, hundreds of polar bears gather near the town of Churchill, Manitoba, waiting for this huge body of water to freeze so they can hunt seals on the ice.",
+   "This giant inland sea of northern Canada touches the provinces of Manitoba, Ontario, and Quebec, and every island in it belongs to Nunavut.",
+   "For the point, name this huge bay named after the English explorer Henry Hudson."
+  ],
+  "a": "Hudson Bay",
+  "alt": [
+   "Hudson's Bay",
+   "Hudsons Bay"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The Hudson's Bay Company, started in 1670 to trade furs around this bay, is one of the oldest companies in North America.",
+  "redset": ""
+ },
+ {
+  "id": "canada-st-lawrence-river",
+  "region": "canada",
+  "cat": "river",
+  "clues": [
+   "The world's southernmost group of beluga whales lives where this river widens into a salty estuary.",
+   "French explorer Jacques Cartier sailed up this river in 1535, and today Quebec City and Montreal sit on its banks.",
+   "For the point, name this river that flows out of Lake Ontario toward the Atlantic Ocean, carrying the water of the Great Lakes to the sea."
+  ],
+  "a": "St. Lawrence River",
+  "alt": [
+   "Saint Lawrence River",
+   "St Lawrence River",
+   "St. Lawrence",
+   "St Lawrence",
+   "Saint Lawrence",
+   "Saint-Laurent",
+   "Fleuve Saint-Laurent"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Locks on the St. Lawrence Seaway lift big ships step by step, so they can sail from the Atlantic all the way to the Great Lakes.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-tahiti",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "The French painter Paul Gauguin lived on this island in the 1890s and filled his paintings with its bright colors and people.",
+   "Many of its beaches have black sand, made from the dark volcanic rock that the whole island is built from.",
+   "For the point, name this largest island of French Polynesia, home to the capital city, Papeete."
+  ],
+  "a": "Tahiti",
+  "alt": [
+   "Tahiti Island",
+   "Tahiti Nui"
+  ],
+  "prompt": [
+   "French Polynesia",
+   "Society Islands"
+  ],
+  "t": 3,
+  "x": "The island is really two old volcanoes joined by a thin neck of land: big Tahiti Nui and little Tahiti Iti.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-canberra",
+  "region": "oceania",
+  "cat": "city",
+  "clues": [
+   "In 1912, the American architects Walter Burley Griffin and Marion Mahony Griffin won a contest to design this planned city, and its big lake is named after Walter.",
+   "It was built almost from scratch, inland and partway between the two biggest cities of its country, Sydney and Melbourne.",
+   "For the point, name this capital city of Australia, which many people wrongly think is Sydney."
+  ],
+  "a": "Canberra",
+  "alt": [],
+  "prompt": [],
+  "t": 2,
+  "x": "Canberra's name is often said to come from an Aboriginal word meaning 'meeting place.'",
+  "redset": ""
  }
 ];
