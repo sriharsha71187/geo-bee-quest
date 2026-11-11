@@ -387,6 +387,9 @@ const US_PHYSICAL = [
   { q: "Which dormant volcano on Hawaii's Big Island is the highest point in Hawaii, with giant telescopes on its summit?", a: "Mauna Kea", d: ["Mauna Loa", "Kilauea", "Haleakalā"], t: 4, alt: ["mauna kea"], x: "Measured from its base on the ocean floor, Mauna Kea is taller than Mount Everest." },
   { q: "Which long chain of volcanic islands stretches west from Alaska, separating the Bering Sea from the Pacific?", a: "The Aleutian Islands", d: ["The Hawaiian Islands", "The Kuril Islands", "The Channel Islands"], t: 5, alt: ["aleutian islands", "aleutians"], x: "The chain reaches so far west that it crosses the 180° line of longitude." },
   { q: "Which river, the longest on the East Coast, flows past Harrisburg, Pennsylvania, into Chesapeake Bay?", a: "The Susquehanna", d: ["The Hudson", "The Potomac", "The Delaware"], t: 5, alt: ["susquehanna", "susquehanna river"], x: "The Three Mile Island power plant sits on an island in the Susquehanna." },
+  { q: "Which lake, shared by Minnesota with Ontario and Manitoba, cuts off a piece of Minnesota called the Northwest Angle?", a: "Lake of the Woods", d: ["Lake Superior", "Red Lake", "Lake Winnipeg"], t: 4, alt: ["lake of the woods"], x: "It has more than 14,000 islands." },
+  { q: "Which Texas river, whose Spanish name means 'the arms of God,' flows past Waco to the Gulf?", a: "The Brazos", d: ["The Rio Grande", "The Colorado", "The Red River"], t: 4, alt: ["brazos", "brazos river"], x: "Texas declared independence in 1836 at Washington-on-the-Brazos." },
+  { q: "Which Alabama bay, scene of a Civil War sea battle in 1864, is named for the port city at its top?", a: "Mobile Bay", d: ["Tampa Bay", "Galveston Bay", "Chesapeake Bay"], t: 4, alt: ["mobile bay"], x: "On some summer nights, crabs and fish swarm its shore in a 'jubilee.'" },
 ];
 
 const US_LANDMARKS = [
@@ -511,6 +514,10 @@ const WORLD_PHYSICAL = [
   { q: "Which river starts in the Swiss Alps, flows past Cologne in Germany, and reaches the North Sea in the Netherlands?", a: "The Rhine", d: ["The Danube", "The Seine", "The Thames"], t: 4, alt: ["rhine", "rhine river", "the rhine river", "rhein"], x: "Big barges make it one of the busiest rivers in the world." },
   { q: "Which huge bay in northern Canada, named after an English explorer, freezes each winter so polar bears can hunt seals on its ice?", a: "Hudson Bay", d: ["Baffin Bay", "Bay of Fundy", "Chesapeake Bay"], t: 3, alt: ["hudson bay", "hudson's bay", "hudson"], x: "Each fall, polar bears gather near Churchill, Manitoba, waiting for the bay to freeze." },
   { q: "Which river flows out of Lake Ontario past Montreal and Quebec City toward the Atlantic Ocean?", a: "The St. Lawrence River", d: ["The Mississippi River", "The Hudson River", "The Yukon River"], t: 3, alt: ["st. lawrence", "st lawrence", "saint lawrence", "st. lawrence river", "st lawrence river", "saint lawrence river"], x: "The world's southernmost beluga whales live where it widens toward the sea." },
+  { q: "Which river flows through Kyiv on its way to the Black Sea?", a: "The Dnieper", d: ["The Danube", "The Volga", "The Don"], t: 4, alt: ["dnieper", "dnipro", "dnieper river", "dnepr"], x: "Ukrainians call it the Dnipro." },
+  { q: "What is the largest lake that lies entirely in Europe, near Saint Petersburg in Russia?", a: "Lake Ladoga", d: ["Lake Geneva", "Lake Onega", "Lake Balaton"], t: 5, alt: ["ladoga", "lake ladoga"], x: "In World War II, trucks crossed its ice on the 'Road of Life.'" },
+  { q: "Which gulf lies between Yemen and Somalia, joined to the Red Sea by the Bab-el-Mandeb strait?", a: "The Gulf of Aden", d: ["The Persian Gulf", "The Gulf of Oman", "The Gulf of Guinea"], t: 4, alt: ["gulf of aden", "aden"], x: "Navies patrol it to protect ships from pirates." },
+  { q: "Which long African lake, the second deepest in the world, touches Tanzania, Congo, Burundi, and Zambia?", a: "Lake Tanganyika", d: ["Lake Victoria", "Lake Malawi", "Lake Chad"], t: 4, alt: ["tanganyika", "lake tanganyika"], x: "It is the longest freshwater lake on Earth." },
 ];
 
 const WORLD_LANDMARKS = [
@@ -548,6 +555,8 @@ const WORLD_LANDMARKS = [
   { q: "Which city, the largest in Quebec, sits on an island in the St. Lawrence River beneath Mount Royal?", a: "Montreal", d: ["Quebec City", "Ottawa", "Toronto"], t: 3, alt: ["montreal", "montréal"], x: "Montreal hosted the 1976 Summer Olympics." },
   { q: "Which Georgia port city was laid out in 1733 around a grid of shady public squares?", a: "Savannah", d: ["Atlanta", "Charleston", "Augusta"], t: 4, alt: ["savannah"], x: "Girl Scouts founder Juliette Gordon Low was born in Savannah." },
   { q: "Which national park, Canada's first, lies in the Rocky Mountains of Alberta and is home to Lake Louise?", a: "Banff National Park", d: ["Jasper National Park", "Yellowstone National Park", "Glacier National Park"], t: 4, alt: ["banff", "banff national park"], x: "Lake Louise gets its turquoise color from 'rock flour' ground up by glaciers." },
+  { q: "Which city, capital of Australia's Northern Territory, is named after the scientist who sailed on HMS Beagle?", a: "Darwin", d: ["Perth", "Adelaide", "Cairns"], t: 4, alt: ["darwin"], x: "It is the Australian capital city closest to Asia." },
+  { q: "Which car-free Swiss ski village sits at the foot of the Matterhorn?", a: "Zermatt", d: ["Geneva", "Davos", "Interlaken"], t: 4, alt: ["zermatt"], x: "Visitors arrive by train and ride small electric taxis." },
 ];
 
 const INDIA = [
@@ -653,6 +662,9 @@ const CONCEPTS = [
   { q: "On a topographic map, what are the curving lines that connect points of equal elevation called?", a: "Contour lines", d: ["Latitude lines", "Grid lines", "Hachure lines"], t: 5, adv: 1, alt: ["contour lines", "contour line", "contours"], x: "Where contour lines crowd together, the ground is steep — read the spacing and you can see the hills." },
   { q: "In the deserts of North Africa and Arabia, what is a dry riverbed that fills with water only after rare rains called?", a: "A wadi", d: ["An oasis", "A dune", "A mesa"], t: 5, adv: 1, alt: ["wadi"], x: "In the American Southwest the same feature is called an arroyo — flash floods make both dangerous campsites." },
   { q: "What do geographers call the point on Earth's surface exactly opposite your own location?", a: "The antipode", d: ["The azimuth", "The meridian", "The zenith"], t: 5, adv: 1, alt: ["antipode", "antipodes"], x: "Dig straight through from most of the USA and you surface in the Indian Ocean — not China!" },
+  { q: "What is a loop or bend in a slow river called?", a: "A meander", d: ["A delta", "A rapid", "A tributary"], t: 3, alt: ["meander", "meanders"], x: "When a meander is cut off, it becomes an oxbow lake." },
+  { q: "What kind of broad, gently sloping volcano is Mauna Loa in Hawaii?", a: "A shield volcano", d: ["A cinder cone", "A stratovolcano", "A caldera"], t: 4, alt: ["shield volcano", "shield"], x: "Runny lava builds it up slowly, like a shield lying on the ground." },
+  { q: "What are hills of sand piled up by the wind called?", a: "Sand dunes", d: ["Mesas", "Buttes", "Moraines"], t: 2, alt: ["dunes", "sand dunes", "dune", "sand dune"], x: "Some desert dunes are taller than skyscrapers." },
 ];
 
 // Relational ("which state borders...") and two-option comparative questions —
@@ -915,6 +927,13 @@ const WORLD_REGIONS = [
   { q: "Which peninsula in the Black Sea did Russia seize from Ukraine in 2014?", a: "Crimea", d: ["Kamchatka", "Sinai", "Jutland"], t: 4, alt: ["crimea", "crimean peninsula"], x: "Most countries still count Crimea as part of Ukraine." },
   { q: "Which is Canada's smallest province, the setting of the book Anne of Green Gables?", a: "Prince Edward Island", d: ["Nova Scotia", "New Brunswick", "Newfoundland and Labrador"], t: 4, alt: ["prince edward island", "pei"], x: "The eight-mile Confederation Bridge links it to New Brunswick." },
   { q: "Which island, home to the capital Papeete, is the largest island of French Polynesia?", a: "Tahiti", d: ["Fiji", "Bora Bora", "Hawaii"], t: 3, alt: ["tahiti"], x: "The painter Paul Gauguin lived there in the 1890s." },
+  { q: "Which French island territory in the Pacific, east of Australia, has the capital Noumea?", a: "New Caledonia", d: ["Tahiti", "Vanuatu", "Fiji"], t: 4, alt: ["new caledonia"], x: "Its name means 'New Scotland.'" },
+  { q: "Which Australian island in the Indian Ocean is famous for the yearly march of millions of red crabs?", a: "Christmas Island", d: ["Easter Island", "Tasmania", "Kangaroo Island"], t: 4, alt: ["christmas island"], x: "A sea captain named it after spotting it on Christmas Day in 1643." },
+  { q: "Which hot, dry plain is shared by Paraguay, Bolivia, and Argentina?", a: "The Gran Chaco", d: ["The Pampas", "Patagonia", "The Llanos"], t: 5, alt: ["gran chaco", "chaco"], x: "Bolivia and Paraguay fought the Chaco War over it in the 1930s." },
+  { q: "On which island of Equatorial Guinea does the city of Malabo stand?", a: "Bioko", d: ["Zanzibar", "Madagascar", "Sao Tome"], t: 4, alt: ["bioko"], x: "It used to be called Fernando Po." },
+  { q: "Which Portuguese island in the Atlantic is the birthplace of Cristiano Ronaldo?", a: "Madeira", d: ["Sicily", "Mallorca", "Sardinia"], t: 4, alt: ["madeira"], x: "Its name means 'wood' in Portuguese." },
+  { q: "Which northern Italian region has Milan as its capital and Lake Como in its mountains?", a: "Lombardy", d: ["Tuscany", "Sicily", "Piedmont"], t: 4, alt: ["lombardy", "lombardia"], x: "More Italians live in it than in any other region." },
+  { q: "What is the largest state of Australia, with Perth as its capital?", a: "Western Australia", d: ["Queensland", "New South Wales", "Victoria"], t: 3, alt: ["western australia"], x: "Smiling little quokkas live on its Rottnest Island." },
 ];
 
 const ANIMALS = [
@@ -983,6 +1002,8 @@ const CULTURE = [
   { q: "Flamenco dancing comes from which country?", a: "Spain", d: ["Mexico", "Italy", "Argentina"], t: 4 },
   { q: "Wimbledon, the world's oldest tennis championship, is played every summer in which city?", a: "London", d: ["Paris", "New York City", "Melbourne"], t: 4, alt: ["london"], x: "Players there must dress almost entirely in white." },
   { q: "Reggae music, made world-famous by Bob Marley, was born on which Caribbean island country?", a: "Jamaica", d: ["Cuba", "Trinidad and Tobago", "Barbados"], t: 4, alt: ["jamaica"], x: "Jamaica also gave the world jerk cooking and the fastest sprinters on Earth." },
+  { q: "Which expensive golden spice comes from the threads of purple crocus flowers?", a: "Saffron", d: ["Turmeric", "Cinnamon", "Paprika"], t: 3, alt: ["saffron"], x: "Iran grows most of the world's saffron." },
+  { q: "What is the nickname of the flag of the United Kingdom?", a: "The Union Jack", d: ["The Stars and Stripes", "The Maple Leaf", "The Tricolor"], t: 3, alt: ["union jack", "union flag"], x: "It joins the crosses of Saint George, Saint Andrew, and Saint Patrick." },
 ];
 
 const TRADE = [
@@ -1222,6 +1243,7 @@ const TOPICS = [
         read: [
           "Kodiak Island is the largest island in Alaska, home to giant brown bears found only on it and its neighboring islands. In western Utah, the Bonneville Salt Flats are the dried-up floor of a huge Ice Age lake, so flat and hard that racers set land-speed records there. And Lake Champlain, named after the French explorer who founded Quebec City, forms much of the border between New York and Vermont.",
           "Three more American favorites. Mauna Kea, a dormant volcano on Hawaii's Big Island, is the highest point in Hawaii; measured from the ocean floor, it is taller than Mount Everest, and giant telescopes crown its summit. The Aleutian Islands stretch more than 1,000 miles west from Alaska, separating the Bering Sea from the Pacific. And the Susquehanna, the longest river on the East Coast, flows past Harrisburg, Pennsylvania, into the top of Chesapeake Bay.",
+          "Three more from the newest finals. Lake of the Woods, with more than 14,000 islands, is shared by Minnesota, Ontario, and Manitoba. A mistake on an old map left a piece of Minnesota, the Northwest Angle, cut off by the lake, so the only road to it runs through Canada. In Texas, the Brazos River, whose Spanish name means 'the arms of God,' flows past Waco to the Gulf; Texas declared its independence in 1836 at Washington-on-the-Brazos. And Mobile Bay in Alabama, named for the port city at its top, is where Admiral Farragut led Union ships past underwater mines in 1864.",
         ] },
     ] },
   { id: "uslandmarks", name: "US Landmarks", emoji: "🌉", kind: "items", items: US_LANDMARKS, scene: "wonders",
@@ -1326,6 +1348,8 @@ const TOPICS = [
           "Three more for the finals. The Orange River, South Africa's longest, begins in the mountains of Lesotho and forms the border with Namibia — it is named after the Dutch royal House of Orange, not the fruit. The Andaman Sea washes the coasts of Myanmar and Thailand, around the island of Phuket. And Krakatoa, a volcano between Java and Sumatra, erupted in 1883 so loudly that people heard it nearly 3,000 miles away.",
           "Europe has a river every bee champion knows: the Rhine. It starts high in the Swiss Alps, flows through Lake Constance, and forms part of the border between Switzerland and Germany. Then it rolls north past castles and the city of Cologne, through the Netherlands, and out into the North Sea. An old legend tells of Lorelei, a maiden who sang on a cliff above the river and made sailors crash.",
           "Canada has two water favorites. Hudson Bay is a giant inland sea in the north, named after the English explorer Henry Hudson, who sailed into it in 1610. Every fall, polar bears gather near the town of Churchill, Manitoba, waiting for the bay to freeze so they can walk out and hunt seals. Farther south, the St. Lawrence River flows out of Lake Ontario, past Montreal and Quebec City, toward the Atlantic Ocean. The French explorer Jacques Cartier sailed up it in 1535, and white beluga whales still swim where it widens toward the sea.",
+          "Two waters of eastern Europe. The Dnieper starts in Russia, crosses Belarus, and flows through Ukraine's capital, Kyiv, to the Black Sea; Vikings once sailed it to trade with Constantinople. Lake Ladoga, near Saint Petersburg, is the largest lake lying entirely in Europe. In World War II, trucks drove over its frozen ice on the 'Road of Life' to feed the trapped city of Leningrad.",
+          "Two more from Africa. Lake Tanganyika is the longest freshwater lake on Earth and the second deepest, after Lake Baikal, and its shores touch Tanzania, Congo, Burundi, and Zambia. Off the Horn of Africa, the Gulf of Aden lies between Yemen and Somalia; the narrow Bab-el-Mandeb strait joins it to the Red Sea, and ships on their way to the Suez Canal sail right through it.",
         ] },
     ] },
   { id: "regions", name: "Regions of the World", emoji: "🌄", kind: "items", items: WORLD_REGIONS, scene: "hills",
@@ -1351,6 +1375,8 @@ const TOPICS = [
           "Bees also love regions inside big countries. In Canada, the Klondike Gold Rush began in the Yukon, whose capital is Whitehorse, and New Brunswick is the only province where English and French are both official. In Brazil, Minas Gerais — 'General Mines' — was a land of gold and diamonds and now grows more coffee than any other state. And about 30 million Kurds live in the mountains where Turkey, Iraq, Iran, and Syria meet — often called the largest ethnic group without a country of their own.",
           "Three more favorites. Bali, just east of Java, is the Indonesian island where most people are Hindu — it is nicknamed the 'Island of the Gods.' Crimea is a peninsula in the Black Sea that Russia seized from Ukraine in 2014. And Prince Edward Island, Canada's smallest province, is famous for red soil, potatoes, and the story of Anne of Green Gables.",
           "Way out in the South Pacific, Tahiti is the largest island of French Polynesia, and its town of Papeete is the capital. Tahiti is made of two old volcanoes, so many of its beaches have black sand. The French painter Paul Gauguin lived there in the 1890s and painted its bright colors and people.",
+          "Islands from the newest finals. New Caledonia, east of Australia, is ruled by France; its capital is Noumea, and its name means 'New Scotland.' Christmas Island, south of Java, belongs to Australia, and every year tens of millions of red crabs march across it to the sea. Bioko is the volcanic island of Equatorial Guinea where the city of Malabo stands. And Madeira, a Portuguese island far out in the Atlantic, is where the soccer star Cristiano Ronaldo was born.",
+          "Regions to know, too. Lombardy, in northern Italy, has Milan as its capital and the lovely Lake Como in its mountains. Western Australia is Australia's largest state, with Perth as its capital and quokkas on Rottnest Island. And the Gran Chaco is a hot, dry plain shared by Paraguay, Bolivia, and Argentina, where Bolivia and Paraguay fought a war in the 1930s.",
         ] },
     ] },
   { id: "landmarks", name: "World Landmarks", emoji: "🗿", kind: "items", items: WORLD_LANDMARKS, scene: "wonders",
@@ -1385,6 +1411,7 @@ const TOPICS = [
           "Edinburgh, the capital of Scotland, has a castle on an old volcanic rock and hosts the Fringe, the world's biggest arts festival, every August. Mecca, in western Saudi Arabia, is the holiest city of Islam, and millions of Muslims travel there for the Hajj.",
           "Brazzaville and Kinshasa face each other across the Congo River — the closest pair of capital cities on Earth, apart from Rome and Vatican City. And Bishkek, the capital of Kyrgyzstan, sits at the foot of the Tian Shan mountains; in Soviet times it was called Frunze.",
           "Two cities and a park for the finals. Montreal, Quebec's largest city, sits on an island in the St. Lawrence River beneath Mount Royal, and it is one of the largest French-speaking cities in the world. Savannah, Georgia's oldest city, was laid out in 1733 around shady public squares. And Banff, in Alberta's Rocky Mountains, was Canada's first national park; its Lake Louise glows turquoise from 'rock flour' ground up by glaciers.",
+          "Two small places with big clues. Darwin, the capital of Australia's Northern Territory, is named after the scientist Charles Darwin, who sailed on HMS Beagle; it is the Australian capital closest to Asia. And Zermatt, in Switzerland, is a ski village with no gasoline cars at all, sitting right below the pointed Matterhorn.",
         ] },
     ] },
   { id: "animals", name: "Animals & Habitats", emoji: "🐾", kind: "items", items: ANIMALS, scene: "savanna",
@@ -1452,6 +1479,12 @@ const TOPICS = [
           "Cricket is the most popular sport in India — over a billion fans watch when India plays Pakistan. In soccer, Brazil has won the World Cup five times, more than any other country, and it is the only team that has played in every single World Cup. And when the guitars start in Spain, flamenco dancers stamp their heels to the music.",
           "One more famous game on the map: Wimbledon, the world's oldest tennis championship, fills London every summer — and its players must dress almost entirely in white.",
           "From the island of Jamaica came reggae, the laid-back music Bob Marley carried to the whole world — and the same small island keeps producing the fastest sprinters on Earth.",
+        ] },
+      { n: "Bee Favorites: Spices & Flags", scene: "festival", from: 34,
+        intro: "Two culture favorites from the bees: the world's most expensive spice, and a flag that shows up inside other flags.",
+        read: [
+          "Saffron is the golden spice that colors Spanish paella and Indian biryani. Each purple crocus flower has just three red threads, picked by hand, so it takes tens of thousands of flowers to make one pound. Iran grows most of the world's saffron, and Kashmir is famous for it too.",
+          "The flag of the United Kingdom, nicknamed the Union Jack, joins three crosses: Saint George's for England, Saint Andrew's for Scotland, and Saint Patrick's for Ireland. Look closely at the flags of Australia, New Zealand, Fiji, and Tuvalu, and you will find it tucked in the corner.",
         ] },
     ] },
   { id: "india", name: "India Geography", emoji: "🇮🇳", kind: "items", items: INDIA, scene: "taj",
@@ -1540,6 +1573,13 @@ const TOPICS = [
           { adv: 1, p: "Senior-bee vocabulary begins in the ice. A fjord is a narrow, deep sea inlet carved by glaciers, famous in Norway — the Sognefjord there runs 127 miles inland between towering cliffs. In warm oceans, an atoll is a ring-shaped coral island around a lagoon, formed on the rim of a sunken volcano." },
           { adv: 1, p: "Grasslands earn special names too. The vast dry grasslands of Central Asia and eastern Europe are the steppes, where Mongol horse riders ruled for centuries. Argentina's famous grasslands are the Pampas, where cowboys called gauchos herd cattle. And glowing over the Arctic dance the northern lights — the aurora borealis; near the South Pole, they are the aurora australis." },
           { adv: 1, p: "Three final expert words. On a topographic map, contour lines connect points of equal elevation — where the lines crowd together, the ground is steep. In the deserts of North Africa and Arabia, a wadi is a dry riverbed that roars to life only after rare rains. And the point on Earth exactly opposite where you stand is your antipode — dig straight through the planet and that is where you would pop out." },
+        ] },
+      { n: "Bee Favorites: Land & River Words", scene: "river", from: 50,
+        intro: "Bees love to ask for the word behind a shape: the loop of a river, a volcano built like a shield, a hill made by the wind.",
+        read: [
+          "A slow river on flat land swings from side to side in loops called meanders. The word comes from the Maeander, a winding river in Turkey. When the river cuts across the neck of a loop, the old loop is left behind as a curved oxbow lake.",
+          "In deserts, the wind does the building, piling loose sand into sand dunes that creep slowly across the land. Some in Namibia rise more than 1,000 feet.",
+          { adv: 1, p: "Not every volcano is a steep cone. Mauna Loa in Hawaii is a shield volcano: its runny lava flows far before it cools, so the mountain grows broad and gentle, like a warrior's shield lying on the ground." },
         ] },
     ] },
   // advanced-only topics: appear when 🚀 Advanced mode is on

@@ -4591,5 +4591,1129 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "Canberra's name is often said to come from an Aboriginal word meaning 'meeting place.'",
   "redset": ""
+ },
+ {
+  "id": "europe-paris",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city hosted the Summer Olympics in 2024, exactly one hundred years after the last time it hosted them.",
+   "Its Notre-Dame Cathedral reopened in 2024 after a fire, and the Seine flows past the Louvre, the museum that holds the Mona Lisa.",
+   "For the point, name this capital of France, home of the Eiffel Tower."
+  ],
+  "a": "Paris",
+  "alt": [
+   "Paris"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "The Eiffel Tower was meant to stand for only 20 years, but it became too famous to take down.",
+  "redset": ""
+ },
+ {
+  "id": "europe-moscow",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "This city's subway stations are so grand, with chandeliers and mosaics, that people call them underground palaces.",
+   "Red Square, the onion domes of St. Basil's Cathedral, and the old walled fortress called the Kremlin are all in this city.",
+   "For the point, name this capital of Russia."
+  ],
+  "a": "Moscow",
+  "alt": [
+   "Moscow",
+   "Moskva"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Some of its metro stations are so deep they were used as shelters during World War II.",
+  "redset": ""
+ },
+ {
+  "id": "europe-scotland",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Bagpipes, kilts in patterns called tartan, and the legend of a lake monster named Nessie all come from this land, whose national animal is the unicorn.",
+   "Its Ben Nevis is the tallest mountain in the United Kingdom, and its capital, Edinburgh, has a castle on an old volcanic rock.",
+   "For the point, name this country that covers the northern part of Great Britain."
+  ],
+  "a": "Scotland",
+  "alt": [
+   "Scotland",
+   "Alba"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Scotland has about 790 islands, though only about 100 of them have people living on them.",
+  "redset": ""
+ },
+ {
+  "id": "europe-norway",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Every December this country gives London a giant Christmas tree to say thank you for Britain's help in World War II.",
+   "The Nobel Peace Prize is handed out in its capital, and long, narrow sea inlets called fjords cut deep into its coast.",
+   "For the point, name this Scandinavian country whose capital is Oslo."
+  ],
+  "a": "Norway",
+  "alt": [
+   "Norway",
+   "Kingdom of Norway",
+   "Norge"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "In its far north, the sun does not set at all for weeks in summer.",
+  "redset": ""
+ },
+ {
+  "id": "asia-kashmir",
+  "region": "asia",
+  "cat": "region",
+  "clues": [
+   "Families live on wooden houseboats on Dal Lake in this region's city of Srinagar.",
+   "India, Pakistan, and China each control part of this mountain region high in the Himalaya and Karakoram ranges.",
+   "For the point, name this disputed region whose goats gave their name to a soft, fine wool called cashmere."
+  ],
+  "a": "Kashmir",
+  "alt": [
+   "Kashmir",
+   "Jammu and Kashmir",
+   "Kashmir Valley"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Kashmir is also famous for saffron, the expensive spice grown from crocus flowers.",
+  "redset": ""
+ },
+ {
+  "id": "asia-siberia",
+  "region": "asia",
+  "cat": "region",
+  "clues": [
+   "Lake Baikal, the deepest lake on Earth, lies in this huge region, and its village of Oymyakon is one of the coldest places where people live.",
+   "Great rivers like the Ob, the Yenisei, and the Lena flow north across its forests and frozen ground to the Arctic Ocean.",
+   "For the point, name this vast, cold region that makes up most of Russia east of the Ural Mountains."
+  ],
+  "a": "Siberia",
+  "alt": [
+   "Siberia",
+   "Sibir"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Siberia alone is bigger than the whole United States.",
+  "redset": ""
+ },
+ {
+  "id": "latam-patagonia",
+  "region": "latam",
+  "cat": "region",
+  "clues": [
+   "Penguins nest along this region's coasts, and hikers come from around the world to see the granite towers of Torres del Paine.",
+   "Strong winds sweep across its dry grasslands and glaciers, and its southern edge looks across the water to Tierra del Fuego.",
+   "For the point, name this region at the southern tip of South America, shared by Argentina and Chile."
+  ],
+  "a": "Patagonia",
+  "alt": [
+   "Patagonia"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "An old story says explorers named it for giants they thought lived there.",
+  "redset": ""
+ },
+ {
+  "id": "asia-euphrates",
+  "region": "asia",
+  "cat": "river",
+  "clues": [
+   "This river rises in the mountains of eastern Turkey, and the ruins of the ancient city of Babylon stand near its banks.",
+   "It flows across Syria and Iraq, then joins its twin river to form the Shatt al-Arab before reaching the Persian Gulf.",
+   "For the point, name this river that, together with the Tigris, framed the ancient land of Mesopotamia."
+  ],
+  "a": "Euphrates",
+  "alt": [
+   "Euphrates",
+   "Euphrates River"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Mesopotamia means 'the land between the rivers.'",
+  "redset": ""
+ },
+ {
+  "id": "latam-sao-paulo",
+  "region": "latam",
+  "cat": "city",
+  "clues": [
+   "This city has one of the largest Japanese communities anywhere outside Japan, and more people live in its metro area than in any other city south of the equator.",
+   "It shares its name with the richest state in its country, and its giant Avenida Paulista is the center of business.",
+   "For the point, name this largest city in Brazil."
+  ],
+  "a": "Sao Paulo",
+  "alt": [
+   "Sao Paulo",
+   "São Paulo",
+   "Saint Paul Brazil"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "It is named after Saint Paul, because Jesuit priests founded it on his feast day in 1554.",
+  "redset": ""
+ },
+ {
+  "id": "asia-qatar",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This country hosted the 2022 men's soccer World Cup, the first one ever held in the Middle East.",
+   "It covers a small peninsula sticking out into the Persian Gulf, and its only land border is with Saudi Arabia.",
+   "For the point, name this rich country, a giant producer of natural gas, whose capital is Doha."
+  ],
+  "a": "Qatar",
+  "alt": [
+   "Qatar",
+   "State of Qatar"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Qatar is one of the richest countries in the world for each person who lives there.",
+  "redset": ""
+ },
+ {
+  "id": "africa-senegal",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "This country's Lake Retba, called Lac Rose, turns pink because of tiny algae that love salty water.",
+   "Its capital, Dakar, sits at the westernmost point of mainland Africa, and it almost completely wraps around the small country of The Gambia.",
+   "For the point, name this West African country named for the river on its northern border."
+  ],
+  "a": "Senegal",
+  "alt": [
+   "Senegal",
+   "Republic of Senegal"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "For years, the famous Dakar Rally car race ended in its capital.",
+  "redset": ""
+ },
+ {
+  "id": "us-indiana",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "Abraham Lincoln spent much of his boyhood in this state, and its steel city of Gary sits at the southern tip of Lake Michigan.",
+   "Every May, hundreds of thousands of fans fill a racetrack in its capital to watch the Indy 500 car race.",
+   "For the point, name this Midwestern 'Hoosier State' whose capital is Indianapolis."
+  ],
+  "a": "Indiana",
+  "alt": [
+   "Indiana"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Indianapolis Motor Speedway is so big that the Rose Bowl, Yankee Stadium, and the Roman Colosseum could all fit inside its oval.",
+  "redset": ""
+ },
+ {
+  "id": "us-louisiana",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "This state is divided into parishes instead of counties, and Cajun music and spicy gumbo come from its swampy bayous.",
+   "Its capital, Baton Rouge, means 'red stick' in French, and its largest city throws the famous Mardi Gras parades.",
+   "For the point, name this state where the Mississippi River reaches the Gulf, named after the French king Louis the Fourteenth."
+  ],
+  "a": "Louisiana",
+  "alt": [
+   "Louisiana"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Louisiana Purchase of 1803 doubled the size of the young United States.",
+  "redset": ""
+ },
+ {
+  "id": "us-minnesota",
+  "region": "us",
+  "cat": "state",
+  "clues": [
+   "The Mississippi River begins in this state at Lake Itasca, and its Mall of America is one of the biggest shopping malls in the country.",
+   "Nicknamed the 'Land of 10,000 Lakes,' it really has more than 11,000, and its Northwest Angle is the northernmost point of the lower 48 states.",
+   "For the point, name this state whose Twin Cities are Minneapolis and Saint Paul."
+  ],
+  "a": "Minnesota",
+  "alt": [
+   "Minnesota"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Its name comes from a Dakota word meaning 'sky-tinted water.'",
+  "redset": ""
+ },
+ {
+  "id": "us-atlantic-city",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "The streets on a Monopoly board, like Boardwalk and Park Place, are named after streets in this city.",
+   "In 1870 this New Jersey seaside city built the first boardwalk in America, so sand would stay out of its hotels.",
+   "For the point, name this resort city on Absecon Island whose name includes the ocean it faces."
+  ],
+  "a": "Atlantic City",
+  "alt": [
+   "Atlantic City"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Saltwater taffy candy became famous on its boardwalk.",
+  "redset": ""
+ },
+ {
+  "id": "us-lake-tahoe",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "This lake is so deep that it does not freeze over in winter, and its water is so clear that it glows bright blue.",
+   "It sits high in the Sierra Nevada mountains, and the state line between California and Nevada runs right through it.",
+   "For the point, name this large mountain lake, the biggest alpine lake in North America."
+  ],
+  "a": "Lake Tahoe",
+  "alt": [
+   "Lake Tahoe",
+   "Tahoe"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "If you poured out all its water, it would cover the whole state of California about 14 inches deep.",
+  "redset": ""
+ },
+ {
+  "id": "us-connecticut-river",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "This river begins in a chain of lakes near the Canadian border and is the longest river in New England.",
+   "It forms the border between Vermont and New Hampshire, then flows south through Massachusetts past the city of Springfield.",
+   "For the point, name this river that shares its name with the state where it reaches Long Island Sound."
+  ],
+  "a": "Connecticut River",
+  "alt": [
+   "Connecticut River",
+   "Connecticut"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Its name comes from a Native American word meaning 'long tidal river.'",
+  "redset": ""
+ },
+ {
+  "id": "europe-ural-mountains",
+  "region": "europe",
+  "cat": "mountain",
+  "clues": [
+   "These old, worn-down mountains are rich in iron, copper, and gemstones, and the big city of Yekaterinburg sits on their eastern side.",
+   "They stretch about 1,500 miles from the Arctic Ocean south toward Kazakhstan, all inside Russia.",
+   "For the point, name this mountain range that marks the usual dividing line between Europe and Asia."
+  ],
+  "a": "Ural Mountains",
+  "alt": [
+   "Ural Mountains",
+   "Urals",
+   "Ural"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Travelers can stand at a marker with one foot in Europe and the other in Asia.",
+  "redset": ""
+ },
+ {
+  "id": "africa-atlas-mountains",
+  "region": "africa",
+  "cat": "mountain",
+  "clues": [
+   "Berber villages cling to the slopes of these mountains, and their highest peak, Toubkal, rises above the city of Marrakesh.",
+   "They stretch across Morocco, Algeria, and Tunisia and block rain clouds from reaching the Sahara.",
+   "For the point, name this North African mountain range that shares its name with a book of maps."
+  ],
+  "a": "Atlas Mountains",
+  "alt": [
+   "Atlas Mountains",
+   "Atlas"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "In Greek myths, a giant named Atlas held up the sky, and people said he was turned into these mountains.",
+  "redset": ""
+ },
+ {
+  "id": "europe-thames",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "This river begins in the Cotswold Hills and flows past the university city of Oxford and the royal castle at Windsor.",
+   "Tower Bridge, which lifts open to let tall ships pass, and the Houses of Parliament both stand beside it.",
+   "For the point, name this river that flows through London to the North Sea."
+  ],
+  "a": "Thames",
+  "alt": [
+   "Thames",
+   "Thames River",
+   "River Thames"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Every year, Oxford and Cambridge universities race rowing boats on it.",
+  "redset": ""
+ },
+ {
+  "id": "europe-berlin",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "A wall split this city in two from 1961 until 1989, and pieces of it are still on display today.",
+   "The Brandenburg Gate, topped by a chariot pulled by four horses, stands in this city on the Spree River.",
+   "For the point, name this capital and largest city of Germany."
+  ],
+  "a": "Berlin",
+  "alt": [
+   "Berlin"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Berlin has more bridges than Venice.",
+  "redset": ""
+ },
+ {
+  "id": "europe-brussels",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "A tiny bronze statue of a little boy called Manneken Pis is one of this city's best-known sights, and the Atomium looks like a giant metal molecule.",
+   "The headquarters of the European Union and of NATO are both in this city, famous for waffles and chocolate.",
+   "For the point, name this capital of Belgium."
+  ],
+  "a": "Brussels",
+  "alt": [
+   "Brussels",
+   "Bruxelles",
+   "Brussel"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The little statue owns hundreds of costumes that people dress it in for special days.",
+  "redset": ""
+ },
+ {
+  "id": "us-denver",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "One of the steps of this city's State Capitol is marked as exactly one mile above sea level.",
+   "Its baseball team plays at Coors Field, and the Rocky Mountains rise just to its west.",
+   "For the point, name this 'Mile High City,' the capital of Colorado."
+  ],
+  "a": "Denver",
+  "alt": [
+   "Denver"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Baseballs fly farther in its thin mountain air.",
+  "redset": ""
+ },
+ {
+  "id": "asia-colombo",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Families fly kites on Galle Face Green, a seaside park in this port city that has traded across the Indian Ocean for centuries.",
+   "It is the largest city of an island country south of India, though the official capital, Sri Jayawardenepura Kotte, lies right next door.",
+   "For the point, name this largest city of Sri Lanka."
+  ],
+  "a": "Colombo",
+  "alt": [
+   "Colombo"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Sri Lanka was called Ceylon until 1972, and it is famous for its tea.",
+  "redset": ""
+ },
+ {
+  "id": "europe-portugal",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Explorers like Vasco da Gama sailed from this country to find a sea route to India, and its southern Algarve coast is famous for golden cliffs.",
+   "Sweet port wine comes from its northern city of Porto, and its people sing sad songs called fado.",
+   "For the point, name this country on the Iberian Peninsula whose capital is Lisbon."
+  ],
+  "a": "Portugal",
+  "alt": [
+   "Portugal",
+   "Portuguese Republic"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The city of Porto gave the whole country its name.",
+  "redset": ""
+ },
+ {
+  "id": "asia-cambodia",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Every rainy season the Mekong floods this country so much that the river draining its great lake, Tonle Sap, flows backward.",
+   "The temple of Angkor Wat, the largest religious monument in the world, is so loved here that it appears on the national flag.",
+   "For the point, name this Southeast Asian country whose capital is Phnom Penh."
+  ],
+  "a": "Cambodia",
+  "alt": [
+   "Cambodia",
+   "Kingdom of Cambodia",
+   "Kampuchea"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Angkor Wat was built about 900 years ago as a Hindu temple and later became Buddhist.",
+  "redset": ""
+ },
+ {
+  "id": "asia-thailand",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "This is the only country in Southeast Asia that was never ruled by a European power, and it was once called Siam.",
+   "Visitors shop at its floating markets and swim off its island of Phuket, and the elephant is its national animal.",
+   "For the point, name this country whose capital is Bangkok."
+  ],
+  "a": "Thailand",
+  "alt": [
+   "Thailand",
+   "Kingdom of Thailand",
+   "Siam"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Its name means 'land of the free.'",
+  "redset": ""
+ },
+ {
+  "id": "latam-bahamas",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Pigs swim out to visiting boats at one of this country's beaches, and its Harbour Island is famous for pink sand.",
+   "Christopher Columbus first landed in the Americas on one of its islands in 1492, and its nearest islands lie only about 50 miles off Florida.",
+   "For the point, name this Atlantic island country whose capital is Nassau."
+  ],
+  "a": "The Bahamas",
+  "alt": [
+   "The Bahamas",
+   "Bahamas",
+   "Commonwealth of the Bahamas"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Its name may come from the Spanish 'baja mar,' meaning 'shallow sea.'",
+  "redset": ""
+ },
+ {
+  "id": "africa-ethiopia",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "A legend says coffee was discovered here when a goat herder noticed his goats dancing after eating red berries.",
+   "Its runners win many Olympic medals, and its capital, Addis Ababa, is the home of the African Union.",
+   "For the point, name this country in the Horn of Africa, the most populous country in the world without a coastline."
+  ],
+  "a": "Ethiopia",
+  "alt": [
+   "Ethiopia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Ethiopia uses its own calendar, which has 13 months.",
+  "redset": ""
+ },
+ {
+  "id": "asia-kazakhstan",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Rockets carrying astronauts blast off from the Baikonur Cosmodrome in this country, which Russia rents.",
+   "It is the largest country in the world without a coastline, and its modern capital is Astana.",
+   "For the point, name this Central Asian country, ending in '-stan,' that stretches between Russia and China."
+  ],
+  "a": "Kazakhstan",
+  "alt": [
+   "Kazakhstan",
+   "Republic of Kazakhstan"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Apples are thought to have first grown wild in its mountains.",
+  "redset": ""
+ },
+ {
+  "id": "latam-haiti",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "After winning freedom from France in 1804, this country built a giant mountaintop fortress called the Citadelle Laferriere.",
+   "It was the first country created by a successful revolt of enslaved people, and it shares the island of Hispaniola with the Dominican Republic.",
+   "For the point, name this Caribbean country whose capital is Port-au-Prince."
+  ],
+  "a": "Haiti",
+  "alt": [
+   "Haiti",
+   "Republic of Haiti",
+   "Ayiti"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Its name comes from a Taino word meaning 'land of high mountains.'",
+  "redset": ""
+ },
+ {
+  "id": "europe-ireland",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Its Cliffs of Moher rise about 700 feet straight out of the Atlantic, and its people honor Saint Patrick as their patron saint.",
+   "Nicknamed the Emerald Isle for its green fields, it shares its island with a part of the United Kingdom.",
+   "For the point, name this country whose capital is Dublin."
+  ],
+  "a": "Ireland",
+  "alt": [
+   "Ireland",
+   "Republic of Ireland",
+   "Eire"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "There are no wild snakes in Ireland.",
+  "redset": ""
+ },
+ {
+  "id": "europe-ukraine",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Its Chernobyl power plant had the world's worst nuclear accident in 1986, and its blue-and-yellow flag is said to show a blue sky over wheat fields.",
+   "The Dnieper River flows through its capital, Kyiv, and its people have defended their land since Russia invaded in 2022.",
+   "For the point, name this largest country lying entirely in Europe."
+  ],
+  "a": "Ukraine",
+  "alt": [
+   "Ukraine"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Ukraine grows so much wheat and sunflowers that it is called a breadbasket of Europe.",
+  "redset": ""
+ },
+ {
+  "id": "africa-ghana",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "The Volta River was dammed here to make Lake Volta, one of the largest human-made lakes in the world.",
+   "Once called the Gold Coast, this country won its independence in 1957, one of the first in Africa to break free of colonial rule.",
+   "For the point, name this West African country whose capital is Accra."
+  ],
+  "a": "Ghana",
+  "alt": [
+   "Ghana",
+   "Republic of Ghana"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Ghana grows some of the world's cocoa, the beans that make chocolate.",
+  "redset": ""
+ },
+ {
+  "id": "africa-lake-tanganyika",
+  "region": "africa",
+  "cat": "lake",
+  "clues": [
+   "This lake is the second deepest in the world after Lake Baikal, and it is the longest freshwater lake on Earth.",
+   "Tanzania, the Democratic Republic of the Congo, Burundi, and Zambia all touch its shores, and hundreds of kinds of colorful cichlid fish live in it.",
+   "For the point, name this African Great Lake whose name is also the old name of mainland Tanzania."
+  ],
+  "a": "Lake Tanganyika",
+  "alt": [
+   "Lake Tanganyika",
+   "Tanganyika"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Most of the fish in it live nowhere else on Earth.",
+  "redset": ""
+ },
+ {
+  "id": "europe-stonehenge",
+  "region": "europe",
+  "cat": "landmark",
+  "clues": [
+   "Some of this monument's smaller 'bluestones' were dragged about 150 miles from the hills of Wales.",
+   "On the longest day of summer, the sun rises in line with its stones, and crowds gather to watch.",
+   "For the point, name this ancient circle of giant standing stones on Salisbury Plain in England."
+  ],
+  "a": "Stonehenge",
+  "alt": [
+   "Stonehenge"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Its first circle was dug about 5,000 years ago, before the pyramids of Egypt.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-new-guinea",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "Birds of paradise with dazzling feathers live in this island's rainforests, and its peak Puncak Jaya is the tallest mountain on any island.",
+   "The island is split almost in half: Indonesia governs the western part, and an independent country rules the east.",
+   "For the point, name this island north of Australia, the second-largest island in the world."
+  ],
+  "a": "New Guinea",
+  "alt": [
+   "New Guinea"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Only Greenland is a bigger island.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-new-south-wales",
+  "region": "oceania",
+  "cat": "province",
+  "clues": [
+   "The first British settlement in Australia was founded here in 1788, and its Blue Mountains get their color from a haze given off by eucalyptus trees.",
+   "The small territory around the national capital, Canberra, was carved out of this state.",
+   "For the point, name this Australian state whose capital is Sydney."
+  ],
+  "a": "New South Wales",
+  "alt": [
+   "New South Wales",
+   "NSW"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "It is the state where the most Australians live.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-christmas-island",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "Every year tens of millions of red crabs march from this island's forests down to the sea to lay their eggs, and roads close to let them pass.",
+   "This small island in the Indian Ocean, south of Java, belongs to Australia.",
+   "For the point, name this island named for the holiday on which an English sea captain spotted it in 1643."
+  ],
+  "a": "Christmas Island",
+  "alt": [
+   "Christmas Island"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Another Christmas Island, now called Kiritimati, is in the Pacific nation of Kiribati.",
+  "redset": ""
+ },
+ {
+  "id": "world-delta",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "The Nile and the Mississippi both end in this kind of landform, where a river slows down and drops its mud.",
+   "The Ganges and Brahmaputra rivers build the biggest one in the world, in Bangladesh and India.",
+   "For the point, name this fan- or triangle-shaped landform at a river's mouth, named after a Greek letter."
+  ],
+  "a": "delta",
+  "alt": [
+   "delta",
+   "river delta",
+   "deltas"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Greek letter delta looks like a triangle: Δ.",
+  "redset": ""
+ },
+ {
+  "id": "world-meander",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "When one of these gets cut off from its river, it can leave behind a curved lake called an oxbow lake.",
+   "Slow rivers on flat land make many of these, wearing away the outside bank and dropping sand on the inside bank.",
+   "For the point, name this word for a loop or bend in a river, taken from the name of a winding river in Turkey."
+  ],
+  "a": "meander",
+  "alt": [
+   "meander",
+   "meanders",
+   "river meander"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "From high above, a meandering river looks like a snake.",
+  "redset": ""
+ },
+ {
+  "id": "world-shield-volcano",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Mauna Loa in Hawaii, the largest active volcano on Earth, is one of these.",
+   "Runny, hot lava flows a long way before it hardens, building this broad, gently sloping kind of mountain instead of a steep cone.",
+   "For the point, name this type of volcano shaped like a warrior's round shield lying on the ground."
+  ],
+  "a": "shield volcano",
+  "alt": [
+   "shield volcano",
+   "shield volcanoes",
+   "shield"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Iceland and Hawaii both have many of them.",
+  "redset": ""
+ },
+ {
+  "id": "world-sand-dunes",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Some of the tallest ones on Earth rise more than 1,000 feet in Namibia and in China's Badain Jaran Desert.",
+   "Wind piles up loose grains to build these hills, and they slowly creep across the land in the direction the wind blows.",
+   "For the point, name these hills of sand, like the ones in Colorado's Great Sand Dunes National Park."
+  ],
+  "a": "sand dunes",
+  "alt": [
+   "sand dunes",
+   "sand dune",
+   "dunes",
+   "dune"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Some of them 'sing,' making a low humming sound when sand slides down them.",
+  "redset": ""
+ },
+ {
+  "id": "world-saffron",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "It takes tens of thousands of flowers to make a single pound of this spice, so it is one of the most expensive foods in the world.",
+   "Iran grows most of the world's supply, picking the three red threads from the middle of each purple crocus flower by hand.",
+   "For the point, name this golden-yellow spice used in Spanish paella and Indian biryani."
+  ],
+  "a": "saffron",
+  "alt": [
+   "saffron"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Saffron turns rice a bright yellow-orange.",
+  "redset": ""
+ },
+ {
+  "id": "world-union-jack",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "This flag combines the crosses of three patron saints: Saint George, Saint Andrew, and Saint Patrick.",
+   "It appears in the corner of the flags of Australia, New Zealand, Fiji, and Tuvalu.",
+   "For the point, name this red, white, and blue flag of the United Kingdom, nicknamed with a sailor's word for a flag."
+  ],
+  "a": "Union Jack",
+  "alt": [
+   "Union Jack",
+   "Union Flag"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Wales is part of the United Kingdom but is not shown on the flag.",
+  "redset": ""
+ },
+ {
+  "id": "us-lake-of-the-woods",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "Because of a mistake on an old map, a piece of Minnesota called the Northwest Angle is cut off by this lake and can only be reached by land through Canada.",
+   "This lake has more than 14,000 islands and is shared by Minnesota and the Canadian provinces of Ontario and Manitoba.",
+   "For the point, name this lake whose name sounds like a forest."
+  ],
+  "a": "Lake of the Woods",
+  "alt": [
+   "Lake of the Woods"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Kids from the Northwest Angle once rode a boat or snowmobile to school.",
+  "redset": ""
+ },
+ {
+  "id": "us-brazos",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "The Texas Declaration of Independence was signed in 1836 at a small town on this river named Washington.",
+   "Spanish explorers gave this river a name meaning 'the arms of God,' and it flows past the city of Waco.",
+   "For the point, name this river of central Texas that empties into the Gulf near Freeport."
+  ],
+  "a": "Brazos River",
+  "alt": [
+   "Brazos River",
+   "Brazos",
+   "Rio Brazos",
+   "Brazos de Dios"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "The town is still called Washington-on-the-Brazos.",
+  "redset": ""
+ },
+ {
+  "id": "us-mobile-bay",
+  "region": "us",
+  "cat": "water",
+  "clues": [
+   "In an 1864 Civil War battle here, Admiral David Farragut led Union ships past underwater mines.",
+   "On some summer nights, crabs and fish crowd into its shallow water in an event locals call a 'jubilee,' and the battleship USS Alabama is parked on it as a museum.",
+   "For the point, name this Alabama bay named for the port city at its northern end."
+  ],
+  "a": "Mobile Bay",
+  "alt": [
+   "Mobile Bay"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Mobile held the first Mardi Gras celebrations in what is now the United States.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-new-caledonia",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "This island territory is rich in nickel, a metal used in batteries, and one of the largest lagoons on Earth surrounds it.",
+   "France governs it, and its capital, Noumea, lies in the Pacific east of Australia.",
+   "For the point, name this Melanesian island group whose name means 'New Scotland.'"
+  ],
+  "a": "New Caledonia",
+  "alt": [
+   "New Caledonia",
+   "Nouvelle-Caledonie",
+   "Kanaky"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Captain James Cook named it because its hills reminded him of Scotland.",
+  "redset": ""
+ },
+ {
+  "id": "europe-dnieper",
+  "region": "europe",
+  "cat": "river",
+  "clues": [
+   "This river rises in the Valdai Hills of Russia, flows through Belarus, and was once a trade route for Viking merchants sailing to Constantinople.",
+   "Ukraine's capital, Kyiv, stands on its banks, and it ends in the Black Sea near the city of Kherson.",
+   "For the point, name this longest river of Ukraine."
+  ],
+  "a": "Dnieper",
+  "alt": [
+   "Dnieper",
+   "Dnieper River",
+   "Dnipro",
+   "Dnepr"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Ukrainians call it the Dnipro.",
+  "redset": ""
+ },
+ {
+  "id": "africa-gulf-of-aden",
+  "region": "africa",
+  "cat": "water",
+  "clues": [
+   "Ships crossing this body of water have had to watch for pirates from Somalia, so navies from many countries patrol it.",
+   "The narrow Bab-el-Mandeb strait links it to the Red Sea, and the country of Djibouti sits at its western end.",
+   "For the point, name this gulf between Yemen and Somalia, named for a Yemeni port city."
+  ],
+  "a": "Gulf of Aden",
+  "alt": [
+   "Gulf of Aden",
+   "Aden"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Ships going between Europe and Asia through the Suez Canal pass through it.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-darwin",
+  "region": "oceania",
+  "cat": "city",
+  "clues": [
+   "This city was bombed by Japanese planes in 1942 and was nearly flattened again by Cyclone Tracy on Christmas Day in 1974.",
+   "It is the capital of Australia's Northern Territory and the Australian capital city closest to Asia.",
+   "For the point, name this city named after the famous scientist who sailed on HMS Beagle."
+  ],
+  "a": "Darwin",
+  "alt": [
+   "Darwin"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Saltwater crocodiles live in the rivers around it.",
+  "redset": ""
+ },
+ {
+  "id": "latam-gran-chaco",
+  "region": "latam",
+  "cat": "region",
+  "clues": [
+   "Bolivia and Paraguay fought a long war over this region in the 1930s, partly because they hoped it held oil.",
+   "Hot, dry forests and thorny scrub cover this lowland, which spreads across Paraguay, Bolivia, Argentina, and a little of Brazil.",
+   "For the point, name this great South American plain whose name may come from a native word for 'hunting land.'"
+  ],
+  "a": "Gran Chaco",
+  "alt": [
+   "Gran Chaco",
+   "Chaco",
+   "El Chaco"
+  ],
+  "prompt": [],
+  "t": 5,
+  "x": "Giant armadillos and jaguars live in it.",
+  "redset": ""
+ },
+ {
+  "id": "africa-bioko",
+  "region": "africa",
+  "cat": "island",
+  "clues": [
+   "This volcanic island, once called Fernando Po after a Portuguese explorer, lies in the Gulf of Guinea off the coast of Cameroon.",
+   "The city of Malabo stands on its north coast and was its country's capital until the government moved to the mainland.",
+   "For the point, name this largest island of Equatorial Guinea."
+  ],
+  "a": "Bioko",
+  "alt": [
+   "Bioko",
+   "Bioko Island"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Rare monkeys called drills live in its rainforests.",
+  "redset": ""
+ },
+ {
+  "id": "europe-lake-ladoga",
+  "region": "europe",
+  "cat": "lake",
+  "clues": [
+   "During World War II, trucks drove across this lake's frozen ice on the 'Road of Life' to bring food to the trapped city of Leningrad.",
+   "It lies in northwest Russia near Finland, and the Neva River carries its water to Saint Petersburg.",
+   "For the point, name this largest lake that lies entirely in Europe."
+  ],
+  "a": "Lake Ladoga",
+  "alt": [
+   "Lake Ladoga",
+   "Ladoga"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Rare ringed seals live in its fresh water.",
+  "redset": ""
+ },
+ {
+  "id": "europe-madeira",
+  "region": "europe",
+  "cat": "island",
+  "clues": [
+   "Soccer star Cristiano Ronaldo was born on this island, and its main airport is named after him.",
+   "In its capital, Funchal, visitors ride wicker sleds down steep streets, and the island gives its name to a sweet wine.",
+   "For the point, name this Portuguese island in the Atlantic Ocean off the coast of Morocco."
+  ],
+  "a": "Madeira",
+  "alt": [
+   "Madeira",
+   "Madeira Island",
+   "Madeira Islands"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Its name means 'wood' in Portuguese, because it was covered in forest.",
+  "redset": ""
+ },
+ {
+  "id": "europe-lombardy",
+  "region": "europe",
+  "cat": "province",
+  "clues": [
+   "Lake Como, where movie stars keep vacation homes, lies in this region in the foothills of the Alps.",
+   "It is the region of its country where the most people live, and its capital is the fashion and business city of Milan.",
+   "For the point, name this northern Italian region named after a Germanic people called the Lombards."
+  ],
+  "a": "Lombardy",
+  "alt": [
+   "Lombardy",
+   "Lombardia"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Lake Como is shaped like an upside-down letter Y.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-western-australia",
+  "region": "oceania",
+  "cat": "province",
+  "clues": [
+   "Smiling little animals called quokkas live on Rottnest Island off this state's coast, and whale sharks visit its Ningaloo Reef.",
+   "Its capital, Perth, is one of the most isolated big cities in the world.",
+   "For the point, name this largest state of Australia, covering the whole western third of the continent."
+  ],
+  "a": "Western Australia",
+  "alt": [
+   "Western Australia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "It is about four times the size of Texas.",
+  "redset": ""
+ },
+ {
+  "id": "europe-zermatt",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "Gasoline cars are not allowed in this mountain village, so visitors arrive by train and ride small electric taxis.",
+   "It sits in the canton of Valais at the foot of the pointed Matterhorn, which inspired a famous Disneyland ride.",
+   "For the point, name this car-free Swiss ski village."
+  ],
+  "a": "Zermatt",
+  "alt": [
+   "Zermatt"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Skiers can ski from it across the border into Italy.",
+  "redset": ""
  }
 ];
