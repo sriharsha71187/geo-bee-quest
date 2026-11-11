@@ -359,6 +359,10 @@
       </div>
       <button class="big green" id="btn-play">▶️ &nbsp;Play Adventure</button>
       <button class="big ghost" id="btn-learn">📚 &nbsp;Learn — explore the world</button>
+      <button class="globe-banner" id="btn-home-globe">
+        <span class="gb-emoji">🌍</span>
+        <span><b>Spin the Globe</b><br><small>Tap any country to learn it, or play Find it!</small></span>
+      </button>
       <div class="row">
         <button class="big amber" id="btn-buzzer">🛎️ Buzzer Round</button>
         <button class="big violet" id="btn-final">🏆 Final Round</button>
@@ -374,6 +378,7 @@
         <button class="big ghost" id="btn-settings">⚙️</button>
       </div>`;
     $("#btn-atlas").onclick = renderAtlas;
+    $("#btn-home-globe").onclick = () => renderGlobe({ back: renderHome });
     $("#btn-play").onclick = () => startPractice();
     $("#btn-learn").onclick = renderLearnTopics;
     $("#btn-bee-written").onclick = writtenBeePicker;
