@@ -285,32 +285,42 @@ window.Engine = (function () {
     const fresh = (f) => !used.has(Q.normalize(f.label || ""));
     // a hot streak (≥85% recent accuracy) unlocks harder picks
     const hot = recentAccuracy(s) >= 0.85;
-    // 2. overdue scheduled reviews — cap grows with the backlog (4..8)
+    // 2. overdue scheduled reviews — cap grows with the backlog (4..8).
+    // Even with a big backlog, every third question is new material (outside
+    // the bee taper): a backlog must never freeze him on the same old facts
+    // while whole chapters go unasked.
     const dueN = dueCount(s);
     const cap = Math.max(4, Math.min(8, Math.ceil(dueN / 5)));
+    const newSlot = !taper && dueN > 25 && sess.i % 3 === 2;
     let taperDry = taper; // taper with nothing to review must not starve the round
-    if (sess.reviews < cap || taper) {
+    sess.topicHits = sess.topicHits || {};
+    if (!newSlot && (sess.reviews < cap || taper)) {
       const dueFacts = [];
       for (const t of sessionTopics(s, sess)) {
         for (const f of topicFacts(s, t.id)) {
           const r = s.facts[f.id];
-          if (r && r.b >= (polish ? 2 : 1) && r.due && r.due <= now && !askedSet.has(f.id) && fresh(f)) dueFacts.push([r.due, f]);
+          if (r && r.b >= (polish ? 2 : 1) && r.due && r.due <= now && !askedSet.has(f.id) && fresh(f)) {
+            // weakest first (low box, more misses than hits), then most
+            // overdue; at most two reviews from one topic per round
+            const pri = r.b * 2 + (r.w > r.c ? -3 : 0) - Math.min(3, (now - r.due) / (7 * DAY)) +
+              ((sess.topicHits[f.topic] || 0) >= 2 ? 6 : 0) + Math.random() * 2;
+            dueFacts.push([pri, f]);
+          }
         }
       }
       if (dueFacts.length) {
         taperDry = false;
         dueFacts.sort((a, b) => a[0] - b[0]);
         sess.reviews++;
-        // pick among the few most-overdue, not always the single oldest —
-        // otherwise every round opens with the exact same question
-        const top = dueFacts.slice(0, Math.min(4, dueFacts.length));
-        return makeQ(s, top[Math.floor(Math.random() * top.length)][1], { review: true });
+        const f = dueFacts[0][1];
+        sess.topicHits[f.topic] = (sess.topicHits[f.topic] || 0) + 1;
+        return makeQ(s, f, { review: true });
       }
     }
     // big backlog or bee taper → review-only rounds, no new material —
     // unless the taper has nothing left to review (fresh profile near the
     // bee date must still get questions)
-    if ((!taper || taperDry) && dueN <= 25) {
+    if ((!taper || taperDry) && (dueN <= 25 || newSlot || sess.reviews >= cap)) {
       // 3. challenge preview from one tier up — more often on a hot streak
       if (Math.random() < (hot ? 0.25 : 0.12)) {
         const f = pickNew(s, askedSet, +1, sessionTopics(s, sess), { fresh, hot });
@@ -339,6 +349,29 @@ window.Engine = (function () {
     return best ? makeQ(s, best, { review: true }) : null;
   }
 
+  // How much each topic needs attention: big when much of it has never been
+  // asked, or when he gets it wrong a lot; nudged by how often IAC asks it.
+  // Rounds draw new material and reviews toward high-need topics, so practice
+  // follows his gaps instead of circling the same few facts.
+  function topicNeed(s) {
+    const out = {};
+    for (const t of enabledTopics(s)) {
+      const fs = topicFacts(s, t.id);
+      let seen = 0, c = 0, w = 0;
+      for (const f of fs) { const r = s.facts[f.id]; if (r && (r.c || r.w)) { seen++; c += r.c; w += r.w; } }
+      const unseen = fs.length ? 1 - seen / fs.length : 0;
+      const miss = c + w >= 5 ? w / (c + w) : 0.3;
+      out[t.id] = (0.25 + unseen) * (0.6 + 1.5 * miss) * (1 + (IAC_MIX[t.id] || 1) / 20);
+    }
+    return out;
+  }
+  // topics in a need-weighted random order (heavier need = earlier, usually)
+  function needOrder(s, topics) {
+    const need = topicNeed(s);
+    return topics.map((t) => [t, Math.pow(Math.random(), 1 / Math.max(0.05, need[t.id] || 0.3))])
+      .sort((a, b) => b[1] - a[1]).map((x) => x[0]);
+  }
+
   // recent accuracy over roughly the last 60 answers (needs >=30 to count)
   function recentAccuracy(s) {
     let a = 0, c = 0;
@@ -360,7 +393,7 @@ window.Engine = (function () {
   }
 
   function pickNew(s, askedSet, tierOffset, topicList, opts) {
-    let topics = topicList || enabledTopics(s);
+    let topics = needOrder(s, topicList || enabledTopics(s));
     if (!topics.length) return null;
     const focus = coachPlan().focusTopics || [];
     if (focus.length && Math.random() < 0.5) {
@@ -373,7 +406,7 @@ window.Engine = (function () {
     // topic's current tier (+offset) — lowest tier first normally, HIGHEST
     // first for hot learners so an advanced kid isn't fed warm-ups.
     for (let k = 0; k < topics.length; k++) {
-      const t = topics[(pickNew._cursor + k) % topics.length];
+      const t = topics[k];
       const base = coachTier(t.id, s.topics[t.id].tier || 1);
       const maxTier = Math.min(5, base + tierOffset);
       if (tierOffset > 0 && maxTier <= base) continue;
@@ -385,7 +418,6 @@ window.Engine = (function () {
         })
         .sort((a, b) => (hot ? b.tier - a.tier : a.tier - b.tier));
       if (pool.length) {
-        if (tierOffset === 0) pickNew._cursor = (pickNew._cursor + k + 1) % topics.length;
         // small shuffle within the leading tier so ordering isn't alphabetical;
         // facts studied in Learn mode come first — quiz what was just studied
         const lead = pool.filter((f) => f.tier === pool[0].tier);
@@ -397,9 +429,6 @@ window.Engine = (function () {
     }
     return null;
   }
-  // start the round-robin at a random topic each app load, so the first new
-  // question of the day isn't always from the first chapter
-  pickNew._cursor = Math.floor(Math.random() * 24);
 
   function makeQ(s, fact, flags) {
     const r = rec(s, fact.id);
@@ -626,9 +655,21 @@ window.Engine = (function () {
             if (slot === "t" || plan.kind === "oral") pool = pool.filter((f) => !(f.item && f.item.odd));
             if (pool.length) {
               if (k >= 0) plan.cursor = (plan.cursor + k + 1) % plan.topics.length;
-              const unseenLastBee = pool.filter((f) => !lastBee.has(f.id));
-              const pickPool = unseenLastBee.length ? unseenLastBee : pool;
-              const f = pickPool[Math.floor(Math.random() * pickPool.length)];
+              // prefer what he hasn't been asked lately, then misses and
+              // never-asked facts; last mock's questions only as a last resort
+              const now = Date.now();
+              const mockScore = (f) => {
+                const r = s.facts[f.id];
+                let x = Math.random() * 1.5;
+                if (lastBee.has(f.id)) x += 4;
+                if (r && r.last && now - r.last < 2 * DAY) x += 3;
+                if (!r || !(r.c || r.w)) x -= 0.7;
+                else if (r.w > r.c || r.b <= 2) x -= 1;
+                else if (r.b >= 4) x += 0.8;
+                return x;
+              };
+              let f = pool[0], fx = Infinity;
+              for (const cand of pool) { const v = mockScore(cand); if (v < fx) { fx = v; f = cand; } }
               plan.asked.add(f.id);
               // tap-the-map isn't an exam form; highlighted-map ID is fine
               let form = Q.nextForm(f, (s.facts[f.id] || {}).forms);

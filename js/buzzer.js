@@ -101,10 +101,31 @@ window.Buzzer = (function () {
     island: 0.06, water: 0.06, mountain: 0.05, lake: 0.04, desert: 0.02, current: 0.01,
     landmark: 0.03, concept: 0.05,
   };
+  const DAY = 24 * 3600 * 1000;
+  // His record by region and by category: how often he's right, and how much
+  // of it he has met. Weak or barely-met areas get more tossups.
+  function areaNeed(seen) {
+    const acc = {}, all = {};
+    for (const t of window.GEO_TOSSUPS) {
+      for (const k of ["r:" + t.region, "c:" + t.cat]) {
+        const a = all[k] || (all[k] = { n: 0, met: 0, c: 0, w: 0 });
+        a.n++;
+        const r = seen[t.id];
+        if (r) { a.met++; a.c += r.c; a.w += r.w; }
+      }
+    }
+    for (const [k, a] of Object.entries(all)) {
+      const miss = a.c + a.w >= 3 ? a.w / (a.c + a.w) : 0.4;
+      acc[k] = 0.9 * miss + 0.7 * (1 - a.met / a.n);
+    }
+    return acc;
+  }
   function pick(s) {
     const seen = (s.buzz && s.buzz.seen) || {};
     const pool = window.GEO_TOSSUPS.filter((t) => !R.used.has(t.id));
     if (!pool.length) return null;
+    R.need = R.need || areaNeed(seen);
+    const now = Date.now();
     const cb = (window.GBQ_COACH && window.GBQ_COACH.buzz) || {};
     // the Final Round reads a level above his usual buzzer target, favouring
     // the longer four-clue tossups that have a real (+) and (*) zone
@@ -112,7 +133,18 @@ window.Buzzer = (function () {
     const regionW = cb.regions || {};
     const score = (t) => {
       const r = seen[t.id];
-      let p = !r ? 0 : r.w > r.c ? 1 : r.bp != null && r.bp < 0.9 ? 3 : 2;
+      // unseen first; a miss comes back after a day, a late buzz after four
+      // days, an early buzz after two weeks, so rounds don't keep replaying
+      // the same tossups
+      const age = r ? (now - (r.last || 0)) / DAY : Infinity;
+      let p = !r ? 0
+        : r.w > r.c ? (age < 1 ? 6 : 1)
+        : r.bp != null && r.bp < 0.9 ? (age < 14 ? 7 : 3)
+        : (age < 4 ? 6.5 : 2);
+      // when something must repeat, the one he saw longest ago comes first
+      if (r) p -= Math.min(age, 30) * 0.04;
+      // his weak and barely-met regions and kinds of answer come up more
+      p -= ((R.need["r:" + t.region] || 0) + (R.need["c:" + t.cat] || 0)) * 0.6;
       // regional rounds start a notch easier; a final stays at finals level
       p += Math.abs(t.t - (R.i < 10 && !isFinal() ? Math.max(1, target - 1) : target)) * 0.4;
       p -= ((regionW[t.region] || 1) - 1) * 0.8;
@@ -120,7 +152,7 @@ window.Buzzer = (function () {
       const share = ((R.cats[t.cat] || 0) + 1) / (R.i + 1);
       p += Math.max(0, share - (CAT_MIX[t.cat] || 0.03)) * 4;
       if (isFinal() && t.clues.length < 4) p += 0.5;
-      return p + Math.random() * 0.8;
+      return p + Math.random() * 1.2;
     };
     pool.sort((a, b) => score(a) - score(b));
     return pool[0];
