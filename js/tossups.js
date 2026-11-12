@@ -5715,5 +5715,82 @@ window.GEO_TOSSUPS = [
   "t": 4,
   "x": "Skiers can ski from it across the border into Italy.",
   "redset": ""
+ },
+ {
+  "id": "africa-victoria-falls",
+  "region": "africa",
+  "cat": "landmark",
+  "clues": [
+   "Local people call this place Mosi-oa-Tunya, which means 'the smoke that thunders,' because its spray rises like smoke and can be seen from miles away.",
+   "In 1855, the Scottish explorer David Livingstone became the first European to see it, and he named it after the queen of his country.",
+   "For the point, name this giant waterfall on the Zambezi River, between Zambia and Zimbabwe, the largest sheet of falling water on Earth."
+  ],
+  "a": "Victoria Falls",
+  "alt": [
+   "Mosi-oa-Tunya",
+   "Mosi oa Tunya"
+  ],
+  "prompt": [
+   "Victoria",
+   "Zambezi",
+   "Zambezi River"
+  ],
+  "t": 2,
+  "x": "It is about a mile wide and roughly twice as tall as Niagara Falls.",
+  "redset": ""
+ },
+ {
+  "id": "canada-bay-of-fundy",
+  "region": "canada",
+  "cat": "water",
+  "clues": [
+   "At Hopewell Rocks on its shore, tall rock towers shaped like flowerpots stand in deep water at high tide, and people walk around their bases on the sea floor at low tide.",
+   "This inlet of the Atlantic Ocean lies between the Canadian provinces of New Brunswick and Nova Scotia.",
+   "For the point, name this bay with the highest tides in the world, where the water can rise and fall more than 50 feet."
+  ],
+  "a": "Bay of Fundy",
+  "alt": [
+   "Fundy"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The highest tides ever measured on Earth were recorded at Burntcoat Head, on its Nova Scotia side.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-murray-river",
+  "region": "oceania",
+  "cat": "river",
+  "clues": [
+   "Paddle steamers once carried wool and wheat along this waterway, and its biggest branch is the Darling.",
+   "It begins in the Australian Alps and forms much of the border between the states of New South Wales and Victoria.",
+   "For the point, name this longest river in Australia, which reaches the ocean in the state of South Australia."
+  ],
+  "a": "Murray River",
+  "alt": [
+   "Murray",
+   "River Murray"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A giant fish called the Murray cod lives in it and can grow longer than a grown-up is tall.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-wellington",
+  "region": "oceania",
+  "cat": "city",
+  "clues": [
+   "The prime minister of this country works in a round building in this city nicknamed the Beehive.",
+   "Ferries leave this windy harbor city to cross Cook Strait to the South Island.",
+   "It took over as capital from Auckland in 1865 and sits at the southern tip of the North Island.",
+   "For the point, name this capital of New Zealand, the southernmost national capital in the world."
+  ],
+  "a": "Wellington",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "People call it 'Windy Wellington' because strong winds funnel through Cook Strait.",
+  "redset": ""
  }
 ];
