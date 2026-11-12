@@ -591,8 +591,8 @@ window.Engine = (function () {
   };
   // One preferred topic per question, in proportion to IAC_MIX over the
   // child's enabled topics (largest remainder, then shuffled).
-  function mixSchedule(topics, n) {
-    const w = topics.map((t) => IAC_MIX[t] || 0), tot = w.reduce((a, b) => a + b, 0);
+  function mixSchedule(topics, n, weights) {
+    const w = topics.map((t) => (weights || IAC_MIX)[t] || 0), tot = w.reduce((a, b) => a + b, 0);
     if (!tot) return null;
     const exact = w.map((x) => (x / tot) * n), cnt = exact.map(Math.floor);
     const order = exact.map((x, i) => [x - cnt[i], i]).sort((a, b) => b[0] - a[0]);
@@ -604,8 +604,23 @@ window.Engine = (function () {
   }
   // m = 3-option MCQ, t = open-ended/typed, v = two-option (12/8/5, interleaved)
   const NSF_SLOTS = ["m","t","m","v","m","t","m","m","t","v","m","t","m","m","t","v","m","t","m","v","m","t","t","v","m"];
-  function beePlan(kind, s) {
+  // Regional written exam (ORQE practice): about half of real ORQE questions
+  // carry a map or picture, so map ID gets a bigger share than in oral mocks.
+  const EXAM_MIX = Object.assign({}, IAC_MIX, { worldmap: 16, usmap: 7 });
+  const IAC_TIERS = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5];
+  // opts.exam: build a written-exam plan of opts.n questions (all 4-choice)
+  function beePlan(kind, s, opts) {
     const topics = enabledTopics(s).map((t) => t.id);
+    if (opts && opts.exam) {
+      const n = opts.n || 50;
+      const tiers = Array.from({ length: n }, (_, i) => IAC_TIERS[Math.floor((i * IAC_TIERS.length) / n)]);
+      const mix = mixSchedule(topics, n, EXAM_MIX);
+      return {
+        kind: "iac", exam: true, short: n < 50, tiers, i: 0, score: 0, correct: 0, strikes: 0,
+        asked: new Set(), topics, cursor: Math.floor(Math.random() * topics.length),
+        pyUsed: new Set(), clueBonus: 0, mix, timeLimit: Math.round((20 * 60 * n) / 50),
+      };
+    }
     let tiers;
     if (kind === "nsf") tiers = [1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,5,5];
     else if (kind === "iac") tiers = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5];
@@ -653,6 +668,8 @@ window.Engine = (function () {
             else pool = pool.filter((f) => !(f.item && f.item.vs));
             // typed slots need an acceptable typed answer (odd items have none)
             if (slot === "t" || plan.kind === "oral") pool = pool.filter((f) => !(f.item && f.item.odd));
+            // written exam: every question has exactly 4 choices, like the ORQE
+            if (plan.exam) pool = pool.filter((f) => !(f.item && f.item.odd));
             if (pool.length) {
               if (k >= 0) plan.cursor = (plan.cursor + k + 1) % plan.topics.length;
               // prefer what he hasn't been asked lately, then misses and
@@ -674,12 +691,14 @@ window.Engine = (function () {
               // tap-the-map isn't an exam form; highlighted-map ID is fine
               let form = Q.nextForm(f, (s.facts[f.id] || {}).forms);
               if (form === "find") form = "which";
-              return Q.buildQuestion(f, {
+              const q = Q.buildQuestion(f, {
                 form,
                 typed: plan.kind === "oral" || slot === "t",
                 optionCount: plan.kind === "nsf" ? 3 : undefined,
                 rich: written || plan.kind === "oral",
               });
+              if (plan.exam) examPicture(q, f);
+              return q;
             }
           }
         }
@@ -690,6 +709,25 @@ window.Engine = (function () {
     // falling back to a regular MCQ if the two-option pool runs dry.
     const slot = plan.kind === "nsf" ? NSF_SLOTS[plan.i] : null;
     return search(slot) || (slot === "v" ? search("m") : null);
+  }
+  // ORQE-style picture questions: name the place only by highlighting it on
+  // a map ("the country highlighted on the map"), for well-known shapes.
+  function examPicture(q, f) {
+    const M = window.GEO_MAPS, src = f.src || {};
+    q.visual = !!(q.media && q.media.type === "map");
+    if (q.visual || !M || !q.options) return q;
+    let what = null, kind = null;
+    if (f.topic === "capitals" && (src.ct || src.t) <= 4 && M.world.countries[src.n]) { what = "country"; kind = "world"; }
+    else if (f.topic === "states" && M.us.states[src.n]) { what = "state"; kind = "us"; }
+    if (!what) return q;
+    let prompt = null;
+    if (q.form === "cap") prompt = `What is the capital of the ${what} highlighted on the map?`;
+    else if (q.form === "big" && src.big) prompt = `What is the largest city in the ${what} highlighted on the map?`;
+    if (!prompt) return q;
+    q.prompt = q.speak = prompt;
+    q.media = { type: "map", kind, highlight: src.n };
+    q.visual = true;
+    return q;
   }
   function beeRecord(s, plan, q, result) {
     // result: 'correct' | 'wrong' | 'skip' (skip only exists in iac)
@@ -721,11 +759,14 @@ window.Engine = (function () {
     s.lastBeeAsked = Array.from(plan.asked).slice(-200);
     const key = plan.kind === "oral" ? "oral" : plan.kind;
     const val = plan.kind === "oral" ? plan.correct : plan.score;
-    if (s.best[key] == null || val > s.best[key]) { s.best[key] = val; events.push({ type: "best" }); }
+    // a shorter practice exam isn't comparable with the 50-question best
+    if (!plan.short && (s.best[key] == null || val > s.best[key])) { s.best[key] = val; events.push({ type: "best" }); }
     for (const b of BADGES) {
       if (!s.badges.includes(b.id) && b.test(s)) { s.badges.push(b.id); events.push({ type: "badge", badge: b }); }
     }
-    logMock(s, { kind: plan.kind, at: Date.now(), n: plan.i, correct: plan.correct, score: plan.score,
+    logMock(s, { kind: plan.exam ? (plan.short ? "exam" + plan.tiers.length : "iac") : plan.kind,
+      at: Date.now(), n: plan.i, correct: plan.correct, score: plan.score,
+      areas: plan.areas || undefined, secs: plan.secs || undefined, blank: plan.blank != null ? plan.blank : undefined,
       max: plan.kind === "iac" ? plan.tiers.length * 2 : plan.kind === "nsf" ? plan.tiers.length : null,
       missed: (plan.review || []).map((r) => r.factId).filter(Boolean).slice(0, 60) });
     s.lastBee = Date.now();

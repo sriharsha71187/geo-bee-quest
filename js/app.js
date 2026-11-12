@@ -26,7 +26,7 @@
   // ---------- desktop sidebar (TollyPlay shell pattern) ----------
   const NAV_FOR_SCREEN = {
     "screen-home": "home", "screen-learn": "learn",
-    "screen-progress": "progress", "screen-settings": "settings",
+    "screen-progress": "progress", "screen-settings": "settings", "screen-exam": "exam",
   };
   function renderSidebar() {
     const sb = $("#sidebar");
@@ -39,6 +39,7 @@
       <nav class="sb-nav">
         <button data-nav="home" class="${active === "home" ? "active" : ""}">🏠 Home</button>
         <button data-nav="learn" class="${active === "learn" ? "active" : ""}">📚 Learn</button>
+        <button data-nav="exam" class="${active === "exam" ? "active" : ""}">🧾 Regional Written Exam</button>
         <button data-nav="written">📝 Written Bee</button>
         <button data-nav="oral">🎤 Oral Bee</button>
         <button data-nav="stickers">🎒 Stickers (${(S.stickers || []).length})</button>
@@ -54,13 +55,13 @@
       </button>`;
     // A sidebar tap mid-mock must confirm first (same rule as Quit), and must
     // always kill the mock's timers before leaving.
-    const inMock = () => act && act.plan && act.plan.kind;
+    const inMock = () => act && act.plan && (act.plan.kind || act.kind === "exam");
     const navTo = (fn) => () => {
       if (inMock() && !confirm("Leave this bee? Your score for this bee won't count.")) return;
       abortActivity(); fn();
     };
     const routes = {
-      home: renderHome, learn: renderLearnTopics, written: writtenBeePicker,
+      home: renderHome, learn: renderLearnTopics, written: writtenBeePicker, exam: renderExamHome,
       oral: () => startBee("oral"), stickers: stickersOverlay,
       atlas: renderAtlas, globe: () => renderGlobe(), progress: renderProgress, settings: renderSettings,
     };
@@ -73,7 +74,7 @@
   // Stop any running mock/oral timers and drop the activity, so nothing can
   // fire later into a different screen or a different child's profile.
   function abortActivity() {
-    stopBeeTimer(); stopOralTimer();
+    stopBeeTimer(); stopOralTimer(); stopExamTimer();
     window.Voice.stop();
     if (window.Buzzer) window.Buzzer.stop();
     act = null;
@@ -363,6 +364,10 @@
         <span class="gb-emoji">🌍</span>
         <span><b>Spin the Globe</b><br><small>Tap any country to learn it, or play Find it!</small></span>
       </button>
+      <button class="globe-banner exam-banner" id="btn-home-exam">
+        <span class="gb-emoji">🧾</span>
+        <span><b>Regional Written Exam</b><br><small>50 questions · 20 minutes, just like the ORQE qualifier</small></span>
+      </button>
       <div class="row">
         <button class="big amber" id="btn-buzzer">🛎️ Buzzer Round</button>
         <button class="big violet" id="btn-final">🏆 Final Round</button>
@@ -382,6 +387,7 @@
     $("#btn-play").onclick = () => startPractice();
     $("#btn-learn").onclick = renderLearnTopics;
     $("#btn-bee-written").onclick = writtenBeePicker;
+    $("#btn-home-exam").onclick = renderExamHome;
     $("#btn-buzzer").onclick = () => startBuzzer("regional");
     $("#btn-final").onclick = () => startBuzzer("final");
     $("#btn-bee-oral").onclick = () => startBee("oral");
@@ -1036,16 +1042,291 @@
         <button class="green profile-btn" data-kind="nsf">🏫 NSF Mock — 25 questions<br><span class="note" style="color:inherit">+1 per correct, no penalty · 30-minute timer. Always guess!</span></button>
         <button class="green profile-btn" data-kind="buzzer">🛎️ Regional Buzzer Round — like the real Dec 5 bee<br><span class="note" style="color:inherit">Clue paragraphs read aloud · buzz early · race to 5 right</span></button>
         <button class="violet profile-btn" data-kind="final">🏆 Final Round — finals-style scoring<br><span class="note" style="color:inherit">Harder tossups · 6 points for a power buzz in the first clue · −2 for a wrong early buzz · race to 50</span></button>
-        <button class="violet profile-btn" data-kind="iac">🌎 IAC Qualifier Mock (ORQE) — 50 questions<br><span class="note" style="color:inherit">+2 per correct, no penalty · 20-minute timer. Answer every one!</span></button>
+        <button class="violet profile-btn" data-kind="iac">🧾 Regional Written Exam (ORQE) — 50 questions<br><span class="note" style="color:inherit">Real exam screen: skip, mark, change answers · 20-minute timer</span></button>
       </div>
       <p class="muted" style="margin-top:10px">tap outside to cancel</p></div>`;
     el.onclick = (e) => {
       const b = e.target.closest(".profile-btn");
       el.remove();
       if (b && (b.dataset.kind === "buzzer" || b.dataset.kind === "final")) startBuzzer(b.dataset.kind === "final" ? "final" : "regional");
+      else if (b && b.dataset.kind === "iac") renderExamHome();
       else if (b) startBee(b.dataset.kind);
     };
     document.body.appendChild(el);
+  }
+
+  // ---------- Regional Written Exam (ORQE practice) ----------
+  // The written test that gets a child into the IAC regional is the ORQE:
+  // 50 four-choice questions, 20 minutes, no penalty for wrong answers, about
+  // half of them with a map or picture, roughly half right usually qualifies
+  // (orqe.iac-exams.com/faq, iacompetitions.com/emsgeographybee). Like the
+  // real exam, answers can be changed, questions skipped and marked, and
+  // nothing is graded until he submits.
+  const EXAM_AREAS = [
+    { id: "cities", name: "Capitals & cities", emoji: "🏛️", topics: ["capitals"] },
+    { id: "countries", name: "Countries & regions", emoji: "🌐", topics: ["worldmap", "relate", "regions", "continents", "india"] },
+    { id: "physical", name: "Rivers, mountains & lakes", emoji: "🏔️", topics: ["worldphys", "usphys"] },
+    { id: "us", name: "United States", emoji: "🗽", topics: ["states", "usmap", "uslandmarks"] },
+    { id: "culture", name: "Landmarks, culture & animals", emoji: "🗿", topics: ["landmarks", "culture", "animals", "trade", "explorers"] },
+    { id: "skills", name: "Map skills & geography words", emoji: "🧭", topics: ["maps", "concepts"] },
+  ];
+  const areaOf = (topic) => (EXAM_AREAS.find((a) => a.topics.includes(topic)) || EXAM_AREAS[5]).id;
+  const QUALIFY_FRAC = 0.5;
+  let examTimerId = null;
+  function stopExamTimer() { if (examTimerId) { clearInterval(examTimerId); examTimerId = null; } }
+  const examHistory = () => (S.mocks || []).filter((m) => m.kind === "iac" || /^exam\d+$/.test(m.kind));
+  const fmtTime = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
+
+  function renderExamHome() {
+    abortActivity();
+    show("#screen-exam");
+    const hist = examHistory().slice(-6).reverse();
+    const last = hist[0];
+    const histRows = hist.map((m) => {
+      const n = m.max ? m.max / 2 : m.n;
+      const line = Math.ceil(n * QUALIFY_FRAC);
+      const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      return `<tr><td>${esc(when)}</td><td>${n === 50 ? "Full exam" : `${esc(n)}-question exam`}</td>
+        <td><b>${esc(m.correct)}</b> / ${esc(n)} ${m.correct >= line ? "✅" : "⚠️"}</td></tr>`;
+    }).join("");
+    let weakLine = "";
+    if (last && last.areas) {
+      const rows = Object.entries(last.areas).filter(([, v]) => v[1] >= 2).map(([id, v]) => ({ id, c: v[0], n: v[1] }))
+        .sort((a, b) => a.c / a.n - b.c / b.n);
+      if (rows.length && rows[0].c < rows[0].n) {
+        const a = EXAM_AREAS.find((x) => x.id === rows[0].id);
+        if (a) weakLine = `<p>Weakest area last time: <b>${a.emoji} ${esc(a.name)}</b> (${rows[0].c} of ${rows[0].n}).</p>
+          <button class="big amber" id="btn-exam-weak">🎯 Practice ${esc(a.name)}</button>`;
+      }
+    }
+    $("#screen-exam").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-exam-back">← Home</button>
+        <span class="stat">📝 Regional Written Exam</span><span></span>
+      </div>
+      <div class="card hero">
+        <div class="mascot">📝</div>
+        <h1>Regional Written Exam</h1>
+        <p class="muted">Practice for the <b>ORQE</b>, IAC's online written exam that qualifies you for the regional bee.</p>
+        <ul class="exam-facts">
+          <li>📋 <b>50 questions</b>, 4 choices each</li>
+          <li>⏱ <b>20 minutes</b>, so about 24 seconds a question</li>
+          <li>🎯 <b>No penalty</b> for a wrong answer. Never leave one blank!</li>
+          <li>🗺️ Many questions show a <b>map</b></li>
+          <li>✅ About <b>half right</b> usually qualifies</li>
+        </ul>
+        <button class="big green" id="btn-exam-full">▶️ Full exam: 50 questions · 20 min</button>
+        <button class="big violet" id="btn-exam-half">⚡ Half exam: 25 questions · 10 min</button>
+      </div>
+      <div class="card">
+        <h2>Your exams</h2>
+        ${hist.length ? `<table class="mock-table"><thead><tr><th>Date</th><th>Exam</th><th>Right</th></tr></thead><tbody>${histRows}</tbody></table>
+          <p class="note">✅ = at or above the usual qualifying line (half right)</p>`
+          : `<p class="muted">No exams yet. Try the half exam first!</p>`}
+        ${weakLine}
+      </div>`;
+    $("#btn-exam-back").onclick = renderHome;
+    $("#btn-exam-full").onclick = () => startExam(50);
+    $("#btn-exam-half").onclick = () => startExam(25);
+    const wk = $("#btn-exam-weak");
+    if (wk) wk.onclick = () => {
+      const a = EXAM_AREAS.find((x) => x.id === Object.entries(last.areas).filter(([, v]) => v[1] >= 2)
+        .sort((p, q) => p[1][0] / p[1][1] - q[1][0] / q[1][1])[0][0]);
+      const on = E.enabledTopics(S).map((t) => t.id);
+      const tid = a.topics.find((t) => on.includes(t));
+      startPractice(tid || null);
+    };
+  }
+
+  function startExam(n) {
+    abortActivity();
+    const plan = E.beePlan("iac", S, { exam: true, n });
+    const qs = [];
+    for (let i = 0; i < n; i++) {
+      plan.i = i;
+      const q = E.beeNext(S, plan);
+      if (q && q.kind === "mcq" && q.options && q.options.length === 4) qs.push(q);
+    }
+    plan.i = 0;
+    if (qs.length < Math.min(10, n)) { alert("Not enough questions are turned on for an exam. Check Settings → topics."); return renderExamHome(); }
+    plan.tiers = plan.tiers.slice(0, qs.length);
+    act = { kind: "exam", plan, qs, ans: qs.map(() => null), marked: new Set(), cur: 0,
+      started: Date.now(), deadline: Date.now() + plan.timeLimit * 1000 };
+    show("#screen-exam");
+    renderExamQ();
+    stopExamTimer();
+    examTimerId = setInterval(() => {
+      if (!act || act.kind !== "exam") return stopExamTimer();
+      const left = Math.max(0, (act.deadline - Date.now()) / 1000);
+      const t = $("#exam-timer");
+      if (t) { t.textContent = `⏱ ${fmtTime(left)}`; if (left < 120) t.classList.add("exam-low"); }
+      if (left <= 0) { stopExamTimer(); finishExam(true); }
+    }, 1000);
+  }
+
+  function renderExamQ() {
+    const x = act, q = x.qs[x.cur], n = x.qs.length;
+    const left = Math.max(0, (x.deadline - Date.now()) / 1000);
+    const answered = x.ans.filter((a) => a != null).length;
+    const L = "ABCD";
+    $("#screen-exam").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-exam-quit">✖ Quit</button>
+        <span class="stat">Question ${x.cur + 1} of ${n}</span>
+        <span class="stat" id="exam-timer">⏱ ${fmtTime(left)}</span>
+      </div>
+      <div class="exam-wrap">
+        <div class="card exam-card">
+          ${x.marked.has(x.cur) ? `<span class="mode-chip mode-review">⚑ Marked to check</span>` : ""}
+          <div class="prompt"><span class="exam-num">${x.cur + 1}.</span> ${esc(q.prompt)}
+            <button class="icon-btn small" id="btn-exam-say" aria-label="read aloud" style="box-shadow:none">🔊</button></div>
+          ${q.media ? `<div class="qmedia">${mediaHTML(q.media, true)}</div>` : ""}
+          <div class="options exam-opts">
+            ${q.options.map((o, i) => `<button class="opt ${x.ans[x.cur] === i ? "picked" : ""}" data-i="${i}">
+              <span class="exam-letter">${L[i]}</span> ${o.media ? mediaHTML(o.media, false) : esc(o.label)}</button>`).join("")}
+          </div>
+          <div class="exam-nav">
+            <button class="ghost" id="btn-exam-prev" ${x.cur === 0 ? "disabled" : ""}>◀ Back</button>
+            <button class="ghost" id="btn-exam-mark">${x.marked.has(x.cur) ? "⚑ Unmark" : "⚑ Mark"}</button>
+            ${x.cur < n - 1 ? `<button class="green" id="btn-exam-next">Next ▶</button>`
+              : `<button class="violet" id="btn-exam-submit2">Submit ✔</button>`}
+          </div>
+        </div>
+        <div class="card exam-side">
+          <div class="exam-grid">${x.qs.map((_, i) => `<button class="${[
+            i === x.cur ? "cur" : "", x.ans[i] != null ? "done" : "", x.marked.has(i) ? "mark" : ""].join(" ")}" data-j="${i}">${i + 1}</button>`).join("")}</div>
+          <p class="note">✔ ${answered} answered · ⚑ ${x.marked.size} marked · ${n - answered} blank</p>
+          <button class="big violet" id="btn-exam-submit">Submit exam</button>
+        </div>
+      </div>`;
+    decorateMap($("#screen-exam"));
+    $("#btn-exam-quit").onclick = () => {
+      if (!confirm("Quit this exam? It won't be scored.")) return;
+      abortActivity(); renderExamHome();
+    };
+    $("#btn-exam-say").onclick = () => forceSpeak(q.speak);
+    document.querySelectorAll(".exam-opts .opt").forEach((b) => (b.onclick = () => {
+      x.ans[x.cur] = +b.dataset.i;
+      document.querySelectorAll(".exam-opts .opt").forEach((o) => o.classList.toggle("picked", o === b));
+      // move on by itself, like turning the page; Back still works
+      const at = x.cur;
+      setTimeout(() => { if (act === x && x.cur === at) { if (at < n - 1) x.cur++; renderExamQ(); } }, 350);
+    }));
+    $("#btn-exam-prev").onclick = () => { if (x.cur > 0) { x.cur--; renderExamQ(); } };
+    $("#btn-exam-mark").onclick = () => { x.marked.has(x.cur) ? x.marked.delete(x.cur) : x.marked.add(x.cur); renderExamQ(); };
+    const nx = $("#btn-exam-next");
+    if (nx) nx.onclick = () => { x.cur++; renderExamQ(); };
+    document.querySelectorAll(".exam-grid button").forEach((b) => (b.onclick = () => { x.cur = +b.dataset.j; renderExamQ(); }));
+    const sub = () => confirmSubmit();
+    $("#btn-exam-submit").onclick = sub;
+    const s2 = $("#btn-exam-submit2");
+    if (s2) s2.onclick = sub;
+  }
+
+  function confirmSubmit() {
+    const x = act;
+    const blanks = x.ans.map((a, i) => (a == null ? i : -1)).filter((i) => i >= 0);
+    if (!blanks.length && !x.marked.size) return finishExam(false);
+    const el = document.createElement("div");
+    el.className = "celebrate-overlay";
+    el.innerHTML = `<div class="celebrate-box">
+      <h2>Ready to submit?</h2>
+      ${blanks.length ? `<p>You left <b>${blanks.length}</b> blank. There's no penalty for guessing, so a guess can only help!</p>` : ""}
+      ${x.marked.size ? `<p>You marked <b>${x.marked.size}</b> to check again.</p>` : ""}
+      <div class="profile-list">
+        ${blanks.length ? `<button class="green profile-btn" data-go="blank">↩ Go to blank #${blanks[0] + 1}</button>` : ""}
+        ${x.marked.size ? `<button class="amber profile-btn" data-go="mark">⚑ Check marked ones</button>` : ""}
+        <button class="violet profile-btn" data-go="submit">Submit now</button>
+      </div></div>`;
+    el.onclick = (e) => {
+      const b = e.target.closest("[data-go]");
+      if (!b && e.target !== el) return;
+      el.remove();
+      if (!b || act !== x) return;
+      if (b.dataset.go === "submit") return finishExam(false);
+      x.cur = b.dataset.go === "blank" ? blanks[0] : Math.min(...x.marked);
+      renderExamQ();
+    };
+    document.body.appendChild(el);
+  }
+
+  function finishExam(timeUp) {
+    const x = act;
+    if (!x || x.kind !== "exam") return;
+    stopExamTimer();
+    window.Voice.stop();
+    document.querySelectorAll(".celebrate-overlay").forEach((o) => o.remove());
+    const plan = x.plan, areas = {}, rows = [];
+    let pic = [0, 0], blank = 0;
+    x.qs.forEach((q, i) => {
+      const a = x.ans[i];
+      const res = a == null ? "skip" : a === q.answerIdx ? "correct" : "wrong";
+      if (a == null) blank++;
+      E.beeRecord(S, plan, q, res);
+      const ar = areaOf(q.topic);
+      areas[ar] = areas[ar] || [0, 0];
+      areas[ar][1]++;
+      if (res === "correct") areas[ar][0]++;
+      if (q.visual) { pic[1]++; if (res === "correct") pic[0]++; }
+      rows.push({ i, q, a, res });
+    });
+    plan.areas = areas; plan.blank = blank;
+    plan.secs = Math.round(Math.min(plan.timeLimit, (Date.now() - x.started) / 1000));
+    const events = E.beeFinish(S, plan);
+    save();
+    act = null;
+    const n = x.qs.length, right = plan.correct, line = Math.ceil(n * QUALIFY_FRAC);
+    const verdict = right >= line + Math.ceil(n * 0.1)
+      ? `✅ Comfortably above the usual qualifying line (about ${line} right).`
+      : right >= line ? `✅ Above the usual qualifying line (about ${line} right). A few more would make it safe.`
+      : `⚠️ Below the usual qualifying line (about ${line} right). Let's fix the misses!`;
+    if (right >= line) { confetti(right >= line + 5 ? 30 : 14); sndLevel(); }
+    const L = "ABCD";
+    const areaRows = EXAM_AREAS.filter((a) => areas[a.id]).map((a) => ({ a, c: areas[a.id][0], t: areas[a.id][1] }))
+      .sort((p, q) => p.c / p.t - q.c / q.t)
+      .map(({ a, c, t }) => `<div class="exam-area"><span>${a.emoji} ${esc(a.name)}</span>
+        <span class="exam-bar"><i style="width:${Math.round((100 * c) / t)}%"></i></span><b>${c}/${t}</b></div>`).join("");
+    const reviewRow = (r) => `<div class="exam-rev ${r.res}">
+        <div><b>${r.i + 1}.</b> ${esc(r.q.prompt)}</div>
+        ${r.q.media && r.q.media.type === "map" ? `<div class="qmedia small-map">${mediaHTML(r.q.media, false)}</div>` : ""}
+        <div>${r.res === "correct" ? "✅" : r.res === "skip" ? "⬜ Blank" : `❌ You chose ${L[r.a]}: ${esc(r.q.options[r.a].label)}`}
+          ${r.res !== "correct" ? ` · <b>Answer: ${esc(r.q.answerText)}</b>` : ""}</div>
+        ${r.res !== "correct" && r.q.fact ? `<div class="muted">${esc(r.q.fact)}</div>` : ""}
+      </div>`;
+    const missed = rows.filter((r) => r.res !== "correct");
+    show("#screen-exam");
+    $("#screen-exam").innerHTML = `
+      <div class="card hero">
+        <div class="mascot">${right >= line ? "🏅" : "📝"}</div>
+        <h1>${right} / ${n} right</h1>
+        ${timeUp ? `<p class="muted">⏱ Time ran out. Unanswered questions counted as blank.</p>` : ""}
+        <p class="summary-line">${verdict}</p>
+        <div class="counts">${right * 2} IAC points · ${missed.length - blank} wrong · ${blank} blank · time ${fmtTime(plan.secs)} of ${fmtTime(plan.timeLimit)}</div>
+        ${blank ? `<p class="note">On the real exam, guess on every blank: no penalty, and each guess has a 1-in-4 chance.</p>` : ""}
+        ${events.some((e) => e.type === "best") ? `<p class="summary-line">🏆 New best exam score!</p>` : ""}
+      </div>
+      <div class="card">
+        <h2>How each area went</h2>
+        ${areaRows}
+        ${pic[1] ? `<div class="exam-area"><span>🗺️ Map questions</span><span class="exam-bar"><i style="width:${Math.round((100 * pic[0]) / pic[1])}%"></i></span><b>${pic[0]}/${pic[1]}</b></div>` : ""}
+      </div>
+      <div class="card">
+        <div class="row">
+          ${missed.length ? `<button class="big amber" id="btn-exam-drill">🎯 Practice my ${missed.length} misses</button>` : ""}
+          <button class="big green" id="btn-exam-again">📝 Exams</button>
+          <button class="big ghost" id="btn-exam-home">🏠 Home</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>${missed.length ? "Questions to learn from" : "Perfect, every one right!"}</h2>
+        ${missed.map(reviewRow).join("")}
+        <details><summary>Show all ${n} questions</summary>${rows.map(reviewRow).join("")}</details>
+      </div>`;
+    decorateMap($("#screen-exam"));
+    const dr = $("#btn-exam-drill");
+    if (dr) dr.onclick = () => startDrill(missed.map((r) => r.q.factId).filter(Boolean));
+    $("#btn-exam-again").onclick = renderExamHome;
+    $("#btn-exam-home").onclick = renderHome;
   }
 
   // ---------- bee timer (IAC mock) ----------
@@ -1618,7 +1899,7 @@
     const recent = S.log.slice(-7).map((e) =>
       `<div class="counts">${esc(e.d)}: ${esc(e.c)}/${esc(e.a)} correct</div>`).join("") || `<div class="counts">No sessions yet.</div>`;
     // every mock attempt, newest first (s.mocks), so a parent sees a trend
-    const KIND = { buzzer: "🛎️ Buzzer round", final: "🏆 Final round", iac: "🌎 IAC qualifier mock", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
+    const KIND = { buzzer: "🛎️ Buzzer round", final: "🏆 Final round", iac: "🧾 Written exam (ORQE)", exam25: "🧾 Half written exam", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
     const mockRow = (m) => {
       const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
       const res = m.kind === "final"
