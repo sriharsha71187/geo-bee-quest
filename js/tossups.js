@@ -5792,5 +5792,81 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "People call it 'Windy Wellington' because strong winds funnel through Cook Strait.",
   "redset": ""
+ },
+ {
+  "id": "europe-copenhagen",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "Tivoli Gardens, an amusement park that opened in 1843, is in this city, and colorful old houses line its canal called Nyhavn.",
+   "A long bridge and tunnel connect this city to Malmo, Sweden, across a strait called the Oresund.",
+   "A small bronze statue of the Little Mermaid, from a fairy tale by Hans Christian Andersen, sits on a rock by its harbor.",
+   "For the point, name this capital city of Denmark."
+  ],
+  "a": "Copenhagen",
+  "alt": [
+   "Kobenhavn",
+   "København"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Little Mermaid statue is only about four feet tall, much smaller than many visitors expect.",
+  "redset": ""
+ },
+ {
+  "id": "latam-guatemala",
+  "region": "latam",
+  "cat": "country",
+  "clues": [
+   "Lake Atitlan, ringed by three volcanoes, lies in the highlands of this country, and the Maya pyramids of Tikal rise above its northern jungle.",
+   "Its money is named for the quetzal, a bright green bird with very long tail feathers.",
+   "It borders Mexico, Belize, Honduras and El Salvador.",
+   "For the point, name this country with the most people in Central America."
+  ],
+  "a": "Guatemala",
+  "alt": [],
+  "prompt": [],
+  "t": 2,
+  "x": "Its capital has almost the same name as the country: Guatemala City.",
+  "redset": ""
+ },
+ {
+  "id": "us-lake-okeechobee",
+  "region": "us",
+  "cat": "lake",
+  "clues": [
+   "After a deadly hurricane in 1928, a long wall of earth called the Herbert Hoover Dike was built all the way around this body of water.",
+   "Its name means 'big water,' and water flowing south out of it feeds the Everglades.",
+   "For the point, name this huge but shallow lake, about 9 feet deep, that is the largest lake in Florida."
+  ],
+  "a": "Lake Okeechobee",
+  "alt": [
+   "Okeechobee"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "People call it 'the Big O,' and it is so wide you cannot see across it from the shore.",
+  "redset": ""
+ },
+ {
+  "id": "us-mount-st-helens",
+  "region": "us",
+  "cat": "mountain",
+  "clues": [
+   "A scientist named David Johnston was watching this volcano when it blew, and a ridge where visitors view its crater is now named for him.",
+   "A giant landslide on its north side pushed the water of Spirit Lake up the hills, and the peak lost about 1,300 feet of its height.",
+   "For the point, name this volcano in Washington state that erupted on May 18, 1980."
+  ],
+  "a": "Mount St. Helens",
+  "alt": [
+   "St. Helens",
+   "Mount Saint Helens",
+   "Mt. St. Helens",
+   "Saint Helens"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Its ash drifted on the wind and landed in 11 different states.",
+  "redset": ""
  }
 ];
