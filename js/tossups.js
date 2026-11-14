@@ -5868,5 +5868,81 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "Its ash drifted on the wind and landed in 11 different states.",
   "redset": ""
+ },
+ {
+  "id": "us-lincoln-memorial",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "The words of the Gettysburg Address are carved into the south wall of this marble building, beside a long pool of water.",
+   "Its 36 outside columns stand for the 36 states in the country when the president it honors died in 1865.",
+   "In 1963, Martin Luther King Jr. gave his 'I Have a Dream' speech on its steps.",
+   "For the point, name this memorial in Washington, D.C. with a giant seated statue of the 16th president."
+  ],
+  "a": "Lincoln Memorial",
+  "alt": [
+   "The Lincoln Memorial",
+   "Lincoln Monument"
+  ],
+  "prompt": [
+   "Lincoln"
+  ],
+  "t": 2,
+  "x": "The seated statue inside is 19 feet tall, about as tall as three grown-ups stacked up.",
+  "redset": ""
+ },
+ {
+  "id": "europe-budapest",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "A famous public bath in this city's City Park is so big it has 18 pools, and the zoo's hippo pool uses the same warm spring water.",
+   "The Chain Bridge, finished in 1849, was the first permanent bridge across the Danube here.",
+   "It became one city in 1873, when hilly Buda on one bank joined flat Pest on the other.",
+   "For the point, name this capital of Hungary."
+  ],
+  "a": "Budapest",
+  "alt": [],
+  "prompt": [],
+  "t": 2,
+  "x": "The giant Parliament building on its riverbank is one of the biggest buildings in all of Europe.",
+  "redset": ""
+ },
+ {
+  "id": "latam-lima",
+  "region": "latam",
+  "cat": "city",
+  "clues": [
+   "A gray coastal fog called the garúa hangs over this desert city for months, but it almost never truly rains here.",
+   "Francisco Pizarro founded it in 1535 beside the Rímac River and called it the City of the Kings.",
+   "Its seaport, Callao, sits right next to it on the Pacific Ocean.",
+   "For the point, name this capital of Peru."
+  ],
+  "a": "Lima",
+  "alt": [],
+  "prompt": [],
+  "t": 2,
+  "x": "Lima gets less than 2 inches of rain in a whole year, less than many deserts.",
+  "redset": ""
+ },
+ {
+  "id": "europe-geneva",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "Henry Dunant started the group that became the Red Cross in this city in 1863, and the Red Cross committee still has its home here.",
+   "The United Nations has its biggest office outside New York here, in a building called the Palais des Nations.",
+   "A fountain called the Jet d'Eau shoots water about 140 meters into the air where the Rhône River leaves a big lake.",
+   "For the point, name this French-speaking Swiss city on the lake that shares its name."
+  ],
+  "a": "Geneva",
+  "alt": [
+   "Genève",
+   "Geneve"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The fountain's water rushes out at about 200 kilometers per hour, as fast as a race car.",
+  "redset": ""
  }
 ];

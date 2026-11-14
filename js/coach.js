@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-12",
+  updated: "2026-11-13",
   focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
   tierFloor: { states: 4, usmap: 3 },
   tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, usphys: 3, regions: 3, relate: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { oceania: 1.5, canada: 1.4, africa: 1.3, europe: 1.3, latam: 1.2, us: 1.1 } },
-  note: "23 days to Dec 5. No practice since 11/11 and reviews due climbed back to 423 - a short daily Review (15 min) matters more than long sessions. Added 4 tossups on recent misses: Copenhagen, Guatemala, Lake Okeechobee, Mount St. Helens.",
+  buzz: { targetTier: 2, regions: { oceania: 1.5, canada: 1.4, europe: 1.4, latam: 1.3, us: 1.2, africa: 1.2 } },
+  note: "22 days to Dec 5. Great written week (60/60 in Field Book on 11/13, 100/100 IAC exam, 50/50 exam) and reviews due fell to 371 - but no buzzer round since 11/12. The bee is buzzer tossups, so add 2 buzzer rounds a day. New tossups: Lincoln Memorial, Budapest, Lima, Geneva.",
 };
