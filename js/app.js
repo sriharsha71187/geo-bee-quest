@@ -39,7 +39,7 @@
       <nav class="sb-nav">
         <button data-nav="home" class="${active === "home" ? "active" : ""}">🏠 Home</button>
         <button data-nav="learn" class="${active === "learn" ? "active" : ""}">📚 Learn</button>
-        <button data-nav="exam" class="${active === "exam" ? "active" : ""}">🧾 Regional Written Exam</button>
+        <button data-nav="exam" class="${active === "exam" ? "active" : ""}">🧾 Written Exam</button>
         <button data-nav="written">📝 Written Bee</button>
         <button data-nav="oral">🎤 Oral Bee</button>
         <button data-nav="stickers">🎒 Stickers (${(S.stickers || []).length})</button>
@@ -366,7 +366,7 @@
       </button>
       <button class="globe-banner exam-banner" id="btn-home-exam">
         <span class="gb-emoji">🧾</span>
-        <span><b>Regional Written Exam</b><br><small>50 questions · 20 minutes, just like the ORQE qualifier</small></span>
+        <span><b>Written Exam: Geography Championships</b><br><small>40 questions · 35 min · themed sets, numbered maps, written answers</small></span>
       </button>
       <div class="row">
         <button class="big amber" id="btn-buzzer">🛎️ Buzzer Round</button>
@@ -1042,7 +1042,7 @@
         <button class="green profile-btn" data-kind="nsf">🏫 NSF Mock — 25 questions<br><span class="note" style="color:inherit">+1 per correct, no penalty · 30-minute timer. Always guess!</span></button>
         <button class="green profile-btn" data-kind="buzzer">🛎️ Regional Buzzer Round — like the real Dec 5 bee<br><span class="note" style="color:inherit">Clue paragraphs read aloud · buzz early · race to 5 right</span></button>
         <button class="violet profile-btn" data-kind="final">🏆 Final Round — finals-style scoring<br><span class="note" style="color:inherit">Harder tossups · 6 points for a power buzz in the first clue · −2 for a wrong early buzz · race to 50</span></button>
-        <button class="violet profile-btn" data-kind="iac">🧾 Regional Written Exam (ORQE) — 50 questions<br><span class="note" style="color:inherit">Real exam screen: skip, mark, change answers · 20-minute timer</span></button>
+        <button class="violet profile-btn" data-kind="iac">🧾 Geography Championships Written Exam<br><span class="note" style="color:inherit">40 questions · 35 min · +2 / −1 · numbered maps · written-answer practice</span></button>
       </div>
       <p class="muted" style="margin-top:10px">tap outside to cancel</p></div>`;
     el.onclick = (e) => {
@@ -1055,7 +1055,303 @@
     document.body.appendChild(el);
   }
 
-  // ---------- Regional Written Exam (ORQE practice) ----------
+  // ---------- Geography Championships written exam (USGC style) ----------
+  // IAC's US Geography Championships written exam, 4th Grade and Under:
+  // 40 multiple-choice questions in 35 minutes (+2 right, -1 wrong, 0 blank),
+  // in themed sets of five plus sets on a numbered map, and a free-response
+  // paper worth 75% of the score (iacompetitions.com/emsusgc, past exams).
+  // Question bank and map sets: js/usgc.js.
+  const usgcHistory = () => (S.mocks || []).filter((m) => /^usgc\d+$/.test(m.kind));
+  function usgcSeen() { S.usgc = S.usgc || { seen: {} }; S.usgc.seen = S.usgc.seen || {}; return S.usgc.seen; }
+  function usgcRecord(id, correct) {
+    if (!id || !/^u:/.test(id)) return;
+    const seen = usgcSeen(), r = seen[id] || (seen[id] = { c: 0, w: 0, last: 0 });
+    if (correct) r.c++; else r.w++;
+    r.last = Date.now();
+    S.metaUpdated = Date.now();
+  }
+  // a numbered map, like the exam's resource-section images
+  function numMapHTML(b, small) {
+    const W = window.GEO_MAPS.world.countries, [x, y, w, h] = b.view;
+    const r = Math.max(w, h) * 0.021, pinned = new Set(b.pins.map((p) => p.name));
+    const paths = Object.entries(W).map(([n, v]) => `<path d="${v.d}" class="${pinned.has(n) ? "pin" : ""}"></path>`).join("");
+    const pins = b.pins.filter((p) => p.at).map((p) => `<g><circle cx="${p.at.x.toFixed(1)}" cy="${p.at.y.toFixed(1)}" r="${r.toFixed(2)}"></circle>
+      <text x="${p.at.x.toFixed(1)}" y="${p.at.y.toFixed(1)}" font-size="${(r * 1.2).toFixed(2)}" dy="0.36em">${p.n}</text></g>`).join("");
+    return `<svg class="map-svg world num-map ${small ? "small" : ""}" viewBox="${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" preserveAspectRatio="xMidYMid meet">${paths}<g class="num-pins">${pins}</g></svg>`;
+  }
+  const usgcQ = (it, bi, b) => ({
+    usgcId: it.id, block: bi, prompt: it.q, speak: it.q, options: it.opts.map((l) => ({ label: l })),
+    answerIdx: it.opts.indexOf(it.a), answerText: it.a, fact: it.x, topic: b.setId || "map", visual: b.kind === "map",
+  });
+
+  function renderExamHome() {
+    abortActivity();
+    show("#screen-exam");
+    const U = window.GEO_USGC, seen = usgcSeen();
+    const hist = usgcHistory().slice(-6).reverse();
+    const histRows = hist.map((m) => {
+      const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      return `<tr><td>${esc(when)}</td><td>${esc(m.n)} questions</td>
+        <td><b>${esc(m.score)}</b> / ${esc(m.max)} pts · ${esc(m.correct)} right, ${esc(m.wrong || 0)} wrong, ${esc(m.blank || 0)} blank</td></tr>`;
+    }).join("");
+    const setPct = (s) => {
+      let c = 0, n = 0;
+      s.qs.forEach((_, i) => { const r = seen[U.qid(s.id, i)]; if (r) { n++; if (r.c > 0 && r.c >= r.w) c++; } });
+      return { c, n, total: s.qs.length };
+    };
+    const tiles = U.SETS.map((s) => {
+      const p = setPct(s);
+      return `<button class="usgc-tile" data-set="${esc(s.id)}"><span class="ut-emoji">${s.emoji}</span>
+        <span><b>${esc(s.name)}</b><br><small>${p.n ? `${p.c} of ${p.total} solid` : "not tried yet"}</small></span></button>`;
+    }).join("");
+    $("#screen-exam").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-exam-back">← Home</button>
+        <span class="stat">🧾 Written Exam</span><span></span>
+      </div>
+      <div class="card hero">
+        <div class="mascot">🧾</div>
+        <h1>Geography Championships Written Exam</h1>
+        <p class="muted">Practice for IAC's written exam, 4th Grade and Under.</p>
+        <ul class="exam-facts">
+          <li>📋 <b>40 multiple-choice questions</b> in <b>35 minutes</b>, in sets of 5 on one theme</li>
+          <li>🗺️ Some sets use a <b>numbered map</b>: "Which country is at number 4?"</li>
+          <li>⚖️ <b>+2</b> right · <b>−1</b> wrong · <b>0</b> blank. Only guess if you can rule out 2 choices!</li>
+          <li>✍️ Plus a <b>written-answer part</b> (worth most of the score): explain, calculate, draw</li>
+        </ul>
+        <button class="big green" id="btn-usgc-full">▶️ Full exam: 40 questions · 35 min</button>
+        <button class="big violet" id="btn-usgc-half">⚡ Half exam: 20 questions · 18 min</button>
+        <button class="big amber" id="btn-usgc-fr">✍️ Written-answer practice</button>
+      </div>
+      <div class="card">
+        <h2>Study a theme</h2>
+        <p class="muted">Each theme is a set like the real exam's. You see the answer and why after each one.</p>
+        <div class="usgc-tiles">
+          <button class="usgc-tile" data-set="__map"><span class="ut-emoji">🔢</span><span><b>Numbered maps</b><br><small>a new map every time</small></span></button>
+          ${tiles}
+        </div>
+      </div>
+      <div class="card">
+        <h2>Your exams</h2>
+        ${hist.length ? `<table class="mock-table"><thead><tr><th>Date</th><th>Exam</th><th>Score</th></tr></thead><tbody>${histRows}</tbody></table>`
+          : `<p class="muted">No exams yet. Study two or three themes, then try the half exam.</p>`}
+        <button class="big ghost" id="btn-orqe" style="margin-top:12px">🌎 ORQE-style quick exam (50 questions · 20 min)</button>
+      </div>`;
+    $("#btn-exam-back").onclick = renderHome;
+    $("#btn-usgc-full").onclick = () => startUsgc(8);
+    $("#btn-usgc-half").onclick = () => startUsgc(4);
+    $("#btn-usgc-fr").onclick = () => renderFR(Math.floor(Math.random() * window.GEO_USGC.FR.length));
+    $("#btn-orqe").onclick = renderOrqeHome;
+    document.querySelectorAll(".usgc-tile").forEach((b) => (b.onclick = () => startUsgcStudy(b.dataset.set)));
+  }
+
+  function startExamClock() {
+    stopExamTimer();
+    examTimerId = setInterval(() => {
+      if (!act || act.kind !== "exam") return stopExamTimer();
+      const left = Math.max(0, (act.deadline - Date.now()) / 1000);
+      const t = $("#exam-timer");
+      if (t) { t.textContent = `⏱ ${fmtTime(left)}`; if (left < 120) t.classList.add("exam-low"); }
+      if (left <= 0) { stopExamTimer(); finishExam(true); }
+    }, 1000);
+  }
+
+  function startUsgc(nSets) {
+    abortActivity();
+    const U = window.GEO_USGC;
+    const blocks = U.buildExam(window.GEO_DATA.COUNTRIES, window.GEO_MAPS, nSets, usgcSeen());
+    const qs = [];
+    blocks.forEach((b, bi) => {
+      const from = qs.length + 1, to = qs.length + b.qs.length;
+      b.label = b.kind === "map" ? `Questions ${from}–${to} use the numbered map of ${b.region}.` : `Questions ${from}–${to} are about ${b.name.toLowerCase()}.`;
+      b.qs.forEach((it) => qs.push(usgcQ(it, bi, b)));
+    });
+    const secs = nSets >= 8 ? 35 * 60 : 18 * 60;
+    act = { kind: "exam", usgc: true, blocks, plan: { kind: "usgc", timeLimit: secs }, qs, ans: qs.map(() => null),
+      marked: new Set(), cur: 0, started: Date.now(), deadline: Date.now() + secs * 1000 };
+    show("#screen-exam");
+    renderExamQ();
+    startExamClock();
+  }
+
+  // Study mode: one theme (or a fresh numbered map), answer shown after each.
+  function startUsgcStudy(setId, items) {
+    abortActivity();
+    const U = window.GEO_USGC;
+    let qs, title, block = null;
+    if (items) { qs = items; title = "🎯 Your misses"; }
+    else if (setId === "__map") {
+      block = U.mapSet(window.GEO_DATA.COUNTRIES, window.GEO_MAPS);
+      if (!block) return renderExamHome();
+      qs = block.qs.map((it) => usgcQ(it, 0, block));
+      title = `🔢 Numbered map: ${block.region}`;
+    } else {
+      const s = U.SETS.find((x) => x.id === setId);
+      if (!s) return renderExamHome();
+      const order = s.qs.map((_, i) => i).sort(() => Math.random() - 0.5);
+      qs = order.map((i) => {
+        const it = s.qs[i], opts = [it.a, ...it.d].sort(() => Math.random() - 0.5);
+        return usgcQ({ id: U.qid(s.id, i), q: it.q, a: it.a, opts, x: it.x }, 0, { setId: s.id });
+      });
+      title = `${s.emoji} ${s.name}`;
+    }
+    act = { kind: "usgcstudy", qs, i: 0, right: 0, title, block, misses: [] };
+    show("#screen-exam");
+    renderStudyQ();
+  }
+  function renderStudyQ() {
+    const x = act, q = x.qs[x.i], L = "ABCD";
+    const map = q.visual ? (q.blockRef || x.block) : null;
+    $("#screen-exam").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-study-quit">✖ Stop</button>
+        <span class="stat">${esc(x.title)} · ${x.i + 1}/${x.qs.length}</span><span class="stat">✅ ${x.right}</span>
+      </div>
+      <div class="card exam-card">
+        <div class="prompt">${esc(q.prompt)}
+          <button class="icon-btn small" id="btn-study-say" aria-label="read aloud" style="box-shadow:none">🔊</button></div>
+        ${map ? `<div class="qmedia">${numMapHTML(map)}</div>` : ""}
+        <div class="options exam-opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="exam-letter">${L[i]}</span> ${esc(o.label)}</button>`).join("")}</div>
+        <div id="study-fb"></div>
+      </div>`;
+    $("#btn-study-quit").onclick = renderExamHome;
+    $("#btn-study-say").onclick = () => forceSpeak(q.speak);
+    document.querySelectorAll(".exam-opts .opt").forEach((b) => (b.onclick = () => {
+      if (x.done) return;
+      x.done = true;
+      const i = +b.dataset.i, ok = i === q.answerIdx;
+      document.querySelectorAll(".exam-opts .opt").forEach((o, oi) => {
+        o.disabled = true;
+        if (oi === q.answerIdx) o.classList.add(ok ? "correct" : "reveal");
+        if (oi === i && !ok) o.classList.add("wrong");
+      });
+      if (ok) { x.right++; sndGood(); } else { sndBad(); x.misses.push(q); }
+      usgcRecord(q.usgcId, ok);
+      save();
+      const last = x.i >= x.qs.length - 1;
+      $("#study-fb").innerHTML = `<div class="feedback"><div class="headline">${ok ? "✅ Right!" : `❌ It's <b>${esc(q.answerText)}</b>`}</div>
+        ${q.fact ? `<div class="muted">${esc(q.fact)}</div>` : ""}
+        <button class="big green" id="btn-study-next" style="margin-top:10px">${last ? "Finish" : "Next ▶"}</button></div>`;
+      $("#btn-study-next").onclick = () => { x.done = false; if (last) return studyDone(); x.i++; renderStudyQ(); };
+    }));
+  }
+  function studyDone() {
+    const x = act;
+    act = null;
+    $("#screen-exam").innerHTML = `
+      <div class="card hero">
+        <div class="mascot">${x.right === x.qs.length ? "🏅" : "📘"}</div>
+        <h1>${x.right} / ${x.qs.length} right</h1>
+        <p class="summary-line">${esc(x.title)}</p>
+        ${x.misses.length ? `<button class="big amber" id="btn-study-again">🔁 Try my ${x.misses.length} misses again</button>` : ""}
+        <button class="big green" id="btn-study-back">🧾 Back to the Written Exam</button>
+      </div>`;
+    if (x.right === x.qs.length) confetti(16);
+    const again = $("#btn-study-again");
+    if (again) again.onclick = () => startUsgcStudy(null, x.misses.map((q) => ({ ...q, blockRef: q.blockRef || (q.visual ? x.block : null) })));
+    $("#btn-study-back").onclick = renderExamHome;
+  }
+
+  // Free-response practice: the child answers aloud or on paper, then a
+  // parent ticks the model points he covered.
+  function renderFR(i) {
+    abortActivity();
+    show("#screen-exam");
+    const FR = window.GEO_USGC.FR, f = FR[i % FR.length];
+    $("#screen-exam").innerHTML = `
+      <div class="quiz-top">
+        <button class="icon-btn" id="btn-fr-back">← Written Exam</button>
+        <span class="stat">✍️ Written answers · ${esc(f.topic)}</span><span class="stat">${f.pts} pts</span>
+      </div>
+      <div class="card exam-card">
+        <div class="prompt">${esc(f.q)}
+          <button class="icon-btn small" id="btn-fr-say" aria-label="read aloud" style="box-shadow:none">🔊</button></div>
+        <p class="muted">Answer in full sentences, out loud or on paper. Give exactly as many reasons as the question asks for. Then show the answer key.</p>
+        <button class="big violet" id="btn-fr-show">👀 Show the answer key</button>
+        <div id="fr-key"></div>
+      </div>`;
+    $("#btn-fr-back").onclick = renderExamHome;
+    $("#btn-fr-say").onclick = () => forceSpeak(f.q);
+    $("#btn-fr-show").onclick = () => {
+      $("#btn-fr-show").remove();
+      $("#fr-key").innerHTML = `<p class="note">Parent: tick each point he made.</p>
+        ${f.model.map((m, k) => `<label class="fr-point"><input type="checkbox" data-k="${k}"> ${esc(m)}</label>`).join("")}
+        <div class="counts" id="fr-score">Points he made: 0</div>
+        <div class="row"><button class="big green" id="btn-fr-next">Next question ▶</button></div>`;
+      document.querySelectorAll(".fr-point input").forEach((c) => (c.onchange = () => {
+        $("#fr-score").textContent = `Points he made: ${document.querySelectorAll(".fr-point input:checked").length}`;
+      }));
+      $("#btn-fr-next").onclick = () => renderFR(i + 1 + Math.floor(Math.random() * (FR.length - 1)));
+    };
+  }
+
+  function finishUsgc(x, timeUp) {
+    const rows = [], areas = [];
+    let c = 0, w = 0, blank = 0;
+    x.qs.forEach((q, i) => {
+      const a = x.ans[i];
+      const res = a == null ? "skip" : a === q.answerIdx ? "correct" : "wrong";
+      if (res === "correct") c++; else if (res === "wrong") w++; else blank++;
+      if (res !== "skip") usgcRecord(q.usgcId, res === "correct");
+      const b = x.blocks[q.block];
+      const ar = areas[q.block] || (areas[q.block] = { name: b.kind === "map" ? `🔢 Map of ${b.region}` : `${b.emoji} ${b.name}`, c: 0, t: 0 });
+      ar.t++; if (res === "correct") ar.c++;
+      rows.push({ i, q, a, res, b });
+    });
+    const n = x.qs.length, pts = 2 * c - w, max = 2 * n;
+    const secs = Math.round(Math.min(x.plan.timeLimit, (Date.now() - x.started) / 1000));
+    E.logMock(S, { kind: "usgc" + n, at: Date.now(), n, correct: c, wrong: w, blank, score: pts, max, secs,
+      areas: Object.fromEntries(areas.filter(Boolean).map((a) => [a.name, [a.c, a.t]])) });
+    save();
+    act = null;
+    if (pts >= max * 0.6) { confetti(pts >= max * 0.8 ? 30 : 14); sndLevel(); }
+    const L = "ABCD";
+    const guessTip = w
+      ? `Your ${w} wrong answer${w > 1 ? "s" : ""} cost ${w} point${w > 1 ? "s" : ""}. If you can't rule out at least 2 choices, leave it blank.`
+      : blank ? `No wrong answers. Nice care! Learn the ${blank} blank one${blank > 1 ? "s" : ""} below.` : `Every question right!`;
+    const areaRows = areas.filter(Boolean).slice().sort((p, q) => p.c / p.t - q.c / q.t)
+      .map((a) => `<div class="exam-area"><span>${esc(a.name)}</span><span class="exam-bar"><i style="width:${Math.round((100 * a.c) / a.t)}%"></i></span><b>${a.c}/${a.t}</b></div>`).join("");
+    const reviewRow = (r) => `<div class="exam-rev ${r.res}">
+        <div><b>${r.i + 1}.</b> ${esc(r.q.prompt)}</div>
+        <div>${r.res === "correct" ? "✅ +2" : r.res === "skip" ? "⬜ Blank, 0" : `❌ −1 · You chose ${L[r.a]}: ${esc(r.q.options[r.a].label)}`}
+          ${r.res !== "correct" ? ` · <b>Answer: ${esc(r.q.answerText)}</b>` : ""}</div>
+        ${r.res !== "correct" && r.q.fact ? `<div class="muted">${esc(r.q.fact)}</div>` : ""}
+      </div>`;
+    const missed = rows.filter((r) => r.res !== "correct");
+    const maps = x.blocks.filter((b) => b.kind === "map");
+    show("#screen-exam");
+    $("#screen-exam").innerHTML = `
+      <div class="card hero">
+        <div class="mascot">${pts >= max * 0.6 ? "🏅" : "🧾"}</div>
+        <h1>${pts} / ${max} points</h1>
+        ${timeUp ? `<p class="muted">⏱ Time ran out. Unanswered questions count as blank.</p>` : ""}
+        <div class="counts">${c} right (+${2 * c}) · ${w} wrong (−${w}) · ${blank} blank · time ${fmtTime(secs)} of ${fmtTime(x.plan.timeLimit)}</div>
+        <p class="summary-line">${guessTip}</p>
+      </div>
+      <div class="card">
+        <h2>How each set went</h2>
+        ${areaRows}
+      </div>
+      <div class="card">
+        <div class="row">
+          ${missed.length ? `<button class="big amber" id="btn-usgc-drill">🎯 Study my ${missed.length} misses</button>` : ""}
+          <button class="big green" id="btn-exam-again">🧾 Written Exam</button>
+          <button class="big ghost" id="btn-exam-home">🏠 Home</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>${missed.length ? "Questions to learn from" : "Perfect, every one right!"}</h2>
+        ${maps.map((b) => `<details><summary>🔢 Show the map of ${esc(b.region)}</summary><div class="qmedia small-map">${numMapHTML(b, true)}</div></details>`).join("")}
+        ${missed.map(reviewRow).join("")}
+        <details><summary>Show all ${n} questions</summary>${rows.map(reviewRow).join("")}</details>
+      </div>`;
+    const dr = $("#btn-usgc-drill");
+    if (dr) dr.onclick = () => startUsgcStudy(null, missed.map((r) => ({ ...r.q, blockRef: r.q.visual ? r.b : null })));
+    $("#btn-exam-again").onclick = renderExamHome;
+    $("#btn-exam-home").onclick = renderHome;
+  }
+
+  // ---------- ORQE-style quick exam ----------
   // The written test that gets a child into the IAC regional is the ORQE:
   // 50 four-choice questions, 20 minutes, no penalty for wrong answers, about
   // half of them with a map or picture, roughly half right usually qualifies
@@ -1077,7 +1373,7 @@
   const examHistory = () => (S.mocks || []).filter((m) => m.kind === "iac" || /^exam\d+$/.test(m.kind));
   const fmtTime = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
 
-  function renderExamHome() {
+  function renderOrqeHome() {
     abortActivity();
     show("#screen-exam");
     const hist = examHistory().slice(-6).reverse();
@@ -1101,13 +1397,13 @@
     }
     $("#screen-exam").innerHTML = `
       <div class="quiz-top">
-        <button class="icon-btn" id="btn-exam-back">← Home</button>
-        <span class="stat">📝 Regional Written Exam</span><span></span>
+        <button class="icon-btn" id="btn-exam-back">← Written Exam</button>
+        <span class="stat">🌎 ORQE-style exam</span><span></span>
       </div>
       <div class="card hero">
         <div class="mascot">📝</div>
-        <h1>Regional Written Exam</h1>
-        <p class="muted">Practice for the <b>ORQE</b>, IAC's online written exam that qualifies you for the regional bee.</p>
+        <h1>ORQE-style Quick Exam</h1>
+        <p class="muted">Like IAC's online qualifying exam (ORQE): quick capitals, maps and landforms.</p>
         <ul class="exam-facts">
           <li>📋 <b>50 questions</b>, 4 choices each</li>
           <li>⏱ <b>20 minutes</b>, so about 24 seconds a question</li>
@@ -1125,7 +1421,7 @@
           : `<p class="muted">No exams yet. Try the half exam first!</p>`}
         ${weakLine}
       </div>`;
-    $("#btn-exam-back").onclick = renderHome;
+    $("#btn-exam-back").onclick = renderExamHome;
     $("#btn-exam-full").onclick = () => startExam(50);
     $("#btn-exam-half").onclick = () => startExam(25);
     const wk = $("#btn-exam-weak");
@@ -1154,14 +1450,7 @@
       started: Date.now(), deadline: Date.now() + plan.timeLimit * 1000 };
     show("#screen-exam");
     renderExamQ();
-    stopExamTimer();
-    examTimerId = setInterval(() => {
-      if (!act || act.kind !== "exam") return stopExamTimer();
-      const left = Math.max(0, (act.deadline - Date.now()) / 1000);
-      const t = $("#exam-timer");
-      if (t) { t.textContent = `⏱ ${fmtTime(left)}`; if (left < 120) t.classList.add("exam-low"); }
-      if (left <= 0) { stopExamTimer(); finishExam(true); }
-    }, 1000);
+    startExamClock();
   }
 
   function renderExamQ() {
@@ -1177,14 +1466,17 @@
       </div>
       <div class="exam-wrap">
         <div class="card exam-card">
+          ${x.usgc ? `<div class="exam-set">${esc(x.blocks[q.block].label)}</div>` : ""}
           ${x.marked.has(x.cur) ? `<span class="mode-chip mode-review">⚑ Marked to check</span>` : ""}
           <div class="prompt"><span class="exam-num">${x.cur + 1}.</span> ${esc(q.prompt)}
             <button class="icon-btn small" id="btn-exam-say" aria-label="read aloud" style="box-shadow:none">🔊</button></div>
           ${q.media ? `<div class="qmedia">${mediaHTML(q.media, true)}</div>` : ""}
+          ${x.usgc && q.visual ? `<div class="qmedia">${numMapHTML(x.blocks[q.block])}</div>` : ""}
           <div class="options exam-opts">
             ${q.options.map((o, i) => `<button class="opt ${x.ans[x.cur] === i ? "picked" : ""}" data-i="${i}">
               <span class="exam-letter">${L[i]}</span> ${o.media ? mediaHTML(o.media, false) : esc(o.label)}</button>`).join("")}
           </div>
+          ${x.usgc ? `<p class="note">+2 right · −1 wrong · 0 blank. Not sure? Leave it blank. Tap your answer again to clear it.</p>` : ""}
           <div class="exam-nav">
             <button class="ghost" id="btn-exam-prev" ${x.cur === 0 ? "disabled" : ""}>◀ Back</button>
             <button class="ghost" id="btn-exam-mark">${x.marked.has(x.cur) ? "⚑ Unmark" : "⚑ Mark"}</button>
@@ -1206,6 +1498,8 @@
     };
     $("#btn-exam-say").onclick = () => forceSpeak(q.speak);
     document.querySelectorAll(".exam-opts .opt").forEach((b) => (b.onclick = () => {
+      // with a penalty for wrong answers, un-picking (leaving it blank) matters
+      if (x.usgc && x.ans[x.cur] === +b.dataset.i) { x.ans[x.cur] = null; return renderExamQ(); }
       x.ans[x.cur] = +b.dataset.i;
       document.querySelectorAll(".exam-opts .opt").forEach((o) => o.classList.toggle("picked", o === b));
       // move on by itself, like turning the page; Back still works
@@ -1231,7 +1525,9 @@
     el.className = "celebrate-overlay";
     el.innerHTML = `<div class="celebrate-box">
       <h2>Ready to submit?</h2>
-      ${blanks.length ? `<p>You left <b>${blanks.length}</b> blank. There's no penalty for guessing, so a guess can only help!</p>` : ""}
+      ${blanks.length ? (x.usgc
+        ? `<p>You left <b>${blanks.length}</b> blank. A wrong answer costs 1 point, so only guess where you can rule out 2 choices.</p>`
+        : `<p>You left <b>${blanks.length}</b> blank. There's no penalty for guessing, so a guess can only help!</p>`) : ""}
       ${x.marked.size ? `<p>You marked <b>${x.marked.size}</b> to check again.</p>` : ""}
       <div class="profile-list">
         ${blanks.length ? `<button class="green profile-btn" data-go="blank">↩ Go to blank #${blanks[0] + 1}</button>` : ""}
@@ -1256,6 +1552,7 @@
     stopExamTimer();
     window.Voice.stop();
     document.querySelectorAll(".celebrate-overlay").forEach((o) => o.remove());
+    if (x.usgc) return finishUsgc(x, timeUp);
     const plan = x.plan, areas = {}, rows = [];
     let pic = [0, 0], blank = 0;
     x.qs.forEach((q, i) => {
@@ -1899,7 +2196,7 @@
     const recent = S.log.slice(-7).map((e) =>
       `<div class="counts">${esc(e.d)}: ${esc(e.c)}/${esc(e.a)} correct</div>`).join("") || `<div class="counts">No sessions yet.</div>`;
     // every mock attempt, newest first (s.mocks), so a parent sees a trend
-    const KIND = { buzzer: "🛎️ Buzzer round", final: "🏆 Final round", iac: "🧾 Written exam (ORQE)", exam25: "🧾 Half written exam", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
+    const KIND = { buzzer: "🛎️ Buzzer round", final: "🏆 Final round", iac: "🌎 ORQE-style exam", exam25: "🌎 Half ORQE-style exam", usgc40: "🧾 Championships written exam", usgc20: "🧾 Half Championships exam", nsf: "🏫 NSF mock", oral: "🎤 Oral bee" };
     const mockRow = (m) => {
       const when = new Date(m.at).toLocaleDateString(undefined, { month: "short", day: "numeric" });
       const res = m.kind === "final"

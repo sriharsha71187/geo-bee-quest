@@ -740,3 +740,19 @@ body { overflow-x: hidden; }
 .exam-rev.correct { opacity: 0.8; }
 .exam-rev .small-map { max-width: 260px; }
 .exam-rev .small-map svg { max-height: 150px; }
+
+/* Geography Championships written exam */
+.exam-set { font-weight: 700; color: #4a2a72; background: #efe6fa; border-radius: var(--r-sm); padding: 6px 12px; margin-bottom: 10px; font-size: 0.92rem; }
+.num-map path { stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.num-map path.pin { fill: #f3e6c4; stroke: #a8946a; }
+.num-map .num-pins circle { fill: #6b3fa0; stroke: #fff; stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.num-map .num-pins text { fill: #fff; font-weight: 800; text-anchor: middle; font-family: var(--font-body); }
+.small-map .num-map { max-height: 260px; }
+.usgc-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.usgc-tile { display: flex; align-items: center; gap: 10px; text-align: left; padding: 10px 12px; border-radius: var(--r-sm);
+  border: 1.5px solid var(--outline-soft); background: var(--tile); color: var(--ink); font: inherit; cursor: pointer; }
+.usgc-tile:hover { border-color: #9a6cc8; }
+.usgc-tile .ut-emoji { font-size: 1.6rem; }
+.usgc-tile small { color: var(--ink-soft); }
+.fr-point { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--outline-soft); }
+.fr-point input { margin-top: 4px; width: 18px; height: 18px; flex: none; }

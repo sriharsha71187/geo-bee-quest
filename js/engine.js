@@ -900,6 +900,14 @@ window.Engine = (function () {
           last: Math.max(m.last || 0, r.last || 0), bp: newer ? r.bp : m.bp };
       }
     }
+    // written-exam (USGC) study progress: max counts, latest time
+    out.usgc = { seen: {} };
+    for (const src of [a.usgc, b.usgc]) {
+      for (const [id, r] of Object.entries((src && src.seen) || {})) {
+        const m = out.usgc.seen[id];
+        out.usgc.seen[id] = m ? { c: Math.max(m.c || 0, r.c || 0), w: Math.max(m.w || 0, r.w || 0), last: Math.max(m.last || 0, r.last || 0) } : { ...r };
+      }
+    }
     out.xp = Math.max(a.xp || 0, b.xp || 0);
     out.badges = Array.from(new Set([...(a.badges || []), ...(b.badges || [])]));
     out.best = {
