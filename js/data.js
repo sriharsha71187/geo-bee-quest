@@ -1033,7 +1033,7 @@ const TRADE = [
 
 const EXPLORERS = [
   { q: "In 1492, which explorer sailed from Spain and reached the Americas?", a: "Christopher Columbus", d: ["Ferdinand Magellan", "Marco Polo", "James Cook"], t: 2, alt: ["columbus", "christopher columbus"], x: "He was trying to reach Asia — and never knew he'd found different continents." },
-  { q: "Whose expedition was the first to sail all the way around the world?", a: "Ferdinand Magellan's", d: ["Columbus's", "Vasco da Gama's", "Captain Cook's"], t: 4, alt: ["magellan", "ferdinand magellan", "magellans"], x: "It took three years (1519–1522); only 18 of about 270 sailors made it home." },
+  { id: "1uxd3a8", q: "Which explorer led the first expedition to sail all the way around the world?", a: "Ferdinand Magellan", d: ["Christopher Columbus", "Vasco da Gama", "James Cook"], t: 4, alt: ["magellan", "ferdinand magellan", "magellans"], x: "It took three years (1519–1522). Magellan died on the way, and Juan Sebastián Elcano sailed the last ship home with only 18 of about 270 sailors." },
   { q: "Marco Polo traveled from Italy all the way to which country?", a: "China", d: ["India", "Egypt", "Japan"], t: 4, x: "His book about the journey amazed Europe for centuries." },
   { q: "Vasco da Gama sailed around Africa to reach which country in 1498?", a: "India", d: ["China", "Japan", "Indonesia"], t: 5, adv: 1, x: "His route opened the spice trade between Europe and Asia by sea." },
   { q: "Viking Erik the Red started the first European settlement on which icy island?", a: "Greenland", d: ["Iceland", "Newfoundland", "Svalbard"], t: 5, adv: 1, x: "He named it 'Greenland' to make it sound nicer so people would move there!" },

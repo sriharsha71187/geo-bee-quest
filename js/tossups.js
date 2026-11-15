@@ -5944,5 +5944,63 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "The fountain's water rushes out at about 200 kilometers per hour, as fast as a race car.",
   "redset": ""
+ },
+ {
+  "id": "asia-baghdad",
+  "region": "asia",
+  "cat": "city",
+  "clues": [
+   "Long ago this city held the House of Wisdom, a famous library where scholars turned old books from many languages into Arabic.",
+   "A ruler named al-Mansur founded this city in the year 762 and built it as a perfectly round city inside thick walls.",
+   "For the point, name this capital of Iraq, which sits on the banks of the Tigris River."
+  ],
+  "a": "Baghdad",
+  "alt": [
+   "Bagdad"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "People called the old Round City the 'City of Peace,' and it was one of the biggest cities in the world 1,200 years ago.",
+  "redset": ""
+ },
+ {
+  "id": "africa-luanda",
+  "region": "africa",
+  "cat": "city",
+  "clues": [
+   "A long, skinny strip of sand covered with beaches curls out into the sea and shelters this city's bay.",
+   "Portuguese settlers led by Paulo Dias de Novais founded this Atlantic port in 1576, and Portuguese is still the main language here.",
+   "For the point, name this capital and biggest city of Angola."
+  ],
+  "a": "Luanda",
+  "alt": [
+   "Loanda"
+  ],
+  "prompt": [
+   "Angola"
+  ],
+  "t": 4,
+  "x": "Its old name came from a word for the little seashells in the bay, which people in the Kongo kingdom once used as money.",
+  "redset": ""
+ },
+ {
+  "id": "europe-helsinki",
+  "region": "europe",
+  "cat": "city",
+  "clues": [
+   "Suomenlinna, a sea fortress built by the Swedes in 1748 on islands just offshore, guards the harbor of this city.",
+   "A Russian emperor made this city the capital in 1812, and a big white cathedral with green domes looks down on its Senate Square.",
+   "For the point, name this capital of Finland, on the Gulf of Finland."
+  ],
+  "a": "Helsinki",
+  "alt": [
+   "Helsingfors"
+  ],
+  "prompt": [
+   "Finland"
+  ],
+  "t": 3,
+  "x": "Suomenlinna is a World Heritage Site, and about 800 people still live on its islands today.",
+  "redset": ""
  }
 ];
