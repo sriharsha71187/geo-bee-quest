@@ -6002,5 +6002,108 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "Suomenlinna is a World Heritage Site, and about 800 people still live on its islands today.",
   "redset": ""
+ },
+ {
+  "id": "latam-atacama",
+  "region": "latam",
+  "cat": "desert",
+  "clues": [
+   "Giant telescopes are built high in this desert because its air is so dry and its night skies are so clear, and NASA has tested Mars rover tools on its rocky ground.",
+   "Squeezed between the Andes Mountains and the Pacific Ocean, this desert has huge copper mines and covers much of the north of its country.",
+   "For the point, name this desert of Chile, the driest desert on Earth outside the icy poles."
+  ],
+  "a": "Atacama Desert",
+  "alt": [
+   "Atacama",
+   "The Atacama"
+  ],
+  "prompt": [
+   "desert"
+  ],
+  "t": 3,
+  "x": "Some parts of this desert are so dry that scientists say they look a lot like the ground on Mars.",
+  "redset": ""
+ },
+ {
+  "id": "asia-thar",
+  "region": "asia",
+  "cat": "desert",
+  "clues": [
+   "The golden fort of Jaisalmer, built of yellow sandstone more than 850 years ago, rises from the sand in this desert.",
+   "Camels carry people over its dunes, and it stretches across the state of Rajasthan and over the border into Pakistan.",
+   "For the point, name this desert of northwestern India, also called the Great Indian Desert."
+  ],
+  "a": "Thar Desert",
+  "alt": [
+   "Thar",
+   "The Thar",
+   "Great Indian Desert"
+  ],
+  "prompt": [
+   "desert"
+  ],
+  "t": 3,
+  "x": "Jaisalmer is nicknamed the Golden City because its sandstone glows like gold at sunset.",
+  "redset": ""
+ },
+ {
+  "id": "europe-balkan-peninsula",
+  "region": "europe",
+  "cat": "region",
+  "clues": [
+   "This land takes its name from a mountain range that runs across Bulgaria, and the Dinaric Alps run along its western side.",
+   "Greece, Albania, Serbia, and Bulgaria all lie on it, between the Adriatic Sea on the west and the Black Sea on the east.",
+   "For the point, name this big peninsula of southeastern Europe, often just called the Balkans."
+  ],
+  "a": "Balkan Peninsula",
+  "alt": [
+   "Balkans",
+   "The Balkans"
+  ],
+  "prompt": [
+   "peninsula"
+  ],
+  "t": 3,
+  "x": "'Balkan' is a Turkish word for a mountain range covered with forests.",
+  "redset": ""
+ },
+ {
+  "id": "africa-algiers",
+  "region": "africa",
+  "cat": "city",
+  "clues": [
+   "The Casbah, an old neighborhood of narrow, twisting stairways, climbs the hill above this city's harbor and is a World Heritage Site.",
+   "Its many whitewashed buildings shine above the Mediterranean Sea, so people call it 'the White' city.",
+   "For the point, name this capital of Algeria, the biggest country in Africa."
+  ],
+  "a": "Algiers",
+  "alt": [
+   "Alger",
+   "Al-Jazair"
+  ],
+  "prompt": [
+   "Algeria"
+  ],
+  "t": 3,
+  "x": "The city and the country share almost the same name, which means 'the islands' in Arabic, for small islands that once sat off its shore.",
+  "redset": ""
+ },
+ {
+  "id": "asia-malaysia",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Mount Kinabalu, one of the tallest mountains in Southeast Asia, rises in this country's part of the island of Borneo.",
+   "From 1998 to 2004 its Petronas Twin Towers were the tallest buildings in the world.",
+   "For the point, name this Southeast Asian country whose capital is Kuala Lumpur."
+  ],
+  "a": "Malaysia",
+  "alt": [],
+  "prompt": [
+   "Borneo"
+  ],
+  "t": 2,
+  "x": "The Petronas Towers are joined by a sky bridge between their 41st and 42nd floors.",
+  "redset": ""
  }
 ];
