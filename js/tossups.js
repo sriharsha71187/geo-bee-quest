@@ -6105,5 +6105,93 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "The Petronas Towers are joined by a sky bridge between their 41st and 42nd floors.",
   "redset": ""
+ },
+ {
+  "id": "us-potomac-river",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "Great Falls, where this waterway crashes over jagged rocks, lies just upstream from the nation's capital.",
+   "George Washington's home at Mount Vernon looks out over it, and for much of its length it forms the border between Maryland and Virginia.",
+   "For the point, name this river that flows past Washington, D.C., on its way to Chesapeake Bay."
+  ],
+  "a": "Potomac River",
+  "alt": [
+   "Potomac",
+   "The Potomac"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "It is nicknamed 'the Nation's River' because it flows right past the U.S. capital.",
+  "redset": ""
+ },
+ {
+  "id": "africa-malawi",
+  "region": "africa",
+  "cat": "country",
+  "clues": [
+   "Before 1964 this land was a British colony called Nyasaland, from a local word meaning 'lake.'",
+   "Its people are known for being so welcoming that it is nicknamed 'the Warm Heart of Africa,' and its capital is Lilongwe.",
+   "For the point, name this narrow, landlocked country in southeastern Africa that shares its name with the big lake covering about a fifth of it."
+  ],
+  "a": "Malawi",
+  "alt": [],
+  "prompt": [
+   "Nyasaland"
+  ],
+  "t": 3,
+  "x": "Its lake holds more kinds of fish than any other lake on Earth, many of them bright, colorful cichlids.",
+  "redset": ""
+ },
+ {
+  "id": "world-arctic-ocean",
+  "region": "world",
+  "cat": "water",
+  "clues": [
+   "The narrow Bering Strait links this body of water to the Pacific, and the Beaufort Sea is one of its arms north of Alaska and Canada.",
+   "Polar bears hunt seals on the sea ice that floats on it, and its frozen middle covers the North Pole.",
+   "For the point, name this smallest and shallowest of the world's five oceans."
+  ],
+  "a": "Arctic Ocean",
+  "alt": [
+   "Arctic",
+   "The Arctic"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "There is no land at the North Pole, only ice floating on top of the sea.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-melanesia",
+  "region": "oceania",
+  "cat": "region",
+  "clues": [
+   "A French explorer named this island group in 1832 from Greek words meaning 'black islands.'",
+   "Papua New Guinea, the Solomon Islands, Vanuatu, and Fiji are its four independent countries, and New Caledonia belongs to it too.",
+   "For the point, name this island region of the southwest Pacific that, along with Polynesia and Micronesia, makes up Oceania's three big groups."
+  ],
+  "a": "Melanesia",
+  "alt": [],
+  "prompt": [],
+  "t": 4,
+  "x": "Papua New Guinea alone has hundreds of languages, more than almost any other country.",
+  "redset": ""
+ },
+ {
+  "id": "europe-serbia",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Kalemegdan, an old fortress in this country's capital, looks down on the spot where the Sava River flows into the Danube.",
+   "Tennis champion Novak Djokovic comes from this landlocked Balkan country, which borders Hungary, Romania, and Bulgaria.",
+   "For the point, name this country whose capital is Belgrade."
+  ],
+  "a": "Serbia",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "The name Belgrade means 'white city.'",
+  "redset": ""
  }
 ];

@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-15",
+  updated: "2026-11-16",
   focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
   tierFloor: { states: 4, usmap: 3 },
   tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, usphys: 3, regions: 3, relate: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { oceania: 1.4, canada: 1.3, europe: 1.4, asia: 1.4, africa: 1.4, latam: 1.3, us: 1.0 } },
-  note: "20 days to Dec 5. No practice on 11/14 or 11/15, and reviews due are up to 460. The bee is buzzer tossups, so aim for 2 buzzer rounds plus 15 minutes of Review every day; short and daily beats long and rare. New tossups: Atacama, Thar, Balkan Peninsula, Algiers, Malaysia.",
+  buzz: { targetTier: 2, regions: { oceania: 1.4, canada: 1.2, europe: 1.4, asia: 1.2, africa: 1.4, latam: 1.2, us: 1.3, world: 1.3 } },
+  note: "19 days to Dec 5. Back on 11/16: 10/10 in the Field Book and 65/80 on the Championships written exam. But no buzzer round since 11/12, and the bee is buzzer tossups: 2 buzzer rounds a day plus 15 minutes of Review (490 due). New tossups: Potomac, Malawi, Arctic Ocean, Melanesia, Serbia.",
 };
