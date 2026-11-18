@@ -390,6 +390,7 @@ const US_PHYSICAL = [
   { q: "Which lake, shared by Minnesota with Ontario and Manitoba, cuts off a piece of Minnesota called the Northwest Angle?", a: "Lake of the Woods", d: ["Lake Superior", "Red Lake", "Lake Winnipeg"], t: 4, alt: ["lake of the woods"], x: "It has more than 14,000 islands." },
   { q: "Which Texas river, whose Spanish name means 'the arms of God,' flows past Waco to the Gulf?", a: "The Brazos", d: ["The Rio Grande", "The Colorado", "The Red River"], t: 4, alt: ["brazos", "brazos river"], x: "Texas declared independence in 1836 at Washington-on-the-Brazos." },
   { q: "Which Alabama bay, scene of a Civil War sea battle in 1864, is named for the port city at its top?", a: "Mobile Bay", d: ["Tampa Bay", "Galveston Bay", "Chesapeake Bay"], t: 4, alt: ["mobile bay"], x: "On some summer nights, crabs and fish swarm its shore in a 'jubilee.'" },
+  { q: "Which Great Lake, the smallest of the five by area, has Toronto on its shore and empties into the St. Lawrence River?", a: "Lake Ontario", d: ["Lake Erie", "Lake Huron", "Lake Champlain"], t: 4, alt: ["ontario", "lake ontario"], x: "Water that falls over Niagara Falls flows into Lake Ontario next." },
 ];
 
 const US_LANDMARKS = [
@@ -745,7 +746,7 @@ const RELATE = [
   { q: "Which US island territory in the western Pacific has its capital at Hagåtña?", a: "Guam", d: ["Puerto Rico", "American Samoa", "Hawaii"], t: 4, alt: ["guam"], x: "Guam is where 'America's day begins' — it sits a day ahead of the US mainland." },
   { q: "St. Thomas and St. Croix belong to which US territory in the Caribbean?", a: "The U.S. Virgin Islands", d: ["Puerto Rico", "Guam", "The Bahamas"], t: 5, alt: ["us virgin islands", "virgin islands", "u s virgin islands", "usvi"], x: "The USVI drive on the left — the only US territory that does." },
   { q: "Which South African city at the foot of Table Mountain is the country's legislative capital?", a: "Cape Town", d: ["Pretoria", "Johannesburg", "Durban"], t: 4, alt: ["cape town", "capetown"], x: "South Africa has three capitals: Pretoria, Cape Town, and Bloemfontein." },
-  { q: "Which famous harbor city is a 'special administrative region' of China?", a: "Hong Kong", d: ["Shanghai", "Singapore", "Taipei"], t: 4, alt: ["hong kong", "hongkong"], x: "Hong Kong was ruled by Britain until 1997, when it was returned to China." },
+  { id: "ffbnr9", q: "Which big harbor city in southern China, full of skyscrapers, was ruled by Britain until 1997?", a: "Hong Kong", d: ["Shanghai", "Singapore", "Taipei"], t: 4, alt: ["hong kong", "hongkong"], x: "Hong Kong was ruled by Britain until 1997, when it was returned to China." },
   { q: "Which country asked the United Nations to use its new official name, Türkiye, in 2022?", a: "Turkey", d: ["Greece", "Tunisia", "Turkmenistan"], t: 4, alt: ["turkey", "turkiye"], x: "Türkiye is the country's name in Turkish; both names are still widely used." },
   { q: "Indonesia is building a brand-new capital city on the island of Borneo. What is its name?", a: "Nusantara", d: ["Jakarta", "Surabaya", "Bandung"], t: 5, adv: 1, alt: ["nusantara"], x: "Jakarta is sinking, so Indonesia is moving its capital from Java to Borneo." },
   { q: "Which of these is NOT in Europe?", a: "Egypt", d: ["France", "Italy"], t: 2, odd: 1 },
@@ -1028,7 +1029,7 @@ const TRADE = [
   { q: "Which US state is famous for growing potatoes?", a: "Idaho", d: ["Florida", "Texas", "Arizona"], t: 2 },
   { q: "Which US state is famous for its oranges?", a: "Florida", d: ["Washington", "Ohio", "Colorado"], t: 2 },
   { q: "Detroit, the historic home of American car-making, is in which state?", a: "Michigan", d: ["Ohio", "Illinois", "Pennsylvania"], t: 4, adv: 1, x: "Detroit is nicknamed the Motor City." },
-  { q: "The tech companies of 'Silicon Valley' are in which state?", a: "California", d: ["Washington", "Texas", "New York"], t: 2 },
+  { id: "1krep64", q: "Silicon Valley, home of many big computer companies, is near San Francisco. Which state is it in?", a: "California", d: ["Washington", "Texas", "New York"], t: 2, alt: ["california"], x: "It is named for silicon, the material used to make computer chips." },
 ];
 
 const EXPLORERS = [
@@ -1246,6 +1247,7 @@ const TOPICS = [
           "Kodiak Island is the largest island in Alaska, home to giant brown bears found only on it and its neighboring islands. In western Utah, the Bonneville Salt Flats are the dried-up floor of a huge Ice Age lake, so flat and hard that racers set land-speed records there. And Lake Champlain, named after the French explorer who founded Quebec City, forms much of the border between New York and Vermont.",
           "Three more American favorites. Mauna Kea, a dormant volcano on Hawaii's Big Island, is the highest point in Hawaii; measured from the ocean floor, it is taller than Mount Everest, and giant telescopes crown its summit. The Aleutian Islands stretch more than 1,000 miles west from Alaska, separating the Bering Sea from the Pacific. And the Susquehanna, the longest river on the East Coast, flows past Harrisburg, Pennsylvania, into the top of Chesapeake Bay.",
           "Three more from the newest finals. Lake of the Woods, with more than 14,000 islands, is shared by Minnesota, Ontario, and Manitoba. A mistake on an old map left a piece of Minnesota, the Northwest Angle, cut off by the lake, so the only road to it runs through Canada. In Texas, the Brazos River, whose Spanish name means 'the arms of God,' flows past Waco to the Gulf; Texas declared its independence in 1836 at Washington-on-the-Brazos. And Mobile Bay in Alabama, named for the port city at its top, is where Admiral Farragut led Union ships past underwater mines in 1864.",
+          "One last Great Lake for bee day. Lake Ontario is the smallest of the five by area, and the last one in the chain. Water from Lake Erie rushes down the Niagara River, tumbles over Niagara Falls, and pours into Lake Ontario. Toronto, Canada's biggest city, sits on its shore, and at its eastern end the lake drains out into the St. Lawrence River, which carries the water all the way to the Atlantic Ocean.",
         ] },
     ] },
   { id: "uslandmarks", name: "US Landmarks", emoji: "🌉", kind: "items", items: US_LANDMARKS, scene: "wonders",

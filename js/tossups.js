@@ -6193,5 +6193,63 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "The name Belgrade means 'white city.'",
   "redset": ""
+ },
+ {
+  "id": "us-colorado-river",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "Hoover Dam holds back this river to make Lake Mead, the biggest reservoir in the United States.",
+   "It starts high in the Rocky Mountains, flows southwest through Utah and Arizona, and forms part of the border between Arizona and California.",
+   "So many farms and cities take its water that it often dries up before reaching the Gulf of California. For the point, name this river that carved the Grand Canyon."
+  ],
+  "a": "Colorado River",
+  "alt": [
+   "Colorado",
+   "The Colorado"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "About 40 million people get water from this one river.",
+  "redset": ""
+ },
+ {
+  "id": "us-straits-of-mackinac",
+  "region": "us",
+  "cat": "water",
+  "clues": [
+   "Cars are not allowed on a small island in this waterway, so visitors ride bikes or horse-drawn carriages instead.",
+   "A suspension bridge about five miles long, nicknamed 'Mighty Mac,' has crossed it since 1957, linking the two peninsulas of one state.",
+   "For the point, name this narrow waterway in Michigan that joins Lake Michigan to Lake Huron."
+  ],
+  "a": "Straits of Mackinac",
+  "alt": [
+   "Mackinac",
+   "Mackinac Straits",
+   "Straits of Mackinaw",
+   "Mackinaw"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Mackinac is said 'MACK-in-aw', with no 'k' sound at the end.",
+  "redset": ""
+ },
+ {
+  "id": "canada-lake-ontario",
+  "region": "canada",
+  "cat": "lake",
+  "clues": [
+   "The St. Lawrence River begins where this lake drains out, near a maze of islands called the Thousand Islands.",
+   "Water that pours over Niagara Falls flows into this lake, the last one in its chain before the sea.",
+   "Toronto sits on its shore. For the point, name this smallest Great Lake by area, which shares its name with a Canadian province."
+  ],
+  "a": "Lake Ontario",
+  "alt": [
+   "Ontario"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Even though it is the smallest Great Lake by area, it holds more water than Lake Erie because it is much deeper.",
+  "redset": ""
  }
 ];
