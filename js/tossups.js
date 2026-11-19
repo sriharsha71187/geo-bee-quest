@@ -6251,5 +6251,62 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "Even though it is the smallest Great Lake by area, it holds more water than Lake Erie because it is much deeper.",
   "redset": ""
+ },
+ {
+  "id": "us-hudson-river",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "This river begins high in the Adirondack Mountains at a tiny pond called Lake Tear of the Clouds.",
+   "It flows south past Albany, the capital of New York, and past the West Point army academy on its banks.",
+   "For the point, name this river that meets the sea in New York Harbor beside the Statue of Liberty, named for an English explorer who sailed up it in 1609."
+  ],
+  "a": "Hudson River",
+  "alt": [
+   "Hudson River",
+   "Hudson",
+   "North River"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Henry Hudson was English, but on his 1609 trip he was sailing for the Dutch.",
+  "redset": ""
+ },
+ {
+  "id": "asia-tamil-nadu",
+  "region": "asia",
+  "cat": "province",
+  "clues": [
+   "The town of Kanyakumari, at the very southern tip of mainland India, is in this state.",
+   "Madurai, home of the Meenakshi Temple with its tall towers covered in thousands of painted statues, is a big city in this state.",
+   "For the point, name this southern Indian state on the Bay of Bengal whose capital is Chennai."
+  ],
+  "a": "Tamil Nadu",
+  "alt": [
+   "Tamil Nadu",
+   "Tamilnadu"
+  ],
+  "prompt": [],
+  "t": 4,
+  "x": "Its name means 'land of the Tamils', the people who speak Tamil, one of the oldest languages still spoken today.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-perth",
+  "region": "oceania",
+  "cat": "city",
+  "clues": [
+   "Its harbor town, Fremantle, sits where the river that runs through this city reaches the Indian Ocean.",
+   "Black swans paddle on the Swan River here, and the black swan is the symbol of its state.",
+   "For the point, name this capital of Western Australia, often called one of the most isolated big cities in the world."
+  ],
+  "a": "Perth",
+  "alt": [
+   "Perth"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The nearest city of over a million people is Adelaide, about 1,300 miles away.",
+  "redset": ""
  }
 ];
