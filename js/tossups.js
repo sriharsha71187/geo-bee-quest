@@ -6308,5 +6308,46 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "The nearest city of over a million people is Adelaide, about 1,300 miles away.",
   "redset": ""
+ },
+ {
+  "id": "us-mount-rainier",
+  "region": "us",
+  "cat": "mountain",
+  "clues": [
+   "Paradise, a high meadow famous for summer wildflowers and very deep winter snow, sits on the slopes of this peak.",
+   "In 1899 it became the heart of the fifth national park in the United States, and more glaciers cover it than any other peak in the lower 48 states.",
+   "For the point, name this sleeping volcano you can see from Seattle on clear days, the tallest mountain in Washington state."
+  ],
+  "a": "Mount Rainier",
+  "alt": [
+   "Mount Rainier",
+   "Mt Rainier",
+   "Mt. Rainier",
+   "Rainier"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "It rises about 14,410 feet, so tall that it often makes its own cap of clouds.",
+  "redset": ""
+ },
+ {
+  "id": "asia-kerala",
+  "region": "asia",
+  "cat": "province",
+  "clues": [
+   "Its biggest port city, Kochi, is nicknamed the Queen of the Arabian Sea.",
+   "Long ago, Greek and Roman traders sailed to this coast for black pepper, a spice still grown in its green hills.",
+   "Visitors here float on houseboats through calm, palm-lined canals and lakes called backwaters.",
+   "For the point, name this state on the southwestern coast of India whose capital is Thiruvananthapuram."
+  ],
+  "a": "Kerala",
+  "alt": [
+   "Kerala",
+   "Keralam"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Alappuzha, a town full of canals here, is nicknamed the Venice of the East.",
+  "redset": ""
  }
 ];
