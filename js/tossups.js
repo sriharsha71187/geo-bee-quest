@@ -6349,5 +6349,44 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "Alappuzha, a town full of canals here, is nicknamed the Venice of the East.",
   "redset": ""
+ },
+ {
+  "id": "world-pacific-ocean",
+  "region": "world",
+  "cat": "water",
+  "clues": [
+   "The deepest spot on Earth, Challenger Deep in the Mariana Trench, lies at the bottom of this huge body of water.",
+   "The explorer Magellan named it the 'peaceful sea' because its water seemed so calm after his stormy trip around the tip of South America.",
+   "For the point, name this biggest ocean on Earth, which lies between Asia and Australia on one side and North and South America on the other."
+  ],
+  "a": "Pacific Ocean",
+  "alt": [
+   "Pacific Ocean",
+   "Pacific"
+  ],
+  "prompt": [],
+  "t": 1,
+  "x": "It is so big that it covers more of Earth than all the land put together.",
+  "redset": ""
+ },
+ {
+  "id": "us-statue-of-liberty",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "A French sculptor named Bartholdi designed this monument, and Gustave Eiffel, who later built a famous tower in Paris, designed the iron skeleton inside it.",
+   "It was a gift from the people of France and was dedicated in 1886 on a small island in New York Harbor.",
+   "For the point, name this giant green copper lady holding a torch high, who welcomed ships full of immigrants sailing into New York."
+  ],
+  "a": "Statue of Liberty",
+  "alt": [
+   "Statue of Liberty",
+   "Lady Liberty",
+   "Liberty Enlightening the World"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Its copper skin was shiny brown at first and slowly turned green in the salty sea air.",
+  "redset": ""
  }
 ];

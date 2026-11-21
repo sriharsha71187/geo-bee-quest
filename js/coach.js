@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-19",
+  updated: "2026-11-20",
   focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
   tierFloor: { states: 4, usmap: 3 },
   tierCap: { capitals: 3, worldphys: 3, worldmap: 3, uslandmarks: 3, usphys: 3, regions: 3, relate: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { us: 1.4, asia: 1.4, oceania: 1.3, canada: 1.3, europe: 1.2, africa: 1.1, latam: 1.1, world: 1.1 } },
-  note: "16 days to Dec 5. Nothing new synced since 11/18: no Field Book since 11/17 and no buzzer round since 11/12 (7 days). The bee is all buzzer tossups, so 2 buzzer rounds a day matters most now, then 15 minutes of Review (495 due). If the 0-4/40 written rounds keep happening, ask him what is confusing in that mode. New tossups: Mount Rainier, Kerala.",
+  buzz: { targetTier: 2, regions: { us: 1.4, world: 1.4, oceania: 1.3, canada: 1.3, asia: 1.2, europe: 1.1, africa: 1.1, latam: 1.1 } },
+  note: "15 days to Dec 5. Third day with nothing synced: no Field Book since 11/17, no buzzer round since 11/12 (8 days). Please check Family Sync is still signed in on his device. The bee is all buzzer tossups, so 2 short buzzer rounds a day matters most, then 15 minutes of Review (531 due). New tossups: Pacific Ocean, Statue of Liberty (easy wins to restart the buzzer habit).",
 };
