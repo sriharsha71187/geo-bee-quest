@@ -6388,5 +6388,65 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "Its copper skin was shiny brown at first and slowly turned green in the salty sea air.",
   "redset": ""
+ },
+ {
+  "id": "oceania-easter-island",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "Its first settlers paddled here in canoes from other Polynesian islands, and they called their home Rapa Nui.",
+   "This lonely spot in the South Pacific belongs to Chile, even though it lies about 2,000 miles west of South America.",
+   "A Dutch sea captain arrived here on a holiday Sunday in April 1722 and named it after that day.",
+   "For the point, name this Pacific island famous for its giant stone head statues called moai."
+  ],
+  "a": "Easter Island",
+  "alt": [
+   "Easter Island",
+   "Rapa Nui"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "There are almost 900 moai, and some weigh as much as a dozen elephants.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-guam",
+  "region": "oceania",
+  "cat": "island",
+  "clues": [
+   "Its capital is Hagåtña, and the brown tree snake that sneaked in on ships has wiped out most of its forest birds.",
+   "This is the biggest and southernmost of the Mariana Islands, and the largest island in Micronesia.",
+   "Because it sits just west of the International Date Line, its motto says it is where America's day begins.",
+   "For the point, name this United States territory in the western Pacific Ocean."
+  ],
+  "a": "Guam",
+  "alt": [
+   "Guam"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "When it is breakfast time on this island, it is still the afternoon before in New York.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-outback",
+  "region": "oceania",
+  "cat": "region",
+  "clues": [
+   "Kids who live on huge cattle ranches here have done school lessons by radio or computer, and sick people can call doctors who fly in by plane.",
+   "The town of Alice Springs is a supply stop in the middle of this hot, dry land of red dirt.",
+   "The giant red rock Uluru rises from this area, where kangaroos and camels roam.",
+   "For the point, name this dry, empty middle of Australia, far from the cities on the coast."
+  ],
+  "a": "the Outback",
+  "alt": [
+   "Outback",
+   "the Outback",
+   "Australian Outback"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Wild camels roam it today; their great-grandparents were brought over to carry supplies across the desert.",
+  "redset": ""
  }
 ];
