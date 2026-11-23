@@ -6448,5 +6448,86 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "Wild camels roam it today; their great-grandparents were brought over to carry supplies across the desert.",
   "redset": ""
+ },
+ {
+  "id": "asia-armenia",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "Lake Sevan, high up in its mountains, is the biggest lake in the whole Caucasus region.",
+   "Around the year 301, its king made it the first country in the world to choose Christianity as its official religion.",
+   "From its capital, Yerevan, people can see snowy Mount Ararat, even though that mountain now stands across the border in Turkey.",
+   "For the point, name this small landlocked country between Georgia, Azerbaijan, Iran and Turkey."
+  ],
+  "a": "Armenia",
+  "alt": [
+   "Armenia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The apricot is a national symbol here, and its scientific name, Prunus armeniaca, comes from this country's name.",
+  "redset": ""
+ },
+ {
+  "id": "europe-montenegro",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "Its old royal capital is Cetinje, but today its government works from Podgorica.",
+   "The Bay of Kotor, a winding inlet surrounded by steep cliffs, cuts deep into its coast on the Adriatic Sea.",
+   "In 2006 its people voted to split from Serbia, and its name comes from old words meaning 'black mountain.'",
+   "For the point, name this small Balkan country that uses the euro even though it is not in the European Union."
+  ],
+  "a": "Montenegro",
+  "alt": [
+   "Montenegro",
+   "Crna Gora"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "The 'black mountain' in its name may come from the dark pine forests that once covered its peaks.",
+  "redset": ""
+ },
+ {
+  "id": "oceania-solomon-islands",
+  "region": "oceania",
+  "cat": "country",
+  "clues": [
+   "Its capital, Honiara, sits on the north coast of Guadalcanal, where a huge World War II battle was fought.",
+   "This Melanesian country is made of more than 900 bits of land spread across the Pacific Ocean.",
+   "It lies just east of Papua New Guinea and was named by a Spanish explorer after a rich king from the Bible.",
+   "For the point, name this country whose capital is Honiara."
+  ],
+  "a": "Solomon Islands",
+  "alt": [
+   "Solomon Islands",
+   "Solomons",
+   "the Solomon Islands"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "A young navy officer named John F. Kennedy was shipwrecked here in World War II, long before he became president.",
+  "redset": ""
+ },
+ {
+  "id": "world-oasis",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "Siwa, in Egypt's Western Desert, is a famous one, with about 200 springs and hundreds of thousands of date palms.",
+   "These spots get their water from springs or wells that bring up water from deep under the ground.",
+   "Long ago, camel caravans crossing the Sahara traveled from one of these to the next so they would not run out of water.",
+   "For the point, name this green, watery spot in the middle of a desert."
+  ],
+  "a": "oasis",
+  "alt": [
+   "oasis",
+   "an oasis",
+   "oases"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Sometimes a desert traveler sees shimmering water that is not really there. That trick of the light is called a mirage, not the real thing!",
+  "redset": ""
  }
 ];
