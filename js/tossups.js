@@ -6529,5 +6529,47 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "Sometimes a desert traveler sees shimmering water that is not really there. That trick of the light is called a mirage, not the real thing!",
   "redset": ""
+ },
+ {
+  "id": "us-st-louis",
+  "region": "us",
+  "cat": "city",
+  "clues": [
+   "In 1904 this city hosted both a giant World's Fair and the first Olympic Games held in the United States.",
+   "Its baseball team is the Cardinals, and it sits on the west bank of the Mississippi River, a little south of where the Missouri River joins it.",
+   "Pioneers once set off from here, so it earned the nickname 'Gateway to the West.'",
+   "For the point, name this Missouri city, home of the 630-foot Gateway Arch."
+  ],
+  "a": "St. Louis",
+  "alt": [
+   "St. Louis",
+   "St Louis",
+   "Saint Louis"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "The Gateway Arch is exactly as wide as it is tall: 630 feet each way.",
+  "redset": ""
+ },
+ {
+  "id": "asia-west-bengal",
+  "region": "asia",
+  "cat": "state",
+  "clues": [
+   "A little 'Toy Train' opened in 1881 climbs into the Himalayas in this Indian state, passing tea gardens on the way.",
+   "That train's last stop is Darjeeling, a hill town famous for its tea.",
+   "In the far south of this state, tigers live in the muddy mangrove forests of the Sundarbans.",
+   "For the point, name this Indian state in the Ganges delta, whose capital is Kolkata."
+  ],
+  "a": "West Bengal",
+  "alt": [
+   "West Bengal"
+  ],
+  "prompt": [
+   "Bengal"
+  ],
+  "t": 3,
+  "x": "This one state reaches from the snowy Himalayas in the north all the way to the sea in the south.",
+  "redset": ""
  }
 ];

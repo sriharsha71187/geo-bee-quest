@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-22",
+  updated: "2026-11-23",
   focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
   tierFloor: { states: 4, usmap: 3 },
   tierCap: { capitals: 3, worldphys: 3, worldmap: 4, uslandmarks: 3, usphys: 3, regions: 3, relate: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { oceania: 1.6, asia: 1.3, europe: 1.3, canada: 1.3, world: 1.2, us: 1.1, africa: 1.0, latam: 1.0 } },
-  note: "13 days to Dec 5. Good steady day on 11/22: 59 Field Book answers, 56 right (95%), and a 31/40 written round. No buzzer round today, though, so the level stays at 2 until he puts together two more strong ones. New tossups on Armenia, Montenegro and the Solomon Islands (map spots he keeps missing) and on oases. Please do 2 buzzer rounds a day from now to the bee.",
+  buzz: { targetTier: 2, regions: { oceania: 1.5, asia: 1.4, us: 1.3, canada: 1.3, europe: 1.2, world: 1.2, africa: 1.0, latam: 1.0 } },
+  note: "12 days to Dec 5. No practice has synced for 11/23; his last day was a good one (11/22: 56 of 59 right, 95%). Reviews waiting are up to 513. Next session: 2 buzzer rounds first, then 15 minutes of Review. Two new tossups on facts he missed: St. Louis and the Indian state whose capital is Kolkata. The buzzer level stays at 2 until two more strong rounds.",
 };
