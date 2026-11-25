@@ -6571,5 +6571,46 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "This one state reaches from the snowy Himalayas in the north all the way to the sea in the south.",
   "redset": ""
+ },
+ {
+  "id": "europe-finland",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "This country has about 188,000 lakes, and millions of hot, steamy rooms called saunas for a population of only about five and a half million.",
+   "Its neighbors on land are Norway, Sweden, and Russia.",
+   "Its far north reaches into Lapland, where reindeer roam and tourists visit Santa's village at Rovaniemi.",
+   "For the point, name this Nordic country whose capital is Helsinki."
+  ],
+  "a": "Finland",
+  "alt": [],
+  "prompt": [],
+  "t": 3,
+  "x": "People there love saunas so much that many families have one right inside their home.",
+  "redset": ""
+ },
+ {
+  "id": "world-compass-rose",
+  "region": "world",
+  "cat": "concept",
+  "clues": [
+   "An early fancy one of these was drawn on the Catalan Atlas, a famous map made in 1375.",
+   "On old sailing charts this drawing could have 32 points, one for each wind, and later ones often used a lily shape to show the top direction.",
+   "It looks a little like a star or a flower.",
+   "For the point, name this map symbol that shows north, south, east, and west."
+  ],
+  "a": "compass rose",
+  "alt": [
+   "compass rose",
+   "a compass rose",
+   "wind rose"
+  ],
+  "prompt": [
+   "compass",
+   "rose"
+  ],
+  "t": 2,
+  "x": "The points of the drawing look like petals. A plain compass is the tool with a needle; this is the picture on the map.",
+  "redset": ""
  }
 ];
