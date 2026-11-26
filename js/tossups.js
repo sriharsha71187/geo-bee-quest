@@ -6612,5 +6612,66 @@ window.GEO_TOSSUPS = [
   "t": 2,
   "x": "The points of the drawing look like petals. A plain compass is the tool with a needle; this is the picture on the map.",
   "redset": ""
+ },
+ {
+  "id": "asia-oman",
+  "region": "asia",
+  "cat": "country",
+  "clues": [
+   "In the 1800s, sultans from this country also ruled the island of Zanzibar, far away off the coast of East Africa.",
+   "A small piece of it, the Musandam Peninsula, is cut off from the rest of the country by the United Arab Emirates.",
+   "It borders Yemen, Saudi Arabia, and the United Arab Emirates, and its long coast faces the Arabian Sea.",
+   "For the point, name this sultanate on the eastern corner of the Arabian Peninsula whose capital is Muscat."
+  ],
+  "a": "Oman",
+  "alt": [
+   "Oman",
+   "Sultanate of Oman"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Musandam sits right on the Strait of Hormuz, where huge oil tankers squeeze out of the Persian Gulf.",
+  "redset": ""
+ },
+ {
+  "id": "europe-slovenia",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "The famous white Lipizzaner horses are named for Lipica, a horse farm in this country started in 1580.",
+   "Its highest mountain, Triglav, in the Julian Alps, is drawn in white on the shield on its flag.",
+   "It left Yugoslavia in 1991, and it has a very short coast on the Adriatic Sea, squeezed between Italy and Croatia.",
+   "For the point, name this small European country whose capital is Ljubljana."
+  ],
+  "a": "Slovenia",
+  "alt": [
+   "Slovenia",
+   "Republic of Slovenia"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Don't mix it up with Slovakia! Slovenia touches the sea; Slovakia, farther north, has no coast at all.",
+  "redset": ""
+ },
+ {
+  "id": "europe-luxembourg",
+  "region": "europe",
+  "cat": "country",
+  "clues": [
+   "The top court of the European Union has met in this country's capital since the court began in 1952.",
+   "It is the world's only grand duchy, a country ruled by a grand duke, and many people there speak French and German as well as their own language.",
+   "In 2020 it became the first country to make its buses and trains free to ride everywhere.",
+   "For the point, name this small country between Belgium, France, and Germany whose capital city has the same name."
+  ],
+  "a": "Luxembourg",
+  "alt": [
+   "Luxembourg",
+   "Grand Duchy of Luxembourg",
+   "Luxemburg"
+  ],
+  "prompt": [],
+  "t": 3,
+  "x": "Luxembourg is one of the six countries that started the group that grew into the European Union.",
+  "redset": ""
  }
 ];
