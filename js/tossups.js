@@ -6673,5 +6673,91 @@ window.GEO_TOSSUPS = [
   "t": 3,
   "x": "Luxembourg is one of the six countries that started the group that grew into the European Union.",
   "redset": ""
+ },
+ {
+  "id": "asia-himalayas",
+  "region": "asia",
+  "cat": "mountain",
+  "clues": [
+   "These mountains began rising when the land that is now India slowly crashed into the rest of Asia, and they are still pushing up a tiny bit every year.",
+   "Snow leopards and red pandas live here, and the small kingdom of Bhutan sits high in them.",
+   "For the point, name this mountain range in Nepal, India, and China that holds Mount Everest, the tallest mountain on Earth."
+  ],
+  "a": "Himalayas",
+  "alt": [
+   "Himalaya",
+   "Himalayas",
+   "Himalaya Mountains",
+   "Himalayan Mountains",
+   "The Himalayas"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Himalaya means 'home of snow' in the old Indian language Sanskrit.",
+  "redset": ""
+ },
+ {
+  "id": "us-grand-canyon",
+  "region": "us",
+  "cat": "landmark",
+  "clues": [
+   "On Hualapai tribal land at its western end, visitors can step onto a glass, horseshoe-shaped walkway called the Skywalk and look straight down about 4,000 feet.",
+   "Mules carry riders down steep trails to Phantom Ranch at the bottom, about a mile below the rim.",
+   "For the point, name this giant gorge in northern Arizona, carved by the Colorado River."
+  ],
+  "a": "Grand Canyon",
+  "alt": [
+   "Grand Canyon",
+   "The Grand Canyon",
+   "Grand Canyon National Park"
+  ],
+  "prompt": [
+   "canyon"
+  ],
+  "t": 2,
+  "x": "The rock layers at the bottom are close to 2 billion years old, among the oldest rocks you can see anywhere.",
+  "redset": ""
+ },
+ {
+  "id": "us-everglades",
+  "region": "us",
+  "cat": "region",
+  "clues": [
+   "This is the only place on Earth where alligators and crocodiles live side by side in the wild.",
+   "Water creeps slowly south from Lake Okeechobee through a sea of tall sawgrass, so a famous 1947 book called this place the River of Grass.",
+   "For the point, name this huge wetland and national park at the southern tip of Florida."
+  ],
+  "a": "Everglades",
+  "alt": [
+   "Everglades",
+   "The Everglades",
+   "Everglades National Park",
+   "Florida Everglades"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "Alligators like fresh water, while crocodiles can handle the salty water near the coast, so the two meet here.",
+  "redset": ""
+ },
+ {
+  "id": "us-rio-grande",
+  "region": "us",
+  "cat": "river",
+  "clues": [
+   "This river starts high in the San Juan Mountains of Colorado, then flows south right through Albuquerque, New Mexico.",
+   "After passing El Paso, it makes a huge U-shaped turn that gives Big Bend National Park its name.",
+   "For the point, name this river that forms the whole border between Texas and Mexico."
+  ],
+  "a": "Rio Grande",
+  "alt": [
+   "Rio Grande",
+   "Rio Grande River",
+   "Rio Bravo",
+   "Rio Bravo del Norte"
+  ],
+  "prompt": [],
+  "t": 2,
+  "x": "In Mexico this river is called the Río Bravo. Its English name, Rio Grande, is Spanish for 'big river.'",
+  "redset": ""
  }
 ];

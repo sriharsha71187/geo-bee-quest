@@ -12,10 +12,10 @@
  *   note         one line for the parent, shown nowhere in the kid's UI
  */
 window.GBQ_COACH = {
-  updated: "2026-11-25",
+  updated: "2026-11-27",
   focusTopics: ["capitals", "worldphys", "worldmap", "landmarks", "uslandmarks"],
   tierFloor: { states: 4, usmap: 3 },
   tierCap: { capitals: 3, worldphys: 3, worldmap: 5, uslandmarks: 3, usphys: 3, regions: 3, relate: 3, explorers: 2 },
-  buzz: { targetTier: 2, regions: { oceania: 1.5, europe: 1.5, asia: 1.4, canada: 1.3, world: 1.2, us: 1.2, africa: 1.0, latam: 1.0 } },
-  note: "10 days to Dec 5. Big day on 11/24: 167 answers, 86% right, and the world map is up to 86%, so its level cap goes to 5. Still no full buzzer round since 11/22: please do 2 buzzer rounds before Review, every day until the bee. New tossups for his map misses: Oman, Slovenia, Luxembourg.",
+  buzz: { targetTier: 2, regions: { us: 1.5, oceania: 1.4, asia: 1.4, europe: 1.3, canada: 1.3, world: 1.1, africa: 1.0, latam: 1.0 } },
+  note: "8 days to Dec 5. No practice since 11/24 (3 days off), and the last full buzzer round was 11/22. With a week left, buzzer rounds matter most: 2 a day, then 10 minutes of Review. New easy tossups on bee classics he had none for: Himalayas, Grand Canyon, Everglades, Rio Grande.",
 };
